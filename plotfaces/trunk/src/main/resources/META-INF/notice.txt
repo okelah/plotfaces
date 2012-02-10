@@ -1,0 +1,5 @@
+PlotFaces
+Copyright 2012 Graham Smith
+
+This product includes software developed at
+The Apache Software Foundation (http://www.apache.org/).
