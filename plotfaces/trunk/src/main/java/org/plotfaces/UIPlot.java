@@ -21,60 +21,54 @@ import javax.faces.component.UIComponentBase;
  *
  * @author Graham Smith
  */
-public abstract class UIPlot extends UIComponentBase {
-	
-	public static final String FAMILY = "org.plotfaces";
-	
-	protected enum PropertyKeys {
-		style, styleClass, options;
-	}
-	
-	public UIPlot() {
-	}
+public class UIPlot extends UIComponentBase {
 
-	@Override
-	public String getFamily() {
-		return FAMILY;
-	}
-	
-	public String getStyle() {
-		return (String)getStateHelper().eval( PropertyKeys.style, null );
-	}
-	
-	public void setStyle( String style ) {
-		getStateHelper().put( PropertyKeys.style, style );
-	}
-	
-	public String getStyleClass() {
-		return (String)getStateHelper().eval( PropertyKeys.styleClass, null );
-	}
-	
-	public void setStyleClass( String styleClass ) {
-		getStateHelper().put( PropertyKeys.styleClass, styleClass );
-	}
-	
-	public Object getOptions() {
-		return getStateHelper().eval( PropertyKeys.options, null );
-	}
-	
-	public void setOptions( Object options ) {
-		getStateHelper().put( PropertyKeys.options, options );
-	}
-	
-//	public Object getAxes() {
-//		return getStateHelper().eval( PropertyKeys.axes, null );
-//	}
-//	
-//	public void setXAxisLabel( Object axes ) {
-//		getStateHelper().put( PropertyKeys.axes, axes );
-//	}
-//	
-//	public Object getSeriesDefaults() {
-//		return getStateHelper().eval( PropertyKeys.seriesDefaults, null );
-//	}
-//	
-//	public void setSeriesDefaults( Object seriesDefaults ) {
-//		getStateHelper().put( PropertyKeys.seriesDefaults, seriesDefaults );
-//	}
-	
+    public static final String DEFAULT_REDERER = "org.plotfaces.PlotRenderer";
+    public static final String COMPONENT_FAMILY = "org.plotfaces";
+
+    protected enum PropertyKeys {
+	style, styleClass, options, data;
+    }
+
+    public UIPlot() {
+	System.out.println("Created UIPlot");
+	setRendererType( DEFAULT_REDERER );
+    }
+
+    @Override
+    public String getFamily() {
+	return COMPONENT_FAMILY;
+    }
+
+    public String getStyle() {
+	return (String) getStateHelper().eval(PropertyKeys.style, null);
+    }
+
+    public void setStyle(String style) {
+	getStateHelper().put(PropertyKeys.style, style);
+    }
+
+    public String getStyleClass() {
+	return (String) getStateHelper().eval(PropertyKeys.styleClass, null);
+    }
+
+    public void setStyleClass(String styleClass) {
+	getStateHelper().put(PropertyKeys.styleClass, styleClass);
+    }
+
+    public Object getOptions() {
+	return getStateHelper().eval(PropertyKeys.options, null);
+    }
+
+    public void setOptions(Object options) {
+	getStateHelper().put(PropertyKeys.options, options);
+    }
+
+    public Object getData() {
+	return getStateHelper().eval(PropertyKeys.data, null);
+    }
+
+    public void setData(Object data) {
+	getStateHelper().put(PropertyKeys.data, data);
+    }
 }
