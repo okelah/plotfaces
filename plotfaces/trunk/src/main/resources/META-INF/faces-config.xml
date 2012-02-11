@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
-			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     
-	<name>plotfaces</name>
+    <name>plotfaces</name>
 	
-	<component>
-		<component-type>org.plotfaces.line.LineChart</component-type>
-		<component-class>org.plotfaces.line.LineChart</component-class>
-	</component>
+    <component>
+	<component-type>org.plotfaces.UIPlot</component-type>
+	<component-class>org.plotfaces.UIPlot</component-class>
+    </component>
 </faces-config>
