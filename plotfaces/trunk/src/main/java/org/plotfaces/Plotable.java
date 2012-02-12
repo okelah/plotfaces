@@ -19,8 +19,7 @@ package org.plotfaces;
  *
  * @author Graham Smith
  */
-public interface Encodable {
-	
-	public String encode();
-	
+public interface Plotable {
+
+    public String plot();
 }

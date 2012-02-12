@@ -31,7 +31,6 @@ public class UIPlot extends UIComponentBase {
     }
 
     public UIPlot() {
-	System.out.println("Created UIPlot");
 	setRendererType( DEFAULT_REDERER );
     }
 

@@ -17,120 +17,147 @@ package org.plotfaces;
 
 import java.io.IOException;
 import java.util.List;
-import javax.faces.context.ResponseWriter;
 
 /**
  *
  * @author Graham Smith
  */
-public class Options implements Encodable {
+public class Options implements Plotable {
 
-	private String optionsVariable;
-	private List<Axis> axes;
-	private Legend legend;
-	private Series seriesDefaults;
-	private List<Series> series;
-	
-	public String encode() {
-		StringBuilder builder = new StringBuilder();
-		
-		builder.append( "var " );
-		builder.append( getOptionsVaraible() );
-		builder.append( " = {\n" );
-		
-		//Series defaults must be the first piece of configuration output as it doens't prepend a comma.
-		builder.append( encodeSeriesDefaults() );
-		builder.append( encodeAxes() );
-		
-		builder.append( "};\n" );
-		
-		return builder.toString();
+    private String optionsVariable;
+    private Axis axesDefaults;
+    private List<Axis> axes;
+    private Legend legend;
+    private Series seriesDefaults;
+    private List<Series> series;
+
+    public String plot() {
+	StringBuilder builder = new StringBuilder();
+
+	builder.append("var ");
+	builder.append(getOptionsVaraible());
+	builder.append(" = {\n");
+
+	//Series defaults must be the first piece of configuration output as it doens't prepend a comma.
+	builder.append(plotSeriesDefaults());
+	builder.append(plotAxesDefaults());
+	builder.append(plotAxes());
+
+	builder.append("};\n");
+
+	return builder.toString();
+    }
+
+    /**
+     * Slightly special first encoder. If no series defaults are supplied this
+     * method still creates an option with empty brackets. This is because it is
+     * the first item in the options array and doesn't prepend a comma.
+     *
+     * @return
+     * @throws IOException
+     */
+    private String plotSeriesDefaults() {
+	StringBuilder builder = new StringBuilder();
+	builder.append("seriesDefaults:");
+	if (getSeriesDefaults() != null) {
+	    builder.append(getSeriesDefaults().plot());
+	} else {
+	    builder.append("{}");
 	}
-	
-	/**
-	 * Slightly special first encoder. If no series defaults are supplied this method
-	 * still creates an option with empty brackets. This is because it is the first
-	 * item in the options array and doesn't prepend a comma.
-	 * 
-	 * @return
-	 * @throws IOException 
-	 */
-	private String encodeSeriesDefaults() {
-		StringBuilder builder = new StringBuilder();
-		builder.append( "seriesDefaults:" );
-		if( getSeriesDefaults() != null ) {
-			builder.append( getSeriesDefaults().encode() );
-		} else {
-			builder.append( "{}" );
+	return builder.toString();
+    }
+
+    private String plotAxesDefaults() {
+	StringBuilder builder = new StringBuilder();
+	if (getAxesDefaults() != null) {
+	    builder.append(", axesDefaults:{\n");
+	    for (int i = 0, n = axes.size(); i < n; i++) {
+		if (i > 0) {
+		    builder.append(",\n");
 		}
-		return builder.toString();
+		builder.append(getAxes().get(i).plot());
+	    }
+	    builder.append("\n}\n");
 	}
-	
-	private String encodeAxes() {
-		StringBuilder builder = new StringBuilder();
-		if( getAxes() != null && !getAxes().isEmpty() ) {
-			builder.append( ", axes:{\n" );
-			for( int i = 0, n = axes.size(); i < n; i++ ) {
-				if( i > 0 ) {
-					builder.append( ",\n");
-				}
-				builder.append( getAxes().get( i ).encode() );
-			}
-			builder.append( "\n}\n" );
+	return builder.toString();
+    }
+
+    private String plotAxes() {
+	StringBuilder builder = new StringBuilder();
+	if (getAxes() != null && !getAxes().isEmpty()) {
+	    builder.append(",\naxes:{\n");
+	    
+	    for (int i = 0, n = axes.size(); i < n; i++) {
+		if (i > 0) {
+		    builder.append(",\n");
 		}
-		return builder.toString();
+		builder.append(getAxes().get(i).plot());
+	    }
+	    
+	    builder.append("\n}\n");
 	}
+	return builder.toString();
+    }
 
-	/**
-	 * Returns the name of the variable that contains the plot options for the chart being
-	 * drawn. This is set by the plot renderer and should not be set manually.
-	 * 
-	 * @return variable name for the plot options.
-	 */
-	public String getOptionsVaraible() {
-		return optionsVariable;
-	}
+    /**
+     * Returns the name of the variable that contains the plot options for the
+     * chart being drawn. This is set by the plot renderer and should not be set
+     * manually.
+     *
+     * @return variable name for the plot options.
+     */
+    public String getOptionsVaraible() {
+	return optionsVariable;
+    }
 
-	/**
-	 * Sets the name of the variable that contains the plot options for the chart being
-	 * drawn. This is set by the plot renderer and should not be set manually.
-	 * 
-	 * @param optionsVaraible variable name for the plot options.
-	 */
-	public void setOptionsVariable(String optionsVariable) {
-		this.optionsVariable = optionsVariable;
-	}
+    /**
+     * Sets the name of the variable that contains the plot options for the
+     * chart being drawn. This is set by the plot renderer and should not be set
+     * manually.
+     *
+     * @param optionsVaraible variable name for the plot options.
+     */
+    public void setOptionsVariable(String optionsVariable) {
+	this.optionsVariable = optionsVariable;
+    }
 
-	public List<Axis> getAxes() {
-		return axes;
-	}
+    public Axis getAxesDefaults() {
+	return axesDefaults;
+    }
 
-	public void setAxes(List<Axis> axes) {
-		this.axes = axes;
-	}
+    public void setAxesDefaults(Axis axesDefaults) {
+	this.axesDefaults = axesDefaults;
+    }
 
-	public Legend getLegend() {
-		return legend;
-	}
+    public List<Axis> getAxes() {
+	return axes;
+    }
 
-	public void setLegend(Legend legend) {
-		this.legend = legend;
-	}
+    public void setAxes(List<Axis> axes) {
+	this.axes = axes;
+    }
 
-	public List<Series> getSeries() {
-		return series;
-	}
+    public Legend getLegend() {
+	return legend;
+    }
 
-	public void setSeries(List<Series> series) {
-		this.series = series;
-	}
+    public void setLegend(Legend legend) {
+	this.legend = legend;
+    }
 
-	public Series getSeriesDefaults() {
-		return seriesDefaults;
-	}
+    public List<Series> getSeries() {
+	return series;
+    }
 
-	public void setSeriesDefaults(Series seriesDefaults) {
-		this.seriesDefaults = seriesDefaults;
-	}
-	
+    public void setSeries(List<Series> series) {
+	this.series = series;
+    }
+
+    public Series getSeriesDefaults() {
+	return seriesDefaults;
+    }
+
+    public void setSeriesDefaults(Series seriesDefaults) {
+	this.seriesDefaults = seriesDefaults;
+    }
 }
