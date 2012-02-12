@@ -1,0 +1,13 @@
+/* 
+    Document   : style
+    Created on : Feb 12, 2012, 6:09:50 PM
+    Author     : Graham Smith
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 80% !important;
+}
+

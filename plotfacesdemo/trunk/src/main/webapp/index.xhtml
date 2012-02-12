@@ -3,16 +3,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:plot="http://www.plotfaces.org"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
+		<h:outputStylesheet library="styles" name="style.css"/>
         <title>PlotFaces Demo</title>
     </h:head>
     <h:body>
-	<h:form prependId="true">
+		<h:form prependId="true" id="form">
 
-	    <plot:plot options="#{lineChartView.options}"/>
+			<plot:plot id="plot" options="#{lineChartDemo.options}" style="width: 900px; height: 400px;"/>
 
-	</h:form>
+			<p:tabView var="axis" value="#{lineChartDemo.options.axes}">
+				<p:tab title="#{axis.axisName}">
+					<p:selectBooleanCheckbox value="#{axis.show}">
+						<p:ajax update=":form:plot"/>
+					</p:selectBooleanCheckbox>
+					<h1>Label</h1>
+					<p:selectBooleanButton offLabel="Label Hidden" onLabel="Label Shown" value="#{axis.showLabel}">
+						<p:ajax update=":form:plot"/>
+					</p:selectBooleanButton>
+					<p:inputText value="#{axis.label}" size="25" >
+						<p:ajax update=":form:plot"/>
+					</p:inputText>
+					
+					<p:panelGrid columns="2">
+						<f:facet name="header">
+							ticks
+						</f:facet>
+						
+						<h:outputText value="Tick Display"/>
+						<p:selectBooleanButton offLabel="Ticks Hidden" onLabel="Ticks Shown" value="#{axis.showTicks}">
+							<p:ajax update=":form:plot"/>
+						</p:selectBooleanButton>
+						
+						<h:outputText value="Tick Count"/>
+						<h:panelGroup>
+							<p:spinner value="#{axis.numberTicks}">
+								<p:ajax update=":form:plot"/>
+							</p:spinner>
+							<p:commandButton value="Initialize Ticks" action="#{axis.setNumberTicks( 5 )}" update=":form:plot"/>
+							<p:commandButton value="Reset to Default" action="#{axis.setNumberTicks( null )}" update=":form:plot"/>
+						</h:panelGroup>
+					</p:panelGrid>
+					
+				</p:tab>
+			</p:tabView>
+
+			<br/>
+			<br/>
+			<br/>
+			<hr/>
+			<div id="plot"></div>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					var plot_data = [[0,68],[1,0],[2,93],[3,15],[4,31],[5,14],[6,37],[7,74],[8,81],[9,8],];
+					var plot_options = {
+						seriesDefaults:{show:true, xaxis: 'xaxis', yaxis: 'yaxis'}, 
+						axes:{
+							xaxis:{
+								show: true,
+								label: 'X-Axis',
+								showTicks: true,
+								min: 3.141,
+								numberTicks: 5
+							}
+						}
+					};
+					var plot = $.jqplot('plot', [plot_data], plot_options)
+				});  
+			</script>
+			<hr/>
+			<p:lineChart value="#{lineChartDemo.PFModel}" style="width: 10px; height: 10px;"/>
+		</h:form>
     </h:body>
 </html>
 
