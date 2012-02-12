@@ -43,12 +43,10 @@ public class PlotRenderer extends Renderer {
     public static final String OPTIONS_SUFFIX = "_options";
 
     public PlotRenderer() {
-	System.out.println("Created PlotRenderer");
     }
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-	System.out.println("Using PlotRenderer");
 	UIPlot plot = (UIPlot) component;
 
 	String safeTargetId = PlotUtilities.getEscapedClientId(context, plot);
@@ -101,7 +99,7 @@ public class PlotRenderer extends Renderer {
      * @throws IOException
      */
     private void encodeData(ResponseWriter out, UIPlot plot, String dataVariable) throws IOException {
-	out.write("    var " + dataVariable + " = [");
+	out.write("var " + dataVariable + " = [");
 	Random r = new Random();
 	for (int i = 0, n = 10; i < n; i++) {
 	    out.write("[" + i + "," + r.nextInt(100) + "],");
@@ -113,7 +111,7 @@ public class PlotRenderer extends Renderer {
 	Options plotOptions = (Options) plot.getOptions();
 	if (plotOptions != null) {
 	    plotOptions.setOptionsVariable(optionsVariable);
-	    out.write(plotOptions.encode());
+	    out.write(plotOptions.plot());
 	}
     }
 

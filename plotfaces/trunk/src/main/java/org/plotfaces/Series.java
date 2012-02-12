@@ -16,39 +16,39 @@
 package org.plotfaces;
 
 import java.io.IOException;
-import javax.faces.context.ResponseWriter;
 import org.plotfaces.Axis.AxisName;
 
 /**
  *
  * @author Graham Smith
  */
-public class Series implements Encodable {
-	
+public class Series implements Plotable {
+
 	private boolean show = true;
 	private Axis.AxisName xAxis;
 	private Axis.AxisName yAxis;
 	private String renderer;
-	
+
 	public Series() {
 	}
-	
-	public String encode() {
+
+	public String plot() {
 		StringBuilder builder = new StringBuilder();
-		builder.append( "{" );
-		builder.append( "show:" + Boolean.toString(isShow()) );
-		if( xAxis != null ) {
-			builder.append( ", xaxis: '" + getxAxis().name() + "'" );
+		builder.append("{");
+		builder.append("\nshow:" + Boolean.toString(isShow()));
+
+		if (xAxis != null) {
+			builder.append(",\nxaxis: '" + getxAxis().name() + "'");
 		}
-		
-		if( yAxis != null ) {
-			builder.append( ", yaxis: '" + getyAxis().name() + "'" );
+
+		if (yAxis != null) {
+			builder.append(",\nyaxis: '" + getyAxis().name() + "'");
 		}
-		
-		if( renderer != null ) {
-			builder.append( ", renderer:" + getRenderer() );
+
+		if (renderer != null) {
+			builder.append(",\nrenderer:" + getRenderer());
 		}
-		builder.append( "}" );
+		builder.append("\n}");
 		return builder.toString();
 	}
 
@@ -62,8 +62,8 @@ public class Series implements Encodable {
 
 	/**
 	 * Whether this series will be shown. Default is true (displayed).
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 */
 	public boolean isShow() {
 		return show;
@@ -88,5 +88,4 @@ public class Series implements Encodable {
 	public void setyAxis(AxisName yAxis) {
 		this.yAxis = yAxis;
 	}
-	
 }
