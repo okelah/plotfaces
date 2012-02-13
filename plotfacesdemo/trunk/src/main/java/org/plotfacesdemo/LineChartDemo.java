@@ -56,6 +56,11 @@ public class LineChartDemo implements Serializable {
 
 	return linearModel;
     }
+	
+	public String initializeField() {
+		options.getAxes().get( 0 ).setShowLabel( true );
+		return null;
+	}
 
     public Options getOptions() {
 	if (options == null) {
