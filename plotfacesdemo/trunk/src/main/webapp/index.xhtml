@@ -15,41 +15,67 @@
 
 			<plot:plot id="plot" options="#{lineChartDemo.options}" style="width: 900px; height: 400px;"/>
 
-			<p:tabView var="axis" value="#{lineChartDemo.options.axes}">
-				<p:tab title="#{axis.axisName}">
-					<p:selectBooleanCheckbox value="#{axis.show}">
-						<p:ajax update=":form:plot"/>
-					</p:selectBooleanCheckbox>
-					<h1>Label</h1>
-					<p:selectBooleanButton offLabel="Label Hidden" onLabel="Label Shown" value="#{axis.showLabel}">
-						<p:ajax update=":form:plot"/>
-					</p:selectBooleanButton>
-					<p:inputText value="#{axis.label}" size="25" >
-						<p:ajax update=":form:plot"/>
-					</p:inputText>
-					
-					<p:panelGrid columns="2">
-						<f:facet name="header">
-							ticks
-						</f:facet>
-						
-						<h:outputText value="Tick Display"/>
-						<p:selectBooleanButton offLabel="Ticks Hidden" onLabel="Ticks Shown" value="#{axis.showTicks}">
+			<p:panel id="settings">
+				<p:tabView var="axis" value="#{lineChartDemo.options.axes}" >
+					<p:tab title="#{axis.axisName}">
+
+						<p:selectBooleanCheckbox value="#{axis.show}" rendered="#{axis.show != null}">
 							<p:ajax update=":form:plot"/>
-						</p:selectBooleanButton>
-						
-						<h:outputText value="Tick Count"/>
-						<h:panelGroup>
-							<p:spinner value="#{axis.numberTicks}">
+						</p:selectBooleanCheckbox>
+
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								Label
+							</f:facet>
+
+							<h:outputText value="Label Display"/>
+							<h:panelGroup>
+								<p:selectBooleanButton offLabel="Label Hidden" onLabel="Label Shown" value="#{axis.showLabel}" rendered="#{axis.showLabel != null}">
+									<p:ajax update=":form:plot"/>
+								</p:selectBooleanButton>
+								
+								<p:commandButton value="Initialize" action="#{axis.setShowLabel( true )}" rendered="#{axis.showLabel == null}" update=":form:settings :form:plot"/>
+								<p:commandButton value="Reset" rendered="#{axis.showLabel != null}" update=":form:settings :form:plot">
+									<f:setPropertyActionListener target="#{axis.showLabel}" value="#{null}" />
+								</p:commandButton>
+							</h:panelGroup>
+
+							<h:outputText value="Label Text"/>
+							<h:panelGroup>
+								<p:inputText value="#{axis.label}" size="25" rendered="#{axis.label != null}">
+									<p:ajax update=":form:plot"/>
+								</p:inputText>
+
+								<p:commandButton value="Initialize" action="#{axis.setLabel( 'label' )}" rendered="#{axis.label == null}" update=":form:settings :form:plot"/>
+								<p:commandButton value="Reset" rendered="#{axis.label != null}" update=":form:settings :form:plot">
+									<f:setPropertyActionListener target="#{axis.label}" value="#{null}" />
+								</p:commandButton>
+							</h:panelGroup>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2">
+							<f:facet name="header">
+								ticks
+							</f:facet>
+
+							<h:outputText value="Tick Display"/>
+							<p:selectBooleanButton offLabel="Ticks Hidden" onLabel="Ticks Shown" value="#{axis.showTicks}">
 								<p:ajax update=":form:plot"/>
-							</p:spinner>
-							<p:commandButton value="Initialize Ticks" action="#{axis.setNumberTicks( 5 )}" update=":form:plot"/>
-							<p:commandButton value="Reset to Default" action="#{axis.setNumberTicks( null )}" update=":form:plot"/>
-						</h:panelGroup>
-					</p:panelGrid>
-					
-				</p:tab>
-			</p:tabView>
+							</p:selectBooleanButton>
+
+							<h:outputText value="Tick Count"/>
+							<h:panelGroup>
+								<p:spinner value="#{axis.numberTicks}">
+									<p:ajax update=":form:plot"/>
+								</p:spinner>
+								<p:commandButton value="Initialize Ticks" action="#{axis.setNumberTicks( 5 )}" update=":form:plot"/>
+								<p:commandButton value="Reset to Default" action="#{axis.setNumberTicks( null )}" update=":form:plot"/>
+							</h:panelGroup>
+						</p:panelGrid>
+
+					</p:tab>
+				</p:tabView>
+			</p:panel>
 
 			<br/>
 			<br/>
