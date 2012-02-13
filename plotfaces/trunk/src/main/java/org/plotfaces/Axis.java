@@ -32,7 +32,7 @@ public class Axis implements Plotable {
 		axisDefaults, xaxis, x2axis, yaxis, y2axis, y3axis, y4axis, y5axis, y6axis, y7axis, y8axis, y9axis;
 	}
 	private AxisName axisName;
-	private Boolean show;
+	private Boolean show = Boolean.TRUE;
 	private String tickRenderer;
 	//TODO: Should be a class e.g. AxisTickRendererOptions
 	private String tickOptions;
