@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:plot="http://www.plotfaces.org"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:loadBundle var="msg" basename="messages"/>
+    <h:head>
+		<h:outputStylesheet library="styles" name="style.css"/>
+        <title>PlotFaces Demo</title>
+    </h:head>
+    <h:body>
+		<h:form prependId="true" id="form">
+			<plot:plot id="plot" options="#{lineChartDemo.options}" style="width: 900px; height: 400px;"/>
+
+			<p:panel id="settings">
+				<ui:include src="axis.xhtml"/>
+			</p:panel>
+
+			<hr/>
+			<p>This chart is currently needed to trick PrimeFaces into including the charting libraries. If it isn't
+			included PrimeFaces blocks the jqPlot libraries even though they are bundled in with the PlotFaces library.</p>
+			<p:lineChart value="#{lineChartDemo.PFModel}" style="width: 10px; height: 10px;"/>
+		</h:form>
+    </h:body>
+</html>
+
