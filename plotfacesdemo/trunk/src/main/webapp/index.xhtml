@@ -12,96 +12,12 @@
     </h:head>
     <h:body>
 		<h:form prependId="true" id="form">
+			<p>Welcome to the PlotFaces demo site.</p>
 
-			<plot:plot id="plot" options="#{lineChartDemo.options}" style="width: 900px; height: 400px;"/>
+			<ul>
+				<li><a href="line.xhtml">Line Chart Example</a></li>
+			</ul>
 
-			<p:panel id="settings">
-				<p:tabView var="axis" value="#{lineChartDemo.options.axes}" >
-					<p:tab title="#{axis.axisName}">
-
-						<p:selectBooleanCheckbox value="#{axis.show}" rendered="#{axis.show != null}">
-							<p:ajax update=":form:plot"/>
-						</p:selectBooleanCheckbox>
-
-						<p:panelGrid columns="2">
-							<f:facet name="header">
-								Label
-							</f:facet>
-
-							<h:outputText value="Label Display"/>
-							<h:panelGroup>
-								<p:selectBooleanButton offLabel="Label Hidden" onLabel="Label Shown" value="#{axis.showLabel}" rendered="#{axis.showLabel != null}">
-									<p:ajax update=":form:plot"/>
-								</p:selectBooleanButton>
-								
-								<p:commandButton value="Initialize" action="#{axis.setShowLabel( true )}" rendered="#{axis.showLabel == null}" update=":form:settings :form:plot"/>
-								<p:commandButton value="Reset" rendered="#{axis.showLabel != null}" update=":form:settings :form:plot">
-									<f:setPropertyActionListener target="#{axis.showLabel}" value="#{null}" />
-								</p:commandButton>
-							</h:panelGroup>
-
-							<h:outputText value="Label Text"/>
-							<h:panelGroup>
-								<p:inputText value="#{axis.label}" size="25" rendered="#{axis.label != null}">
-									<p:ajax update=":form:plot"/>
-								</p:inputText>
-
-								<p:commandButton value="Initialize" action="#{axis.setLabel( 'label' )}" rendered="#{axis.label == null}" update=":form:settings :form:plot"/>
-								<p:commandButton value="Reset" rendered="#{axis.label != null}" update=":form:settings :form:plot">
-									<f:setPropertyActionListener target="#{axis.label}" value="#{null}" />
-								</p:commandButton>
-							</h:panelGroup>
-						</p:panelGrid>
-
-						<p:panelGrid columns="2">
-							<f:facet name="header">
-								ticks
-							</f:facet>
-
-							<h:outputText value="Tick Display"/>
-							<p:selectBooleanButton offLabel="Ticks Hidden" onLabel="Ticks Shown" value="#{axis.showTicks}">
-								<p:ajax update=":form:plot"/>
-							</p:selectBooleanButton>
-
-							<h:outputText value="Tick Count"/>
-							<h:panelGroup>
-								<p:spinner value="#{axis.numberTicks}">
-									<p:ajax update=":form:plot"/>
-								</p:spinner>
-								<p:commandButton value="Initialize Ticks" action="#{axis.setNumberTicks( 5 )}" update=":form:plot"/>
-								<p:commandButton value="Reset to Default" action="#{axis.setNumberTicks( null )}" update=":form:plot"/>
-							</h:panelGroup>
-						</p:panelGrid>
-
-					</p:tab>
-				</p:tabView>
-			</p:panel>
-
-			<br/>
-			<br/>
-			<br/>
-			<hr/>
-			<div id="plot"></div>
-			<script type="text/javascript">
-				$(document).ready(function(){
-					var plot_data = [[0,68],[1,0],[2,93],[3,15],[4,31],[5,14],[6,37],[7,74],[8,81],[9,8],];
-					var plot_options = {
-						seriesDefaults:{show:true, xaxis: 'xaxis', yaxis: 'yaxis'}, 
-						axes:{
-							xaxis:{
-								show: true,
-								label: 'X-Axis',
-								showTicks: true,
-								min: 3.141,
-								numberTicks: 5
-							}
-						}
-					};
-					var plot = $.jqplot('plot', [plot_data], plot_options)
-				});  
-			</script>
-			<hr/>
-			<p:lineChart value="#{lineChartDemo.PFModel}" style="width: 10px; height: 10px;"/>
 		</h:form>
     </h:body>
 </html>
