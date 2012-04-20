@@ -58,7 +58,6 @@ public class Axis implements Plotable {
 	private Boolean showMinorTicks;
 	private Boolean useSeriesColor;
 	private Integer borderWidth;
-	//TODO: Could probabl be a class.
 	private String borderColor;
 	private Boolean syncTicks;
 	private Integer tickSpacing;
@@ -202,8 +201,9 @@ public class Axis implements Plotable {
 		}
 		
 		if (getBorderColor() != null && !getBorderColor().isEmpty()) {
-			builder.append(",\nborderColor: ");
+			builder.append(",\nborderColor: '#");
 			builder.append(getBorderColor());
+			builder.append( "'" );
 		}
 		
 		if (getSyncTicks() != null) {
@@ -263,7 +263,7 @@ public class Axis implements Plotable {
 	}
 
 	/**
-	 * Color of the border adjacent to the axis.  Defaults to grid border color.
+	 * Color of the border adjacent to the axis. Defaults to grid border color.
 	 * 
 	 * @return the color of the border.
 	 */
@@ -272,7 +272,8 @@ public class Axis implements Plotable {
 	}
 
 	/**
-	 * Color of the border adjacent to the axis.  Defaults to grid border color.
+	 * Color of the border adjacent to the axis. Defaults to grid border color. Should be specified as
+	 * six hexidecimal digits similar to a CSS color e.g. de34a9.
 	 * 
 	 * @param borderColor the color of the border.
 	 */
