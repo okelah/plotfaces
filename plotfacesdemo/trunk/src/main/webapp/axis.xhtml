@@ -75,6 +75,14 @@
 							<f:setPropertyActionListener target="#{axis.max}" value="#{null}" />
 						</p:commandButton>
 					</h:panelGroup>
+				</p:panelGrid>
+				
+				<p:spacer height="10"/>
+				
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+						#{msg.padding}
+					</f:facet>
 					
 					#{msg.padding}
 					<h:panelGroup>
@@ -116,6 +124,38 @@
 					</h:panelGroup>
 				</p:panelGrid>
 
+				<p:spacer height="10"/>
+				
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+						#{msg.border}
+					</f:facet>
+					
+					#{msg.borderColor}
+					<h:panelGroup>
+						<p:colorPicker value="#{axis.borderColor}" rendered="#{axis.borderColor != null}" mode="inline"/>
+						<p:commandButton value="#{msg.update}" update=":form:plot" rendered="#{axis.borderColor != null}"/>
+						
+						<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderColor( 'cccccc' )}" rendered="#{axis.borderColor == null}" update=":form:settings :form:plot"/>
+						<p:commandButton value="#{msg.reset}" rendered="#{axis.borderColor != null}" update=":form:settings :form:plot" immediate="true">
+							<f:setPropertyActionListener target="#{axis.borderColor}" value="#{null}" />
+						</p:commandButton>
+					</h:panelGroup>
+					
+					#{msg.borderWidth}
+					<h:panelGroup>
+						<p:inputText value="#{axis.borderWidth}" rendered="#{axis.borderWidth != null}">
+							<p:ajax update=":form:plot"/>
+							<f:convertNumber maxFractionDigits="0"/>
+						</p:inputText>
+						
+						<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderWidth( 1.0 )}" rendered="#{axis.borderWidth == null}" update=":form:settings :form:plot"/>
+						<p:commandButton value="#{msg.reset}" rendered="#{axis.borderWidth != null}" update=":form:settings :form:plot" immediate="true">
+							<f:setPropertyActionListener target="#{axis.borderWidth}" value="#{null}" />
+						</p:commandButton>
+					</h:panelGroup>
+				</p:panelGrid>
+				
 				<p:spacer height="10"/>
 				
 				<p:panelGrid columns="2">
@@ -188,6 +228,19 @@
 						<p:commandButton value="#{msg.initialize}" action="#{axis.setTickInterval( 1.0 )}" rendered="#{axis.tickInterval == null}" update=":form:settings :form:plot"/>
 						<p:commandButton value="#{msg.reset}" rendered="#{axis.tickInterval != null}" update=":form:settings :form:plot" immediate="true">
 							<f:setPropertyActionListener target="#{axis.tickInterval}" value="#{null}" />
+						</p:commandButton>
+					</h:panelGroup>
+					
+					#{msg.tickSpacing}
+					<h:panelGroup>
+						<p:inputText value="#{axis.tickSpacing}" rendered="#{axis.tickSpacing != null}">
+							<p:ajax update=":form:plot"/>
+							<f:convertNumber maxFractionDigits="0"/>
+						</p:inputText>
+						
+						<p:commandButton value="#{msg.initialize}" action="#{axis.setTickSpacing( 20.0 )}" rendered="#{axis.tickSpacing == null}" update=":form:settings :form:plot"/>
+						<p:commandButton value="#{msg.reset}" rendered="#{axis.tickSpacing != null}" update=":form:settings :form:plot" immediate="true">
+							<f:setPropertyActionListener target="#{axis.tickSpacing}" value="#{null}" />
 						</p:commandButton>
 					</h:panelGroup>
 					
