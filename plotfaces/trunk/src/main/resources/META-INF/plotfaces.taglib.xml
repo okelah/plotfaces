@@ -10,8 +10,8 @@
 	<description><![CDATA[Draws a line chart.]]>
 	</description>
 	<component>
-	    <component-type>org.plotfaces.UIPlot</component-type>
-	    <renderer-type>org.plotfaces.PlotRenderer</renderer-type>
+	    <component-type>org.plotfaces.component.UIPlot</component-type>
+	    <renderer-type>org.plotfaces.component.PlotRenderer</renderer-type>
 	</component>
 	<attribute>
 	    <description><![CDATA[Unique identifier for this component.]]>

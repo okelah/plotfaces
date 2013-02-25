@@ -6,7 +6,7 @@
     <name>plotfaces</name>
 	
     <component>
-	<component-type>org.plotfaces.UIPlot</component-type>
-	<component-class>org.plotfaces.UIPlot</component-class>
+	<component-type>org.plotfaces.component.UIPlot</component-type>
+	<component-class>org.plotfaces.component.UIPlot</component-class>
     </component>
 </faces-config>
