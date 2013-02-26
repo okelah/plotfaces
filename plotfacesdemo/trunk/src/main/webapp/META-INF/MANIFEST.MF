@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: jsf-api-2.1.17.jar jsf-impl-2.1.17.jar logback-classic-1.0
+ .0.jar logback-core-1.0.0.jar plotfaces.jar primefaces-3.1.jar slf4j-
+ api-1.6.4.jar
+

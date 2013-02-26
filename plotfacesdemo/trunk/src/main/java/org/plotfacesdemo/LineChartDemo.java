@@ -30,31 +30,31 @@ public class LineChartDemo implements Serializable {
     }
 
     public CartesianChartModel getPFModel() {
-	CartesianChartModel linearModel = new CartesianChartModel();
-
-	LineChartSeries series1 = new LineChartSeries();
-	series1.setLabel("Series 1");
-
-	series1.set(1, 2);
-	series1.set(2, 1);
-	series1.set(3, 3);
-	series1.set(4, 6);
-	series1.set(5, 8);
-
-	LineChartSeries series2 = new LineChartSeries();
-	series2.setLabel("Series 2");
-	series2.setMarkerStyle("diamond");
-
-	series2.set(1, 6);
-	series2.set(2, 3);
-	series2.set(3, 2);
-	series2.set(4, 7);
-	series2.set(5, 9);
-
-	linearModel.addSeries(series1);
-	linearModel.addSeries(series2);
-
-	return linearModel;
+		CartesianChartModel linearModel = new CartesianChartModel();
+	
+		LineChartSeries series1 = new LineChartSeries();
+		series1.setLabel("Series 1");
+	
+		series1.set(1, 2);
+		series1.set(2, 1);
+		series1.set(3, 3);
+		series1.set(4, 6);
+		series1.set(5, 8);
+	
+		LineChartSeries series2 = new LineChartSeries();
+		series2.setLabel("Series 2");
+		series2.setMarkerStyle("diamond");
+	
+		series2.set(1, 6);
+		series2.set(2, 3);
+		series2.set(3, 2);
+		series2.set(4, 7);
+		series2.set(5, 9);
+	
+		linearModel.addSeries(series1);
+		linearModel.addSeries(series2);
+	
+		return linearModel;
     }
 	
 	public String initializeField() {
@@ -76,7 +76,7 @@ public class LineChartDemo implements Serializable {
     }
 
     private List<Axis> getAxes() {
-	List<Axis> axes = new ArrayList<>();
+	List<Axis> axes = new ArrayList<Axis>();
 
 	Axis x = new Axis(Axis.AxisName.xaxis);
 	x.setLabel("X-Axis");
