@@ -3,9 +3,11 @@ package org.plotfacesdemo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+//import javax.enterprise.context.SessionScoped;
+//import javax.inject.Inject;
+//import javax.inject.Named;
 import org.plotfaces.Axis;
 import org.plotfaces.Options;
 import org.plotfaces.Series;
@@ -18,7 +20,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author Graham Smith
  */
-@Named
+//@Named
+//@SessionScoped
+@ManagedBean
 @SessionScoped
 public class LineChartDemo implements Serializable {
 
@@ -76,7 +80,7 @@ public class LineChartDemo implements Serializable {
     }
 
     private List<Axis> getAxes() {
-	List<Axis> axes = new ArrayList<Axis>();
+	List<Axis> axes = new ArrayList<>();
 
 	Axis x = new Axis(Axis.AxisName.xaxis);
 	x.setLabel("X-Axis");
