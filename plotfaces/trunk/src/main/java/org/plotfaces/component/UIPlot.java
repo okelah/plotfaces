@@ -56,18 +56,28 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		FacesContext context = FacesContext.getCurrentInstance();
 		List<UIComponent> componentResources = context.getViewRoot().getComponentResources(context, "head" );
 		boolean primefacesExists = false;
-		boolean includeJqueryJs = true;
+		int jqueryIdx = -1;
+		int jqPlotIdx = -1;
 		for( int i = 0, n = componentResources.size(); i < n; i++ ) {
 			if( "primefaces".equals( componentResources.get( i ).getAttributes().get( "library" ) ) ) {
 				primefacesExists = true;
 				if( "jquery/jquery.js".equals( componentResources.get( i ).getAttributes().get( "name" ) ) ) {
-					includeJqueryJs = false;
+					jqueryIdx = i;
+					if( jqPlotIdx != -1 ) {
+						UIComponent jqueryResource = componentResources.get( jqueryIdx );
+						componentResources.remove( jqueryIdx );
+						componentResources.add( jqPlotIdx, jqueryResource );
+					}
 					break;
+				}
+			} else if( "plotfaces".equals( componentResources.get( i ).getAttributes().get( "library" ) ) ) {
+				if( "jquery.jqplot.js".equals( componentResources.get( i ).getAttributes().get( "name" ) ) ) {
+					jqPlotIdx = i;
 				}
 			}
 		}
 		
-		if( includeJqueryJs ) {
+		if( jqueryIdx == -1 ) {
 			UIOutput js = new UIOutput();
 			js.setRendererType("javax.faces.resource.Script");
 			if( primefacesExists ) {
@@ -78,7 +88,8 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		    	js.getAttributes().put("name", "jquery.js");
 			}
 			
-			context.getViewRoot().addComponentResource(context, js, "head");	
+			// add to the start of the list
+			componentResources.add( 0, js );	
 		}
     }
 
