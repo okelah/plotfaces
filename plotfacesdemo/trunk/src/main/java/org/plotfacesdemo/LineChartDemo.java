@@ -7,11 +7,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.plotfaces.Axis;
-import org.plotfaces.Options;
-import org.plotfaces.Series;
-import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.LineChartSeries;
+import org.plotfaces.data.Axis;
+import org.plotfaces.data.ChartModel;
+import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.ChartSeries;
+import org.plotfaces.enums.TickRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,77 +24,61 @@ import org.slf4j.LoggerFactory;
 public class LineChartDemo implements Serializable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	private Options options;
+	private ChartModel chartModel;
 
 	public LineChartDemo() {
 	}
 
-	public CartesianChartModel getPFModel() {
-		CartesianChartModel linearModel = new CartesianChartModel();
-
-		LineChartSeries series1 = new LineChartSeries();
-		series1.setLabel("Series 1");
-
-		series1.set(1, 2);
-		series1.set(2, 1);
-		series1.set(3, 3);
-		series1.set(4, 6);
-		series1.set(5, 8);
-
-		LineChartSeries series2 = new LineChartSeries();
-		series2.setLabel("Series 2");
-		series2.setMarkerStyle("diamond");
-
-		series2.set(1, 6);
-		series2.set(2, 3);
-		series2.set(3, 2);
-		series2.set(4, 7);
-		series2.set(5, 9);
-
-		linearModel.addSeries(series1);
-		linearModel.addSeries(series2);
-
-		return linearModel;
-	}
-
 	public String initializeField() {
-		options.getAxes().get(0).setShowLabel(true);
+		chartModel.getAxes().get(0).setShowLabel(true);
 		return null;
 	}
 
-	public Options getOptions() {
-		if (options == null) {
-			options = new Options();
-			options.setSeriesDefaults(getSeriesDefaults());
-			options.setAxes(getAxes());
+	public ChartModel getChartModel() {
+		if (chartModel == null) {
+			chartModel = new ChartModel();
+			chartModel.setSeriesDefaults(getSeriesDefaults());
+			chartModel.setAxes(getAxes());
+
+			ChartSeries chartSeries = new ChartSeries();
+			chartSeries.getData().put( "Funky", 5 );
+			chartSeries.getData().put( "Spunky", 2 );
+			chartSeries.getData().put( "Monkey", 9 );
+			
+			chartModel.getSeries().add( chartSeries );
 		}
-		return options;
+		return chartModel;
 	}
 
-	public void setOptions(Options options) {
-		this.options = options;
+	public void setChartModel(ChartModel chartModel) {
+		this.chartModel = chartModel;
 	}
 
 	private List<Axis> getAxes() {
+		Axis defaultAxis = new Axis();
+		defaultAxis.setTickRenderer( TickRenderer.CanvasAxisTickRenderer );
+		chartModel.setAxesDefaults(defaultAxis);
+		
 		List<Axis> axes = new ArrayList<Axis>();
 
 		Axis x = new Axis(Axis.AxisName.xaxis);
 		x.setLabel("X-Axis");
+		List<String> ticks = new ArrayList<String>();
+		ticks.add( "Funky" );
+		ticks.add( "Spunky" );
+		ticks.add( "Monkey" );
+		x.setTicks( ticks );
 		axes.add(x);
 
 		Axis y = new Axis(Axis.AxisName.yaxis);
 		y.setLabel("Y-Axis");
 		axes.add(y);
-		//
-		// Axis y2 = new Axis(Axis.AxisName.y2axis);
-		// y2.setLabel("Y2-Axis");
-		// axes.add(y2);
 
 		return axes;
 	}
 
-	private Series getSeriesDefaults() {
-		Series series = new Series();
+	private ChartSeries getSeriesDefaults() {
+		ChartSeries series = new ChartSeries();
 		series.setxAxis(Axis.AxisName.xaxis);
 		series.setyAxis(Axis.AxisName.yaxis);
 		// series.setRenderer("$.jqplot.BarRenderer");

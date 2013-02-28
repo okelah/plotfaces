@@ -6,7 +6,7 @@
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://java.sun.com/jsf/core">
     <ui:composition>
-		<p:tabView var="axis" value="#{lineChartDemo.options.axes}" >
+		<p:tabView var="axis" value="#{lineChartDemo.chartModel.axes}" >
 			<p:tab title="#{axis.axisName}">
 
 				<p:panelGrid columns="2">
