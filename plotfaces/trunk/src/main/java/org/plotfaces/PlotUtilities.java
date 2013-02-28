@@ -40,6 +40,28 @@ public final class PlotUtilities {
     public static String getEscapedClientId(FacesContext context, UIComponent component) {
         return component.getClientId(context).replace(":", "\\\\:");
     }
+    
+	public static boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired ) {
+		return addVariable(stringBuilder, variableName, variableValue, isCommaRequired, false);
+	}
+	
+	public static boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired, boolean isString ) {
+		if( isCommaRequired ) {
+			stringBuilder.append( "," );
+		} else {
+			isCommaRequired = true;
+		}
+		stringBuilder.append( "\n" );
+		stringBuilder.append( variableName ).append( ":" );
+		if( isString ) {
+			stringBuilder.append( "'" );
+		}
+		stringBuilder.append( variableValue );
+		if( isString ) {
+			stringBuilder.append( "'" );
+		}
+		return isCommaRequired;
+	}
 
     /**
      * We often need to name JavaScript variables in a unique way. The obvious

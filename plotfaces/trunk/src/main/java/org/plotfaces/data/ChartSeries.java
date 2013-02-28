@@ -18,9 +18,8 @@ package org.plotfaces.data;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.plotfaces.data.Axis.AxisName;
+import org.plotfaces.PlotUtilities;
 import org.plotfaces.renderer.ChartRenderer;
-import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
 
 /**
@@ -70,34 +69,22 @@ public class ChartSeries {
 		boolean isCommaRequired = false; 
 
 		if (getShow() != null) {
-			isCommaRequired = addVariable( builder, "show", Boolean.toString(getShow()), isCommaRequired);
+			isCommaRequired = PlotUtilities.addVariable( builder, "show", Boolean.toString(getShow()), isCommaRequired);
 		}
 
 		if (getxAxis() != null) {
-			isCommaRequired = addVariable( builder, "xaxis", "'" + getxAxis().name() + "'", isCommaRequired );
+			isCommaRequired = PlotUtilities.addVariable( builder, "xaxis", getxAxis().name(), isCommaRequired, true );
 		}
 
 		if (getyAxis() != null) {
-			isCommaRequired = addVariable( builder, "yaxis", "'" + getyAxis().name() + "'", isCommaRequired );
+			isCommaRequired = PlotUtilities.addVariable( builder, "yaxis", getyAxis().name(), isCommaRequired, true );
 		}
 
 		if (getRenderer() != null) {
-			isCommaRequired = addVariable( builder, "renderer", "$.jqplot." + getRenderer().getClass().getSimpleName(), isCommaRequired );
+			isCommaRequired = PlotUtilities.addVariable( builder, "renderer", "$.jqplot." + getRenderer().getClass().getSimpleName(), isCommaRequired );
 		}
 		builder.append("\n}");
 		return builder.toString();
-	}
-	
-	public boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired ) {
-		if( isCommaRequired ) {
-			stringBuilder.append( "," );
-		} else {
-			isCommaRequired = true;
-		}
-		stringBuilder.append( "\n" );
-		stringBuilder.append( variableName ).append( ":" );
-		stringBuilder.append( variableValue );
-		return isCommaRequired;
 	}
 
 	/**
