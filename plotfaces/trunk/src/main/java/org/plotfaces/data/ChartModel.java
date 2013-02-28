@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces;
+package org.plotfaces.data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  *
  * @author Graham Smith
  */
-public class Options implements Plotable {
+public class ChartModel {
 
-    private String optionsVariable;
     private Axis axesDefaults;
     private List<Axis> axes;
     private Legend legend;
-    private Series seriesDefaults;
-    private List<Series> series;
+    private ChartSeries seriesDefaults;
+    private List<ChartSeries> series = new ArrayList<ChartSeries>();
 
-    public String plot() {
-	StringBuilder builder = new StringBuilder();
-
-	builder.append("var ");
-	builder.append(getOptionsVaraible());
-	builder.append(" = {\n");
-
-	//Series defaults must be the first piece of configuration output as it doens't prepend a comma.
-	builder.append(plotSeriesDefaults());
-	builder.append(plotAxesDefaults());
-	builder.append(plotAxes());
-
-	builder.append("};\n");
-
-	return builder.toString();
+    public String plot( String optionsVariable ) {
+		StringBuilder builder = new StringBuilder();
+	
+		builder.append("var ");
+		builder.append( optionsVariable );
+		builder.append(" = {\n");
+	
+		//Series defaults must be the first piece of configuration output as it doens't prepend a comma.
+		builder.append(plotSeriesDefaults());
+		builder.append(plotAxesDefaults());
+		builder.append(plotAxes());
+	
+		builder.append("};\n");
+	
+		return builder.toString();
     }
 
     /**
@@ -99,28 +100,6 @@ public class Options implements Plotable {
 	return builder.toString();
     }
 
-    /**
-     * Returns the name of the variable that contains the plot options for the
-     * chart being drawn. This is set by the plot renderer and should not be set
-     * manually.
-     *
-     * @return variable name for the plot options.
-     */
-    public String getOptionsVaraible() {
-	return optionsVariable;
-    }
-
-    /**
-     * Sets the name of the variable that contains the plot options for the
-     * chart being drawn. This is set by the plot renderer and should not be set
-     * manually.
-     *
-     * @param optionsVaraible variable name for the plot options.
-     */
-    public void setOptionsVariable(String optionsVariable) {
-	this.optionsVariable = optionsVariable;
-    }
-
     public Axis getAxesDefaults() {
 	return axesDefaults;
     }
@@ -145,19 +124,19 @@ public class Options implements Plotable {
 	this.legend = legend;
     }
 
-    public List<Series> getSeries() {
-	return series;
-    }
-
-    public void setSeries(List<Series> series) {
-	this.series = series;
-    }
-
-    public Series getSeriesDefaults() {
+    public ChartSeries getSeriesDefaults() {
 	return seriesDefaults;
     }
 
-    public void setSeriesDefaults(Series seriesDefaults) {
+    public void setSeriesDefaults(ChartSeries seriesDefaults) {
 	this.seriesDefaults = seriesDefaults;
     }
+
+	public List<ChartSeries> getSeries() {
+		return series;
+	}
+
+	public void setSeries(List<ChartSeries> series) {
+		this.series = series;
+	}
 }

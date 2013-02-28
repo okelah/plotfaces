@@ -27,6 +27,8 @@ import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
+import org.plotfaces.data.ChartModel;
+
 /**
  *
  * @author Graham Smith
@@ -37,7 +39,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
     public static final String COMPONENT_FAMILY = "org.plotfaces";
 
     protected enum PropertyKeys {
-	style, styleClass, options, data;
+    	style, styleClass, chartModel, data;
     }
     
     public UIPlot() {
@@ -114,12 +116,12 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 	getStateHelper().put(PropertyKeys.styleClass, styleClass);
     }
 
-    public Object getOptions() {
-	return getStateHelper().eval(PropertyKeys.options, null);
+    public ChartModel getChartModel() {
+	return (ChartModel) getStateHelper().eval(PropertyKeys.chartModel, null);
     }
 
-    public void setOptions(Object options) {
-	getStateHelper().put(PropertyKeys.options, options);
+    public void setChartModel(ChartModel chartModel) {
+	getStateHelper().put(PropertyKeys.chartModel, chartModel);
     }
 
     public Object getData() {

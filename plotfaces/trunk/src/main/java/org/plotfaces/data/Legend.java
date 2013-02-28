@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces;
+package org.plotfaces.data;
 
 /**
  *
  * @author Graham Smith
  */
-public interface Plotable {
-
-    public String plot();
+public class Legend {
+	
 }
