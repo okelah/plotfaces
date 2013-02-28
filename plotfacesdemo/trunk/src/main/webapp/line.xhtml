@@ -14,7 +14,7 @@
     </h:head>
     <h:body>
 		<h:form prependId="true" id="form">
-			<plot:plot id="plot" options="#{lineChartDemo.options}" style="width: 900px; height: 400px;"/>
+			<plot:plot id="plot" chartModel="#{lineChartDemo.chartModel}" style="width: 900px; height: 400px;"/>
 
 			<p:panel id="settings">
 				<ui:include src="axis.xhtml"/>
