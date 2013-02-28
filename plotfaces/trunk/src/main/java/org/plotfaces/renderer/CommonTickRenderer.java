@@ -1,6 +1,8 @@
 package org.plotfaces.renderer;
 
-public abstract class BaseTickRenderer {
+import org.plotfaces.PlotUtilities;
+
+public abstract class CommonTickRenderer extends TickRenderer {
 	private String mark; 
 	private Boolean showMark; 
 	private Boolean showGridline; 
@@ -15,11 +17,65 @@ public abstract class BaseTickRenderer {
 	private String fontSize; 
 	private String textColor;
 	
-	public void plot( StringBuilder builder ) {
-		builder.append(",\ntickRender: ");
-		builder.append(getClass().getSimpleName());
-//		builder.append(",\ntickOptions: ");
-//		builder.append(getTickOptions());
+	public boolean plot( StringBuilder builder, boolean isCloseOptions ) {
+		boolean isCommaRequired = super.plot( builder, false );
+		if (getMark() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "mark", getMark(), isCommaRequired, true );
+		}
+
+		if (getShowMark() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "showMark", String.valueOf( getShowMark()), isCommaRequired );
+		}
+
+		if (getShowGridline() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "showGridline", String.valueOf( getShowGridline()), isCommaRequired );
+		}
+
+		if (getIsMinorTick() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "isMinorTick", String.valueOf( getIsMinorTick()), isCommaRequired );
+		}
+
+		if (getMarkSize() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "markSize", String.valueOf( getMarkSize()), isCommaRequired );
+		}
+
+		if (getShow() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "show", String.valueOf( getShow()), isCommaRequired );
+		}
+
+		if (getShowLabel() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", String.valueOf( getShowLabel()), isCommaRequired );
+		}
+
+		if (getFormatter() != null) {
+			getFormatter().plot( builder );
+		}
+
+		if (getFormatString() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "formatString", getFormatString(), isCommaRequired, true );
+		}
+
+		if (getPrefix() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "prefix", getPrefix(), isCommaRequired, true );
+		}
+
+		if (getFontFamily() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "fontFamily", getFontFamily(), isCommaRequired, true );
+		}
+
+		if (getFontSize() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "fontSize", getFontSize(), isCommaRequired, true );
+		}
+
+		if (getTextColor() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "textColor", getTextColor(), isCommaRequired, true );
+		}
+		
+		if( isCloseOptions ) {
+			builder.append("}");
+		}
+		
+		return isCommaRequired;
 	}
 	
 	/**

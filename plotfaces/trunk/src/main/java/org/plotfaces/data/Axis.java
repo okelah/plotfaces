@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.plotfaces.renderer.BaseTickRenderer;
 import org.plotfaces.renderer.LabelRenderer;
+import org.plotfaces.renderer.TickRenderer;
 
 /**
  * Display options for an axis. An axis must be given a name from the AxisName enum. All options
@@ -37,7 +37,7 @@ public class Axis {
 	}
 	private AxisName axisName;
 	private Boolean show = Boolean.TRUE;
-	private BaseTickRenderer tickRenderer;
+	private TickRenderer tickRenderer;
 	private LabelRenderer labelRenderer;
 	private String label;
 	private Boolean showLabel;
@@ -76,8 +76,7 @@ public class Axis {
 	 */
 	public String plot() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getAxisName().name());
-		builder.append(":{\n");
+		builder.append("{\n");
 
 		if( getShow() == null ) {
 			builder.append("show: true");
@@ -87,7 +86,7 @@ public class Axis {
 		}
 
 		if (getTickRenderer() != null) {
-			getTickRenderer().plot( builder );
+			getTickRenderer().plot( builder, true );
 		}
 
 		if (getLabelRenderer() != null) {
@@ -677,7 +676,7 @@ public class Axis {
 	 * 
 	 * @return the tick renderer to use.
 	 */
-	public BaseTickRenderer getTickRenderer() {
+	public TickRenderer getTickRenderer() {
 		return tickRenderer;
 	}
 
@@ -687,7 +686,7 @@ public class Axis {
 	 * 
 	 * @param tickRenderer the tick renderer to use.
 	 */
-	public void setTickRenderer(BaseTickRenderer tickRenderer) {
+	public void setTickRenderer(TickRenderer tickRenderer) {
 		this.tickRenderer = tickRenderer;
 	}
 }

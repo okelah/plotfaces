@@ -71,14 +71,9 @@ public class ChartModel {
     private String plotAxesDefaults() {
 	StringBuilder builder = new StringBuilder();
 	if (getAxesDefaults() != null) {
-	    builder.append(", axesDefaults:{\n");
-	    for (int i = 0, n = axes.size(); i < n; i++) {
-		if (i > 0) {
-		    builder.append(",\n");
-		}
-		builder.append(getAxes().get(i).plot());
-	    }
-	    builder.append("\n}\n");
+	    builder.append(", axesDefaults:");
+		builder.append(getAxesDefaults().plot());
+	    builder.append("\n");
 	}
 	return builder.toString();
     }
@@ -92,6 +87,7 @@ public class ChartModel {
 		if (i > 0) {
 		    builder.append(",\n");
 		}
+		builder.append( getAxes().get( i ).getAxisName().name() ).append( ":" );
 		builder.append(getAxes().get(i).plot());
 	    }
 	    

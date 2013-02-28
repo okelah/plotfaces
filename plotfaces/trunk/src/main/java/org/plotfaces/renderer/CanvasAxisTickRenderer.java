@@ -1,12 +1,49 @@
 package org.plotfaces.renderer;
 
-public class CanvasAxisTickRenderer extends BaseTickRenderer {
-	private String angle;
+import org.plotfaces.PlotUtilities;
+
+public class CanvasAxisTickRenderer extends CommonTickRenderer {
+	private Integer angle;
 	private String labelPosition;
 	private String fontWeight;
 	private Double fontStretch;
 	private Boolean enableFontSupport;
 	private Double pt2px;
+	
+	@Override
+	public boolean plot(StringBuilder builder, boolean isCloseOptions) {
+		boolean isCommaRequired = super.plot(builder, false);
+
+		if (getAngle() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "angle", String.valueOf( getAngle() ), isCommaRequired );
+		}
+
+		if (getLabelPosition() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "labelPosition", getLabelPosition(), isCommaRequired, true );
+		}
+
+		if (getFontWeight() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "fontWeight", getFontWeight(), isCommaRequired, true );
+		}
+
+		if (getFontStretch() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "fontStretch", String.valueOf( getFontStretch() ), isCommaRequired );
+		}
+
+		if (getEnableFontSupport() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "enableFontSupport", String.valueOf( getEnableFontSupport() ), isCommaRequired );
+		}
+
+		if (getPt2px() != null) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "pt2px", String.valueOf( getPt2px() ), isCommaRequired );
+		}
+		
+		if( isCloseOptions ) {
+			builder.append("}");
+		}
+		
+		return isCommaRequired;
+	}
 	
 	/**
 	 * angle of text, measured clockwise from x axis.
@@ -14,7 +51,7 @@ public class CanvasAxisTickRenderer extends BaseTickRenderer {
 	 * 
 	 * @return the angle
 	 */
-	public String getAngle() {
+	public Integer getAngle() {
 		return angle;
 	}
 	/**
@@ -23,7 +60,7 @@ public class CanvasAxisTickRenderer extends BaseTickRenderer {
 	 * 
 	 * @param angle the angle to set
 	 */
-	public void setAngle(String angle) {
+	public void setAngle(Integer angle) {
 		this.angle = angle;
 	}
 	/**
