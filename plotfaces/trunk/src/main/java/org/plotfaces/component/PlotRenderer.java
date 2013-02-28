@@ -16,7 +16,8 @@
 package org.plotfaces.component;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.List;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -25,8 +26,9 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 
-import org.plotfaces.Options;
 import org.plotfaces.PlotUtilities;
+import org.plotfaces.data.ChartModel;
+import org.plotfaces.data.ChartSeries;
 
 /**
  * 
@@ -64,7 +66,7 @@ public class PlotRenderer extends Renderer {
 		encodeTag(context, out, plot);
 		encodeScriptBegin(out, plot.getClientId());
 		encodeData(out, plot, dataVariable);
-		encodeOptions(out, plot, optionsVariable);
+		encodeChartModel(out, plot, optionsVariable);
 		encodePlot(out, plotVariable, safeTargetId, dataVariable,
 				optionsVariable);
 		encodeScriptEnd(out);
@@ -108,20 +110,37 @@ public class PlotRenderer extends Renderer {
 	 */
 	private void encodeData(ResponseWriter out, UIPlot plot, String dataVariable)
 			throws IOException {
-		out.write("var " + dataVariable + " = [");
-		Random r = new Random();
-		for (int i = 0, n = 10; i < n; i++) {
-			out.write("[" + i + "," + r.nextInt(100) + "],");
+		out.write("var " + dataVariable + " = ");
+		List<ChartSeries> chartSeries = plot.getChartModel().getSeries();
+		String processedMapKey;
+		for( int i = 0, n = chartSeries.size(); i < n; i++ ) {
+			out.write( "[" );
+			int count = 0;
+			int keySetSize = chartSeries.get( i ).getData().keySet().size();
+			for ( Object mapKey : chartSeries.get( i ).getData().keySet() ) {
+				if( mapKey instanceof Number ) {
+					processedMapKey = String.valueOf( mapKey );
+				} else {
+					processedMapKey = "'" + String.valueOf( mapKey ) + "'";
+				}
+				out.write("[" + processedMapKey + "," + chartSeries.get( i ).getData().get( mapKey ) + "]");
+				if( ++count != keySetSize ) {
+					out.write(",");
+				}
+			}
+			out.write("]");
+			if( i != (chartSeries.size() - 1) ) {
+				out.write(",");
+			}
 		}
-		out.write("];\n");
+		out.write(";\n");
 	}
 
-	private void encodeOptions(ResponseWriter out, UIPlot plot,
+	private void encodeChartModel(ResponseWriter out, UIPlot plot,
 			String optionsVariable) throws IOException {
-		Options plotOptions = (Options) plot.getOptions();
-		if (plotOptions != null) {
-			plotOptions.setOptionsVariable(optionsVariable);
-			out.write(plotOptions.plot());
+		ChartModel chartModel = (ChartModel) plot.getChartModel();
+		if (chartModel != null) {
+			out.write(chartModel.plot(optionsVariable));
 		}
 	}
 
