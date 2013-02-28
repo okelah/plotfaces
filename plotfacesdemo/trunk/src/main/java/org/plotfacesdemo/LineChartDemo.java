@@ -10,8 +10,8 @@ import javax.faces.bean.ViewScoped;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
-import org.plotfaces.data.ChartSeries;
-import org.plotfaces.enums.TickRenderer;
+import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.CategoryAxisTickRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,18 +56,23 @@ public class LineChartDemo implements Serializable {
 
 	private List<Axis> getAxes() {
 		Axis defaultAxis = new Axis();
-		defaultAxis.setTickRenderer( TickRenderer.CanvasAxisTickRenderer );
+		CanvasAxisTickRenderer canvasAxisTickRenderer = new CanvasAxisTickRenderer();
+		canvasAxisTickRenderer.setAngle( -30 );
+		canvasAxisTickRenderer.setFontSize( "10pt" );
+		defaultAxis.setTickRenderer( canvasAxisTickRenderer );
 		chartModel.setAxesDefaults(defaultAxis);
 		
 		List<Axis> axes = new ArrayList<Axis>();
 
 		Axis x = new Axis(Axis.AxisName.xaxis);
 		x.setLabel("X-Axis");
-		List<String> ticks = new ArrayList<String>();
-		ticks.add( "Funky" );
-		ticks.add( "Spunky" );
-		ticks.add( "Monkey" );
-		x.setTicks( ticks );
+//		List<String> ticks = new ArrayList<String>();
+//		ticks.add( "Funky" );
+//		ticks.add( "Spunky" );
+//		ticks.add( "Monkey" );
+//		x.setTicks( ticks );
+		CategoryAxisTickRenderer categoryAxisTickRenderer = new CategoryAxisTickRenderer();
+		x.setTickRenderer(categoryAxisTickRenderer);
 		axes.add(x);
 
 		Axis y = new Axis(Axis.AxisName.yaxis);
