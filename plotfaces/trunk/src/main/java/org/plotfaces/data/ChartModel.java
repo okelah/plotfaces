@@ -30,7 +30,7 @@ public class ChartModel {
     private List<Axis> axes;
     private Legend legend;
     private ChartSeries seriesDefaults;
-    private List<ChartSeries> series = new ArrayList<ChartSeries>();
+    private List<ChartSeries> series = new ArrayList<>();
 
     public String plot( String optionsVariable ) {
 		StringBuilder builder = new StringBuilder();

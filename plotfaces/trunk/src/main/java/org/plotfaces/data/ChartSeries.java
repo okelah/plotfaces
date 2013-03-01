@@ -17,7 +17,6 @@ package org.plotfaces.data;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.renderer.ChartRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
@@ -58,7 +57,7 @@ public class ChartSeries {
 	private Boolean useNegativeColors;  
 	private ChartRenderer renderer;  
 	private MarkerRenderer markerRenderer;  
-    private Map<Object,Number> data = new LinkedHashMap<Object, Number>();
+    private Map<Object,Number> data = new LinkedHashMap<>();
 
 	public ChartSeries() {
 	}

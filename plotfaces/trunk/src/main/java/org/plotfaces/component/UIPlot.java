@@ -35,100 +35,121 @@ import org.plotfaces.data.ChartModel;
  */
 public class UIPlot extends UIComponentBase implements SystemEventListener {
 
-    public static final String DEFAULT_REDERER = "org.plotfaces.component.PlotRenderer";
-    public static final String COMPONENT_FAMILY = "org.plotfaces";
+	public static final String DEFAULT_REDERER = "org.plotfaces.component.PlotRenderer";
+	public static final String COMPONENT_FAMILY = "org.plotfaces";
 
-    protected enum PropertyKeys {
-    	style, styleClass, chartModel, data;
-    }
-    
-    public UIPlot() {
-    	setRendererType( DEFAULT_REDERER );
-        FacesContext context = FacesContext.getCurrentInstance();
-        UIViewRoot root = context.getViewRoot();
+	protected enum PropertyKeys {
 
-        root.subscribeToViewEvent( PostAddToViewEvent.class, this );
-    }
-    
-    public boolean isListenerForSource( Object source ) {
-        return ( source instanceof UIViewRoot );
-    }
+		style, styleClass, chartModel, data, rendererOptions;
+	}
 
-    public void processEvent( SystemEvent event ) throws AbortProcessingException {
+	public UIPlot() {
+		setRendererType(DEFAULT_REDERER);
 		FacesContext context = FacesContext.getCurrentInstance();
-		List<UIComponent> componentResources = context.getViewRoot().getComponentResources(context, "head" );
+		UIViewRoot root = context.getViewRoot();
+
+		root.subscribeToViewEvent(PostAddToViewEvent.class, this);
+	}
+
+	@Override
+	public boolean isListenerForSource(Object source) {
+		return (source instanceof UIViewRoot);
+	}
+
+	@Override
+	public void processEvent(SystemEvent event) throws AbortProcessingException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		List<UIComponent> componentResources = context.getViewRoot().getComponentResources(context, "head");
 		boolean primefacesExists = false;
 		int jqueryIdx = -1;
 		int jqPlotIdx = -1;
-		for( int i = 0, n = componentResources.size(); i < n; i++ ) {
-			if( "primefaces".equals( componentResources.get( i ).getAttributes().get( "library" ) ) ) {
+		for (int i = 0, n = componentResources.size(); i < n; i++) {
+			if ("primefaces".equals(componentResources.get(i).getAttributes().get("library"))) {
 				primefacesExists = true;
-				if( "jquery/jquery.js".equals( componentResources.get( i ).getAttributes().get( "name" ) ) ) {
+				if ("jquery/jquery.js".equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqueryIdx = i;
-					if( jqPlotIdx != -1 ) {
-						UIComponent jqueryResource = componentResources.get( jqueryIdx );
-						componentResources.remove( jqueryIdx );
-						componentResources.add( jqPlotIdx, jqueryResource );
+					if (jqPlotIdx != -1) {
+						UIComponent jqueryResource = componentResources.get(jqueryIdx);
+						componentResources.remove(jqueryIdx);
+						componentResources.add(jqPlotIdx, jqueryResource);
 					}
 					break;
 				}
-			} else if( "plotfaces".equals( componentResources.get( i ).getAttributes().get( "library" ) ) ) {
-				if( "jquery.jqplot.js".equals( componentResources.get( i ).getAttributes().get( "name" ) ) ) {
+			} else if ("plotfaces".equals(componentResources.get(i).getAttributes().get("library"))) {
+				if ("jquery.jqplot.js".equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqPlotIdx = i;
 				}
 			}
 		}
-		
-		if( jqueryIdx == -1 ) {
+
+		if (jqueryIdx == -1) {
 			UIOutput js = new UIOutput();
 			js.setRendererType("javax.faces.resource.Script");
-			if( primefacesExists ) {
-		    	js.getAttributes().put("library", "primefaces");
-		    	js.getAttributes().put("name", "jquery.js");
+			if (primefacesExists) {
+				js.getAttributes().put("library", "primefaces");
+				js.getAttributes().put("name", "jquery.js");
 			} else {
-		    	js.getAttributes().put("library", "plotfaces");
-		    	js.getAttributes().put("name", "jquery.js");
+				js.getAttributes().put("library", "plotfaces");
+				js.getAttributes().put("name", "jquery.js");
 			}
-			
+
 			// add to the start of the list
-			componentResources.add( 0, js );	
+			componentResources.add(0, js);
 		}
-    }
+	}
 
-    @Override
-    public String getFamily() {
-	return COMPONENT_FAMILY;
-    }
+	@Override
+	public String getFamily() {
+		return COMPONENT_FAMILY;
+	}
 
-    public String getStyle() {
-	return (String) getStateHelper().eval(PropertyKeys.style, null);
-    }
+	public String getStyle() {
+		return (String) getStateHelper().eval(PropertyKeys.style, null);
+	}
 
-    public void setStyle(String style) {
-	getStateHelper().put(PropertyKeys.style, style);
-    }
+	public void setStyle(String style) {
+		getStateHelper().put(PropertyKeys.style, style);
+	}
 
-    public String getStyleClass() {
-	return (String) getStateHelper().eval(PropertyKeys.styleClass, null);
-    }
+	public String getStyleClass() {
+		return (String) getStateHelper().eval(PropertyKeys.styleClass, null);
+	}
 
-    public void setStyleClass(String styleClass) {
-	getStateHelper().put(PropertyKeys.styleClass, styleClass);
-    }
+	public void setStyleClass(String styleClass) {
+		getStateHelper().put(PropertyKeys.styleClass, styleClass);
+	}
 
-    public ChartModel getChartModel() {
-	return (ChartModel) getStateHelper().eval(PropertyKeys.chartModel, null);
-    }
+	public ChartModel getChartModel() {
+		return (ChartModel) getStateHelper().eval(PropertyKeys.chartModel, null);
+	}
 
-    public void setChartModel(ChartModel chartModel) {
-	getStateHelper().put(PropertyKeys.chartModel, chartModel);
-    }
+	public void setChartModel(ChartModel chartModel) {
+		getStateHelper().put(PropertyKeys.chartModel, chartModel);
+	}
 
-    public Object getData() {
-	return getStateHelper().eval(PropertyKeys.data, null);
-    }
+	public Object getData() {
+		return getStateHelper().eval(PropertyKeys.data, null);
+	}
 
-    public void setData(Object data) {
-	getStateHelper().put(PropertyKeys.data, data);
-    }
+	public void setData(Object data) {
+		getStateHelper().put(PropertyKeys.data, data);
+	}
+	
+	/**
+	 * Get the renderer options that control how the output is produced and formatted.
+	 * 
+	 * @return 
+	 */
+	public Object getRendererOptions() {
+		return getStateHelper().eval(PropertyKeys.rendererOptions, null);
+	}
+
+	/**
+	 * Set renderer options that control how the output is produced and formatted.
+	 * 
+	 * @param data 
+	 */
+	public void setRendererOptions(Object data) {
+		getStateHelper().put(PropertyKeys.rendererOptions, data);
+	}
 }

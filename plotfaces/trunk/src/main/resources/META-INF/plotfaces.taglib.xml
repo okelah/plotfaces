@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
-		version="2.0">
-    <namespace>http://www.plotfaces.org</namespace>
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+				version="2.0">
+	<namespace>http://www.plotfaces.org</namespace>
 	
-    <tag>
-	<tag-name>plot</tag-name>
-	<description><![CDATA[Draws a line chart.]]>
-	</description>
-	<component>
-	    <component-type>org.plotfaces.component.UIPlot</component-type>
-	    <renderer-type>org.plotfaces.component.PlotRenderer</renderer-type>
-	</component>
-	<attribute>
-	    <description><![CDATA[Unique identifier for this component.]]>
-	    </description>
-	    <name>id</name>
-	    <required>false</required>
-	    <type>java.lang.String</type>
-	</attribute>
-	<attribute>
-	    <description><![CDATA[Individual style information for the chart.]]>
-	    </description>
-	    <name>style</name>
-	    <required>false</required>
-	    <type>java.lang.String</type>
-	</attribute>
-	<attribute>
-	    <description><![CDATA[Class style information for the chart.]]>
-	    </description>
-	    <name>styleClass</name>
-	    <required>false</required>
-	    <type>java.lang.String</type>
-	</attribute>
-	<attribute>
-	    <description><![CDATA[]]>
-	    </description>
-	    <name>options</name>
-	    <required>false</required>
-	    <type>org.plotfaces.PlotOptions</type>
-	</attribute>
-	<attribute>
-	    <description><![CDATA[]]>
-	    </description>
-	    <name>data</name>
-	    <required>false</required>
-	    <type>org.plotfaces.data.PlotData</type>
-	</attribute>
-    </tag>
+	<tag>
+		<tag-name>plot</tag-name>
+		<description><![CDATA[Draws a line chart.]]>
+		</description>
+		<component>
+			<component-type>org.plotfaces.component.UIPlot</component-type>
+			<renderer-type>org.plotfaces.component.PlotRenderer</renderer-type>
+		</component>
+		<attribute>
+			<description><![CDATA[Unique identifier for this component.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[Individual style information for the chart.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[Class style information for the chart.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[]]>
+			</description>
+			<name>chartModel</name>
+			<required>false</required>
+			<type>org.plotfaces.data.ChartModel</type>
+		</attribute>
+		<!--<attribute>
+			<description><![CDATA[]]>
+			</description>
+			<name>data</name>
+			<required>false</required>
+			<type>org.plotfaces.data.PlotData</type>
+		</attribute>-->
+		<attribute>
+			<description><![CDATA[]]>
+			</description>
+			<name>rendererOptions</name>
+			<required>false</required>
+			<type>org.plotfaces.component.RendererOptions</type>
+		</attribute>
+	</tag>
 </facelet-taglib>
 
