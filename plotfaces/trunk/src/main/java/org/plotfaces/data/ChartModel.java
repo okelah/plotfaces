@@ -30,7 +30,7 @@ public class ChartModel {
     private List<Axis> axes;
     private Legend legend;
     private ChartSeries seriesDefaults;
-    private List<ChartSeries> series = new ArrayList<>();
+    private List<ChartSeries> series = new ArrayList<ChartSeries>();
 
     public String plot( String optionsVariable ) {
 		StringBuilder builder = new StringBuilder();
@@ -87,7 +87,7 @@ public class ChartModel {
 		if (i > 0) {
 		    builder.append(",\n");
 		}
-		builder.append( getAxes().get( i ).getAxisName().name() ).append( ":" );
+		builder.append(getAxes().get( i ).getAxisName().name() ).append( ":" );
 		builder.append(getAxes().get(i).plot());
 	    }
 	    
