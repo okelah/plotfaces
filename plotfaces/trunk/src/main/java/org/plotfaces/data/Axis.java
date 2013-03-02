@@ -85,11 +85,20 @@ public class Axis {
 		}
 
 		if (getTickRenderer() != null) {
-			getTickRenderer().plot( builder, true, isCommaRequired );
-			isCommaRequired = true;
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
+			getTickRenderer().plot( builder, true );
 		}
 
 		if (getLabelRenderer() != null) {
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
 			getLabelRenderer().plot( builder );
 		}
 
@@ -140,8 +149,12 @@ public class Axis {
 		}
 		
 		if (getRenderer() != null) {
-			getRenderer().plot(builder, true, isCommaRequired );
-			isCommaRequired = true;
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
+			getRenderer().plot(builder, true );
 		}
 
 		if (getShowTicks() != null) {
