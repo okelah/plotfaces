@@ -34,8 +34,7 @@ import org.plotfaces.data.ChartSeries;
  */
 @ResourceDependencies({
 	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.css"),
-	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.js"),
-	@ResourceDependency(library = "plotfaces", name = "plugins/jqplot.barRenderer.js")})
+	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.js")})
 @FacesRenderer(componentFamily = UIPlot.COMPONENT_FAMILY, rendererType = UIPlot.DEFAULT_REDERER)
 public class PlotRenderer extends Renderer {
 

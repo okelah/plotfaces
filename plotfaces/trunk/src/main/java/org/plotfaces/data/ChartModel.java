@@ -19,114 +19,128 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
+ * 
  * @author Graham Smith
  */
 public class ChartModel {
 
-    private Axis axesDefaults;
-    private List<Axis> axes;
-    private Legend legend;
-    private ChartSeries seriesDefaults;
-    private List<ChartSeries> series = new ArrayList<ChartSeries>();
+	private Axis axesDefaults;
+	private List<Axis> axes;
+	private Legend legend;
+	private ChartSeries seriesDefaults;
+	private List<ChartSeries> series = new ArrayList<ChartSeries>();
 
-    public String plot( String optionsVariable ) {
+	public String plot(String optionsVariable) {
 		StringBuilder builder = new StringBuilder();
-	
+
 		builder.append("var ");
-		builder.append( optionsVariable );
+		builder.append(optionsVariable);
 		builder.append(" = {\n");
-	
-		//Series defaults must be the first piece of configuration output as it doens't prepend a comma.
+
+		// Series defaults must be the first piece of configuration output as it
+		// doens't prepend a comma.
 		builder.append(plotSeriesDefaults());
+		builder.append(plotSeries());
 		builder.append(plotAxesDefaults());
 		builder.append(plotAxes());
-	
+
 		builder.append("};\n");
-	
+
 		return builder.toString();
-    }
-
-    /**
-     * Slightly special first encoder. If no series defaults are supplied this
-     * method still creates an option with empty brackets. This is because it is
-     * the first item in the options array and doesn't prepend a comma.
-     *
-     * @return
-     * @throws IOException
-     */
-    private String plotSeriesDefaults() {
-	StringBuilder builder = new StringBuilder();
-	builder.append("seriesDefaults:");
-	if (getSeriesDefaults() != null) {
-	    builder.append(getSeriesDefaults().plot());
-	} else {
-	    builder.append("{}");
 	}
-	return builder.toString();
-    }
 
-    private String plotAxesDefaults() {
-	StringBuilder builder = new StringBuilder();
-	if (getAxesDefaults() != null) {
-	    builder.append(", axesDefaults:");
-		builder.append(getAxesDefaults().plot());
-	    builder.append("\n");
-	}
-	return builder.toString();
-    }
-
-    private String plotAxes() {
-	StringBuilder builder = new StringBuilder();
-	if (getAxes() != null && !getAxes().isEmpty()) {
-	    builder.append(",\naxes:{\n");
-	    
-	    for (int i = 0, n = axes.size(); i < n; i++) {
-		if (i > 0) {
-		    builder.append(",\n");
+	/**
+	 * Slightly special first encoder. If no series defaults are supplied this
+	 * method still creates an option with empty brackets. This is because it is
+	 * the first item in the options array and doesn't prepend a comma.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	private String plotSeriesDefaults() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("seriesDefaults:");
+		if (getSeriesDefaults() != null) {
+			builder.append(getSeriesDefaults().plot());
+		} else {
+			builder.append("{}");
 		}
-		builder.append(getAxes().get( i ).getAxisName().name() ).append( ":" );
-		builder.append(getAxes().get(i).plot());
-	    }
-	    
-	    builder.append("\n}\n");
+		return builder.toString();
 	}
-	return builder.toString();
-    }
 
-    public Axis getAxesDefaults() {
-	return axesDefaults;
-    }
+	private String plotSeries() {
+		StringBuilder builder = new StringBuilder();
+		if (getSeries().size() > 0) {
+			builder.append(", series:[");
+			for( int i = 0, n = getSeries().size(); i < n; i++ ) {
+				builder.append(getSeries().get( i ).plot());
+			}
+			builder.append("]");
+		}
+		return builder.toString();
+	}
 
-    public void setAxesDefaults(Axis axesDefaults) {
-	this.axesDefaults = axesDefaults;
-    }
+	private String plotAxesDefaults() {
+		StringBuilder builder = new StringBuilder();
+		if (getAxesDefaults() != null) {
+			builder.append(", axesDefaults:");
+			builder.append(getAxesDefaults().plot());
+			builder.append("\n");
+		}
+		return builder.toString();
+	}
 
-    public List<Axis> getAxes() {
-	return axes;
-    }
+	private String plotAxes() {
+		StringBuilder builder = new StringBuilder();
+		if (getAxes() != null && !getAxes().isEmpty()) {
+			builder.append(",\naxes:{\n");
 
-    public void setAxes(List<Axis> axes) {
-	this.axes = axes;
-    }
+			for (int i = 0, n = axes.size(); i < n; i++) {
+				if (i > 0) {
+					builder.append(",\n");
+				}
+				builder.append(getAxes().get(i).getAxisName().name()).append(
+						":");
+				builder.append(getAxes().get(i).plot());
+			}
 
-    public Legend getLegend() {
-	return legend;
-    }
+			builder.append("\n}\n");
+		}
+		return builder.toString();
+	}
 
-    public void setLegend(Legend legend) {
-	this.legend = legend;
-    }
+	public Axis getAxesDefaults() {
+		return axesDefaults;
+	}
 
-    public ChartSeries getSeriesDefaults() {
-	return seriesDefaults;
-    }
+	public void setAxesDefaults(Axis axesDefaults) {
+		this.axesDefaults = axesDefaults;
+	}
 
-    public void setSeriesDefaults(ChartSeries seriesDefaults) {
-	this.seriesDefaults = seriesDefaults;
-    }
+	public List<Axis> getAxes() {
+		return axes;
+	}
+
+	public void setAxes(List<Axis> axes) {
+		this.axes = axes;
+	}
+
+	public Legend getLegend() {
+		return legend;
+	}
+
+	public void setLegend(Legend legend) {
+		this.legend = legend;
+	}
+
+	public ChartSeries getSeriesDefaults() {
+		return seriesDefaults;
+	}
+
+	public void setSeriesDefaults(ChartSeries seriesDefaults) {
+		this.seriesDefaults = seriesDefaults;
+	}
 
 	public List<ChartSeries> getSeries() {
 		return series;

@@ -39,7 +39,7 @@ public class Optimizer {
 
 		// To get the complete set of externs, the logic in
 		// CompilerRunner.getDefaultExterns() should be used here.
-		List<SourceFile> externs = new ArrayList<>();
+		List<SourceFile> externs = new ArrayList<SourceFile>();
 		//The Closure compiler blows up if provided with null externs!
 		if( options.getExterns() != null ) {
 			externs.add(SourceFile.fromCode("externs.js",options.getExterns()));
@@ -47,7 +47,7 @@ public class Optimizer {
 
 		// The dummy input name "input.js" is used here so that any warnings or
 		// errors will cite line numbers in terms of input.js.
-		List<SourceFile> inputs = new ArrayList<>();
+		List<SourceFile> inputs = new ArrayList<SourceFile>();
 		inputs.add(SourceFile.fromCode("input.js", javascript));
 
 		compiler.compile(externs, inputs, compilerOptions);

@@ -2,20 +2,20 @@ package org.plotfaces.renderer;
 
 import org.plotfaces.PlotUtilities;
 
-public class CategoryAxisTickRenderer extends TickRenderer {
+public class CategoryAxisRenderer extends AxisRenderer {
 	private Boolean sortMergedLabels;
 	private TickRenderer tickRenderer;
 	
 	@Override
-	public boolean plot(StringBuilder builder, boolean isCloseOptions) {
-		boolean isCommaRequired = super.plot(builder, false);
+	public boolean plot(StringBuilder builder, boolean isCloseOptions, boolean isCommaRequired ) {
+		isCommaRequired = super.plot(builder, false, isCommaRequired);
 
 		if (getSortMergedLabels() != null) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "sortMergedLabels", String.valueOf( getSortMergedLabels() ), isCommaRequired );
 		}
 		
 		if( getTickRenderer() != null ) {
-			getTickRenderer().plot( builder, isCloseOptions );
+			getTickRenderer().plot( builder, isCloseOptions, isCommaRequired );
 		}
 		
 		if( isCloseOptions ) {
