@@ -17,8 +17,8 @@ public abstract class CommonTickRenderer extends TickRenderer {
 	private String fontSize; 
 	private String textColor;
 	
-	public boolean plot( StringBuilder builder, boolean isCloseOptions, boolean isCommaRequired ) {
-		isCommaRequired = super.plot( builder, false, isCommaRequired );
+	public boolean plot( StringBuilder builder, boolean isCloseOptions ) {
+		boolean isCommaRequired = super.plot( builder, false );
 		if (getMark() != null) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "mark", getMark(), isCommaRequired, true );
 		}
