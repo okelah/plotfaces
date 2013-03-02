@@ -3,15 +3,17 @@ package org.plotfacesdemo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+
 import org.plotfaces.component.RendererOptions;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
-import org.plotfaces.renderer.CategoryAxisTickRenderer;
+import org.plotfaces.renderer.CategoryAxisRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +47,7 @@ public class LineChartDemo implements Serializable {
 			chartSeries.getData().put( "Funky", 5 );
 			chartSeries.getData().put( "Spunky", 2 );
 			chartSeries.getData().put( "Monkey", 9 );
-			
+			chartSeries.setRenderer( new BarRenderer() );
 			chartModel.getSeries().add( chartSeries );
 		}
 		return chartModel;
@@ -77,28 +79,28 @@ public class LineChartDemo implements Serializable {
 		List<Axis> axes = new ArrayList<Axis>();
 
 		Axis x = new Axis(Axis.AxisName.xaxis);
-		x.setLabel("X-Axis");
+//		x.setLabel("X-Axis");
 //		List<String> ticks = new ArrayList<String>();
 //		ticks.add( "Funky" );
 //		ticks.add( "Spunky" );
 //		ticks.add( "Monkey" );
 //		x.setTicks( ticks );
-		CategoryAxisTickRenderer categoryAxisTickRenderer = new CategoryAxisTickRenderer();
-		x.setTickRenderer(categoryAxisTickRenderer);
+		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
+		x.setRenderer(categoryAxisRenderer);
 		axes.add(x);
 
-		Axis y = new Axis(Axis.AxisName.yaxis);
-		y.setLabel("Y-Axis");
-		axes.add(y);
+//		Axis y = new Axis(Axis.AxisName.yaxis);
+//		y.setLabel("Y-Axis");
+//		axes.add(y);
 
 		return axes;
 	}
 
 	private ChartSeries getSeriesDefaults() {
 		ChartSeries series = new ChartSeries();
-		series.setxAxis(Axis.AxisName.xaxis);
-		series.setyAxis(Axis.AxisName.yaxis);
-		// series.setRenderer("$.jqplot.BarRenderer");
+//		series.setxAxis(Axis.AxisName.xaxis);
+//		series.setyAxis(Axis.AxisName.yaxis);
+//		series.setRenderer( new BarRenderer() );
 		return series;
 	}
 }
