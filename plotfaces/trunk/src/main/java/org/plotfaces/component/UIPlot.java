@@ -96,6 +96,21 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 			// add to the start of the list
 			componentResources.add(0, js);
 		}
+		
+		componentResources.add(createPlotFacesJavascript( "jqplot.dateAxisRenderer.js" ));
+		componentResources.add(createPlotFacesJavascript( "jqplot.canvasTextRenderer.js" ));
+		componentResources.add(createPlotFacesJavascript( "jqplot.canvasAxisTickRenderer.js" ));
+		componentResources.add(createPlotFacesJavascript( "jqplot.categoryAxisRenderer.js" ));
+		componentResources.add(createPlotFacesJavascript( "jqplot.barRenderer.js" ));
+		
+	}
+	
+	public UIOutput createPlotFacesJavascript( String fileName ) {
+		UIOutput js = new UIOutput();
+		js.setRendererType("javax.faces.resource.Script");
+		js.getAttributes().put("library", "plotfaces/plugins");
+		js.getAttributes().put("name", fileName );
+		return js;
 	}
 
 	@Override

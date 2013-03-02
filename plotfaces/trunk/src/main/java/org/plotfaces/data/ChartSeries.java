@@ -57,7 +57,7 @@ public class ChartSeries {
 	private Boolean useNegativeColors;  
 	private ChartRenderer renderer;  
 	private MarkerRenderer markerRenderer;  
-    private Map<Object,Number> data = new LinkedHashMap<>();
+    private Map<Object,Number> data = new LinkedHashMap<Object,Number>();
 
 	public ChartSeries() {
 	}
