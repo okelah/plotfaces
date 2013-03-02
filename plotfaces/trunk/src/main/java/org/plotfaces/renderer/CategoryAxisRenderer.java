@@ -7,15 +7,20 @@ public class CategoryAxisRenderer extends AxisRenderer {
 	private TickRenderer tickRenderer;
 	
 	@Override
-	public boolean plot(StringBuilder builder, boolean isCloseOptions, boolean isCommaRequired ) {
-		isCommaRequired = super.plot(builder, false, isCommaRequired);
+	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
+		boolean isCommaRequired = super.plot(builder, false);
 
 		if (getSortMergedLabels() != null) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "sortMergedLabels", String.valueOf( getSortMergedLabels() ), isCommaRequired );
 		}
 		
 		if( getTickRenderer() != null ) {
-			getTickRenderer().plot( builder, isCloseOptions, isCommaRequired );
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
+			getTickRenderer().plot( builder, isCloseOptions );
 		}
 		
 		if( isCloseOptions ) {

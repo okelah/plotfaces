@@ -11,8 +11,8 @@ public class CanvasAxisTickRenderer extends CommonTickRenderer {
 	private Double pt2px;
 	
 	@Override
-	public boolean plot(StringBuilder builder, boolean isCloseOptions, boolean isCommaRequired ) {
-		isCommaRequired = super.plot(builder, false, isCommaRequired );
+	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
+		boolean isCommaRequired = super.plot(builder, false );
 
 		if (getAngle() != null) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "angle", String.valueOf( getAngle() ), isCommaRequired );
