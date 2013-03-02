@@ -76,7 +76,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 					break;
 				}
 			} else if ("plotfaces".equals(componentResources.get(i).getAttributes().get("library"))) {
-				if ("jquery.jqplot.js".equals(componentResources.get(i).getAttributes().get("name"))) {
+				if ("chart.js".equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqPlotIdx = i;
 				}
 			}
@@ -96,13 +96,6 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 			// add to the start of the list
 			componentResources.add(0, js);
 		}
-		
-		componentResources.add(createPlotFacesJavascript( "jqplot.dateAxisRenderer.js" ));
-		componentResources.add(createPlotFacesJavascript( "jqplot.canvasTextRenderer.js" ));
-		componentResources.add(createPlotFacesJavascript( "jqplot.canvasAxisTickRenderer.js" ));
-		componentResources.add(createPlotFacesJavascript( "jqplot.categoryAxisRenderer.js" ));
-		componentResources.add(createPlotFacesJavascript( "jqplot.barRenderer.js" ));
-		
 	}
 	
 	public UIOutput createPlotFacesJavascript( String fileName ) {

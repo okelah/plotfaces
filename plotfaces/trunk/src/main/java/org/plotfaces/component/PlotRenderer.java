@@ -33,8 +33,8 @@ import org.plotfaces.data.ChartSeries;
  * @author Graham Smith
  */
 @ResourceDependencies({
-	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.css"),
-	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.js")})
+	@ResourceDependency(library = "plotfaces", name = "chart.css"),
+	@ResourceDependency(library = "plotfaces", name = "chart.js")})
 @FacesRenderer(componentFamily = UIPlot.COMPONENT_FAMILY, rendererType = UIPlot.DEFAULT_REDERER)
 public class PlotRenderer extends Renderer {
 
