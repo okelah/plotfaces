@@ -76,7 +76,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 					break;
 				}
 			} else if ("plotfaces".equals(componentResources.get(i).getAttributes().get("library"))) {
-				if ("chart.js".equals(componentResources.get(i).getAttributes().get("name"))) {
+				if ("jqplotCharts.js".equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqPlotIdx = i;
 				}
 			}
