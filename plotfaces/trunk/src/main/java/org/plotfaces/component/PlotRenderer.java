@@ -141,7 +141,7 @@ public class PlotRenderer extends Renderer {
 	 * @throws IOException
 	 */
 	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable) throws IOException {
-		builder.append("var ");
+		/*builder.append("var ");
 		builder.append(dataVariable);
 		builder.append(" = ");
 		List<ChartSeries> chartSeries = plot.getChartModel().getSeries();
@@ -170,7 +170,17 @@ public class PlotRenderer extends Renderer {
 				builder.append(",");
 			}
 		}
-		builder.append(";\n");
+		builder.append(";\n");*/
+		
+		
+		//Dummy data
+		builder.append("var " + dataVariable + " = [");
+		java.util.Random r = new java.util.Random();
+		for (int i = 0, n = 10; i < n; i++) {
+			builder.append("[" + i + "," + r.nextInt(100) + "],");
+		}
+		builder.deleteCharAt( builder.length() - 1);
+		builder.append("];\n");
 	}
 
 	private void encodeChartModel(StringBuilder builder, UIPlot plot, String optionsVariable) throws IOException {
