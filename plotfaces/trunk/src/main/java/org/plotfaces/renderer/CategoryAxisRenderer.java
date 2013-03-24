@@ -10,9 +10,7 @@ public class CategoryAxisRenderer extends AxisRenderer {
 	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
 		boolean isCommaRequired = super.plot(builder, false);
 
-		if (getSortMergedLabels() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "sortMergedLabels", String.valueOf( getSortMergedLabels() ), isCommaRequired );
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "sortMergedLabels", getSortMergedLabels(), isCommaRequired );
 		
 		if( getTickRenderer() != null ) {
 			if( isCommaRequired ) {

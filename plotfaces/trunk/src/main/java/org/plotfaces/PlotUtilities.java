@@ -42,25 +42,47 @@ public final class PlotUtilities {
     }
     
 	public static boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired ) {
-		return addVariable(stringBuilder, variableName, variableValue, isCommaRequired, false);
+		return addVariable(stringBuilder, variableName, variableValue, isCommaRequired, true);
+	}
+
+	public static boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired, boolean addApostrophes ) {
+		if( variableValue != null && !variableValue.equals( "" ) ) {
+			if( addApostrophes ) {
+				StringBuffer variableValueBuf = new StringBuffer();
+				variableValueBuf.append( "'" );
+				variableValueBuf.append( variableValue );
+				variableValueBuf.append( "'" );
+				variableValue = variableValueBuf.toString();
+			}	
+			addProcessedVariable(stringBuilder, variableName, String.valueOf( variableValue ), isCommaRequired );
+			return true;
+		}
+		return isCommaRequired;
+	}
+    
+	public static boolean addVariable( StringBuilder stringBuilder, String variableName, Number variableValue, Boolean isCommaRequired ) {
+		if( variableValue != null ) {
+			addProcessedVariable(stringBuilder, variableName, String.valueOf( variableValue ), isCommaRequired );
+			return true;
+		}
+		return isCommaRequired;
+	}
+    
+	public static boolean addVariable( StringBuilder stringBuilder, String variableName, Boolean variableValue, Boolean isCommaRequired ) {
+		if( variableValue != null ) {
+			addProcessedVariable(stringBuilder, variableName, String.valueOf( variableValue ), isCommaRequired );
+			return true;
+		}
+		return isCommaRequired;
 	}
 	
-	public static boolean addVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired, boolean isString ) {
+	private static void addProcessedVariable( StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired ) {
 		if( isCommaRequired ) {
 			stringBuilder.append( "," );
-		} else {
-			isCommaRequired = true;
 		}
 		stringBuilder.append( "\n" );
 		stringBuilder.append( variableName ).append( ":" );
-		if( isString ) {
-			stringBuilder.append( "'" );
-		}
 		stringBuilder.append( variableValue );
-		if( isString ) {
-			stringBuilder.append( "'" );
-		}
-		return isCommaRequired;
 	}
 
     /**

@@ -141,46 +141,29 @@ public class PlotRenderer extends Renderer {
 	 * @throws IOException
 	 */
 	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable) throws IOException {
-		/*builder.append("var ");
+		builder.append("var ");
 		builder.append(dataVariable);
 		builder.append(" = ");
 		List<ChartSeries> chartSeries = plot.getChartModel().getSeries();
 		String processedMapKey;
+		builder.append("[");
 		for (int i = 0, n = chartSeries.size(); i < n; i++) {
 			builder.append("[");
 			int count = 0;
-			int keySetSize = chartSeries.get(i).getData().keySet().size();
-			for (Object mapKey : chartSeries.get(i).getData().keySet()) {
-				if (mapKey instanceof Number) {
-					processedMapKey = String.valueOf(mapKey);
-				} else {
-					processedMapKey = "'" + String.valueOf(mapKey) + "'";
-				}
-				builder.append("[" );
-				builder.append(processedMapKey);
-				builder.append(",");
-				builder.append(chartSeries.get(i).getData().get(mapKey));
-				builder.append("]");
-				if (++count != keySetSize) {
+			for (int j = 0, p = chartSeries.get(i).getData().length; j < p; j++) {
+				builder.append(chartSeries.get(i).getData()[ j ]);
+//				builder.append("]");
+				if (++count != p) {
 					builder.append(",");
 				}
 			}
 			builder.append("]");
 			if (i != (chartSeries.size() - 1)) {
-				builder.append(",");
+				builder.append(",\n");
 			}
 		}
-		builder.append(";\n");*/
-		
-		
-		//Dummy data
-		builder.append("var " + dataVariable + " = [");
-		java.util.Random r = new java.util.Random();
-		for (int i = 0, n = 10; i < n; i++) {
-			builder.append("[" + i + "," + r.nextInt(100) + "],");
-		}
-		builder.deleteCharAt( builder.length() - 1);
-		builder.append("];\n");
+		builder.append("]");
+		builder.append(";\n");
 	}
 
 	private void encodeChartModel(StringBuilder builder, UIPlot plot, String optionsVariable) throws IOException {
@@ -195,9 +178,9 @@ public class PlotRenderer extends Renderer {
 		builder.append(plotVariable);
 		builder.append(" = $.jqplot('");
 		builder.append(safeTargetId);
-		builder.append("', [");
+		builder.append("', ");
 		builder.append(dataVariable);
-		builder.append("], ");
+		builder.append(", ");
 		builder.append(optionsVariable);
 		builder.append(")\n");
 	}

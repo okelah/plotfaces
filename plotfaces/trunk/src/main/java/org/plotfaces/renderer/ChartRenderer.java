@@ -1,11 +1,31 @@
 package org.plotfaces.renderer;
 
+import org.plotfaces.PlotUtilities;
+
 public class ChartRenderer {
 
 	private Boolean highlightMouseOver;
 	private Boolean highlightMouseDown;
 	private String highlightColor;
-	
+
+
+	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
+		builder.append("\nrenderer: $.jqplot.");
+		builder.append(getClass().getSimpleName());
+		builder.append(",\nrendererOptions: ");
+		builder.append("{");
+		
+		boolean isCommaRequired = false;
+		
+		isCommaRequired = PlotUtilities.addVariable( builder, "highlightMouseOver", getHighlightMouseOver(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "highlightMouseDown", getHighlightMouseDown(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "highlightColor", getHighlightColor(), isCommaRequired );
+		
+		if( isCloseOptions ) {
+			builder.append( "}" );
+		}
+		return isCommaRequired;
+	}
 	
 	/**
 	 * True to highlight area on a filled plot when moused over.  This must be false to enable highlightMouseDown to highlight when clicking on an area on a filled plot.

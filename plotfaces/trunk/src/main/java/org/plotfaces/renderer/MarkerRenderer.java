@@ -1,5 +1,7 @@
 package org.plotfaces.renderer;
 
+import org.plotfaces.PlotUtilities;
+
 public class MarkerRenderer {
 	private Boolean show;  
 	private String style;  
@@ -10,7 +12,33 @@ public class MarkerRenderer {
 	private Integer shadowAngle;  
 	private Integer shadowOffset; 
 	private Integer shadowDepth;  
-	private Double shadowAlpha; 
+	private Double shadowAlpha;
+	
+
+	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
+		builder.append("\nmarkerRenderer: $.jqplot.");
+		builder.append(getClass().getSimpleName());
+		builder.append(",\nmarkerOptions: ");
+		builder.append("{");
+		
+		boolean isCommaRequired = false;
+		
+		isCommaRequired = PlotUtilities.addVariable( builder, "show", getShow(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "style", getStyle(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "lineWidth", getLineWidth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "size", getSize(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "color", getColor(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadow", getShadow(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAngle", getShadowAngle(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowOffset", getShadowOffset(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowDepth", getShadowDepth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAlpha", getShadowAlpha(), isCommaRequired );
+		
+		if( isCloseOptions ) {
+			builder.append( "}" );
+		}
+		return isCommaRequired;
+	}
 	
 	/**
 	 * whether or not to show the marker.
