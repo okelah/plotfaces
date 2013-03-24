@@ -44,9 +44,7 @@ public class LineChartDemo implements Serializable {
 			chartModel.setAxes(getAxes());
 
 			ChartSeries chartSeries = new ChartSeries();
-			chartSeries.getData().put( "Funky", 5 );
-			chartSeries.getData().put( "Spunky", 2 );
-			chartSeries.getData().put( "Monkey", 9 );
+			chartSeries.setData( new Number[] { 5, 2, 9 } );
 			chartSeries.setRenderer( new BarRenderer() );
 			chartModel.getSeries().add( chartSeries );
 		}
@@ -80,11 +78,11 @@ public class LineChartDemo implements Serializable {
 
 		Axis x = new Axis(Axis.AxisName.xaxis);
 //		x.setLabel("X-Axis");
-//		List<String> ticks = new ArrayList<String>();
-//		ticks.add( "Funky" );
-//		ticks.add( "Spunky" );
-//		ticks.add( "Monkey" );
-//		x.setTicks( ticks );
+		List<String> ticks = new ArrayList<String>();
+		ticks.add( "Funky" );
+		ticks.add( "Spunky" );
+		ticks.add( "Monkey" );
+		x.setTicks( ticks );
 		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
 		x.setRenderer(categoryAxisRenderer);
 		axes.add(x);
