@@ -14,29 +14,12 @@ public class CanvasAxisTickRenderer extends CommonTickRenderer {
 	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
 		boolean isCommaRequired = super.plot(builder, false );
 
-		if (getAngle() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "angle", String.valueOf( getAngle() ), isCommaRequired );
-		}
-
-		if (getLabelPosition() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "labelPosition", getLabelPosition(), isCommaRequired, true );
-		}
-
-		if (getFontWeight() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "fontWeight", getFontWeight(), isCommaRequired, true );
-		}
-
-		if (getFontStretch() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "fontStretch", String.valueOf( getFontStretch() ), isCommaRequired );
-		}
-
-		if (getEnableFontSupport() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "enableFontSupport", String.valueOf( getEnableFontSupport() ), isCommaRequired );
-		}
-
-		if (getPt2px() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "pt2px", String.valueOf( getPt2px() ), isCommaRequired );
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "angle", getAngle(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "labelPosition", getLabelPosition(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fontWeight", getFontWeight(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fontStretch", getFontStretch(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "enableFontSupport", getEnableFontSupport(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "pt2px", getPt2px(), isCommaRequired );
 		
 		if( isCloseOptions ) {
 			builder.append("}");

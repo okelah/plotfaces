@@ -23,53 +23,22 @@ public abstract class CommonTickRenderer extends TickRenderer {
 			isCommaRequired = PlotUtilities.addVariable( builder, "mark", getMark(), isCommaRequired, true );
 		}
 
-		if (getShowMark() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showMark", String.valueOf( getShowMark()), isCommaRequired );
-		}
-
-		if (getShowGridline() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showGridline", String.valueOf( getShowGridline()), isCommaRequired );
-		}
-
-		if (getIsMinorTick() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "isMinorTick", String.valueOf( getIsMinorTick()), isCommaRequired );
-		}
-
-		if (getMarkSize() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "markSize", String.valueOf( getMarkSize()), isCommaRequired );
-		}
-
-		if (getShow() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "show", String.valueOf( getShow()), isCommaRequired );
-		}
-
-		if (getShowLabel() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", String.valueOf( getShowLabel()), isCommaRequired );
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "showMark", getShowMark(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showGridline", getShowGridline(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "isMinorTick", getIsMinorTick(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "markSize", getMarkSize(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "show", getShow(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", getShowLabel(), isCommaRequired );
 
 		if (getFormatter() != null) {
 			getFormatter().plot( builder );
 		}
 
-		if (getFormatString() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "formatString", getFormatString(), isCommaRequired, true );
-		}
-
-		if (getPrefix() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "prefix", getPrefix(), isCommaRequired, true );
-		}
-
-		if (getFontFamily() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "fontFamily", getFontFamily(), isCommaRequired, true );
-		}
-
-		if (getFontSize() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "fontSize", getFontSize(), isCommaRequired, true );
-		}
-
-		if (getTextColor() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "textColor", getTextColor(), isCommaRequired, true );
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "formatString", getFormatString(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "prefix", getPrefix(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fontFamily", getFontFamily(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fontSize", getFontSize(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "textColor", getTextColor(), isCommaRequired, true );
 		
 		if( isCloseOptions ) {
 			builder.append("}");

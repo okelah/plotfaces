@@ -1,5 +1,7 @@
 package org.plotfaces.renderer;
 
+import org.plotfaces.PlotUtilities;
+
 public class BarRenderer extends ChartRenderer {
 	private Integer padding;
 	private Integer barMargin;
@@ -11,6 +13,31 @@ public class BarRenderer extends ChartRenderer {
 	private Boolean waterfall;
 	private Integer groups;
 	private Boolean varyByColor;
+	
+
+	
+	@Override
+	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
+		boolean isCommaRequired = super.plot(builder, false );
+
+		isCommaRequired = PlotUtilities.addVariable( builder, "padding", getPadding(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "barMargin", getBarMargin(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "barDirection", getBarDirection(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "barWidth", getBarWidth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowOffset", getShadowOffset(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowDepth", getShadowDepth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAlpha", getShadowAlpha(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "waterfall", getWaterfall(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "groups", getGroups(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "varyByColor", getVaryByColor(), isCommaRequired );
+		
+		if( isCloseOptions ) {
+			builder.append("}");
+		}
+		
+		return isCommaRequired;
+	}
+	
 	/**
 	 * Number of pixels between adjacent bars at the same axis value.
 	 * default 8

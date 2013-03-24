@@ -81,7 +81,7 @@ public class Axis {
 		boolean isCommaRequired = false; 
 
 		if( getShow() == null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "show", Boolean.toString(getShow()), isCommaRequired);
+			isCommaRequired = PlotUtilities.addVariable( builder, "show", getShow(), isCommaRequired);
 		}
 
 		if (getTickRenderer() != null) {
@@ -102,51 +102,19 @@ public class Axis {
 			getLabelRenderer().plot( builder );
 		}
 
-		if (getLabel() != null && !getLabel().isEmpty()) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "label", getLabel(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "label", getLabel(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", getShowLabel(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "min", getMin(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "max", getMax(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "autoscale", getAutoScale(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "pad", getPad(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "padMin", getPadMin(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "padMax", getPadMax(), isCommaRequired);
+		if( getTicks() != null && getTicks().size() > 0 ) {
+			isCommaRequired = PlotUtilities.addVariable( builder, "ticks", "['" + StringUtils.join( getTicks(), "','" ) + "']", isCommaRequired, false);
 		}
-
-		if (getShowLabel() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", Boolean.toString(getShowLabel()), isCommaRequired);
-		}
-
-		if (getMin() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "min", String.valueOf(getMin()), isCommaRequired);
-		}
-
-		if (getMax() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "max", String.valueOf(getShow()), isCommaRequired);
-		}
-		
-		if( getAutoScale() != null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "autoscale", String.valueOf(getAutoScale()), isCommaRequired);
-		}
-		
-		if( getPad() != null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "pad", String.valueOf(getPad()), isCommaRequired);
-		}
-		
-		if( getPadMin() != null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "padMin", String.valueOf(getPadMin()), isCommaRequired);
-		}
-		
-		if( getPadMax() != null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "padMax", String.valueOf(getPadMax()), isCommaRequired);
-		}
-		
-		if (getTicks() != null && !getTicks().isEmpty()) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "ticks", "['" + StringUtils.join( getTicks(), "','" ) + "']", isCommaRequired);
-		}
-		
-		//numberTicks and tickInterval are mutually exclusive. 
-		if( getNumberTicks() != null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "numberTicks", String.valueOf(getNumberTicks()), isCommaRequired);
-		}
-		
-		//numberTicks and tickInterval are mutually exclusive. 
-		if( getTickInterval() != null && getTickInterval() == null ) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "tickInterval", String.valueOf(getTickInterval()), isCommaRequired);
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "numberTicks", getNumberTicks(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "tickInterval", getTickInterval(), isCommaRequired);
 		
 		if (getRenderer() != null) {
 			if( isCommaRequired ) {
@@ -157,37 +125,14 @@ public class Axis {
 			getRenderer().plot(builder, true );
 		}
 
-		if (getShowTicks() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showTicks", String.valueOf(getShowTicks()), isCommaRequired);
-		}
-		
-		if (getShowTickMarks() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showTickMarks", String.valueOf(getShowTickMarks()), isCommaRequired);
-		}
-		
-		if (getShowMinorTicks() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "showMinorTicks", String.valueOf(getShowMinorTicks()), isCommaRequired);
-		}
-		
-		if (getUseSeriesColor() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "useSeriesColor", String.valueOf(getUseSeriesColor()), isCommaRequired);
-		}
-		
-		if (getBorderWidth() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "borderWidth", String.valueOf(getBorderWidth()), isCommaRequired);
-		}
-		
-		if (getBorderColor() != null && !getBorderColor().isEmpty()) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "borderColor", "#" + getBorderColor(), isCommaRequired, true );
-		}
-		
-		if (getSyncTicks() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "syncTicks", String.valueOf(getSyncTicks()), isCommaRequired);
-		}
-		
-		if (getTickSpacing() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "tickSpacing", String.valueOf(getTickSpacing()), isCommaRequired);
-		}
+		isCommaRequired = PlotUtilities.addVariable( builder, "showTicks", getShowTicks(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "showTickMarks", getShowTickMarks(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "showMinorTicks", getShowMinorTicks(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "useSeriesColor", getUseSeriesColor(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "borderWidth", getBorderWidth(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "borderColor", getBorderColor(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "syncTicks", getSyncTicks(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "tickSpacing", getTickSpacing(), isCommaRequired);
 
 		builder.append("\n}");
 		return builder.toString();

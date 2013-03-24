@@ -57,7 +57,7 @@ public class ChartSeries {
 	private Boolean useNegativeColors;  
 	private ChartRenderer renderer;  
 	private MarkerRenderer markerRenderer;  
-    private Map<Object,Number> data = new LinkedHashMap<Object,Number>();
+    private Number[] data;
 
 	public ChartSeries() {
 	}
@@ -67,21 +67,56 @@ public class ChartSeries {
 		builder.append("{");
 		boolean isCommaRequired = false; 
 
-		if (getShow() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "show", Boolean.toString(getShow()), isCommaRequired);
-		}
-
-		if (getxAxis() != null) {
+		isCommaRequired = PlotUtilities.addVariable( builder, "show", getShow(), isCommaRequired);
+		if( getxAxis() != null ) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "xaxis", getxAxis().name(), isCommaRequired, true );
 		}
-
-		if (getyAxis() != null) {
+		if( getyAxis() != null ) {
 			isCommaRequired = PlotUtilities.addVariable( builder, "yaxis", getyAxis().name(), isCommaRequired, true );
 		}
-
-		if (getRenderer() != null) {
-			isCommaRequired = PlotUtilities.addVariable( builder, "renderer", "$.jqplot." + getRenderer().getClass().getSimpleName(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "label", getLabel(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showLabel", getShowLabel(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "color", getColor(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "lineWidth", getLineWidth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "lineJoin", getLineJoin(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "lineCap", getLineCap(), isCommaRequired, true );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadow", getShadow(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAngle", getShadowAngle(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowOffset", getShadowOffset(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowDepth", getShadowDepth(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAlpha", getShadowAlpha(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "breakOnNull", getBreakOnNull(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showLine", getShowLine(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "showMarker", getShowMarker(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "index", getIndex(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fill", getFill(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fillAndStroke", getFillAndStroke(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fillColor", getFillColor(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fillAlpha", getFillAlpha(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "disableStack", getDisableStack(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "neighbourThreshold", getNeighbourThreshold(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fillToValue", getFillToValue(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "fillAxis", getFillAxis(), isCommaRequired );
+		isCommaRequired = PlotUtilities.addVariable( builder, "useNegativeColors", getUseNegativeColors(), isCommaRequired );
+		
+		if( getRenderer() != null ) {
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
+			getRenderer().plot( builder, true );
 		}
+
+		if( getMarkerRenderer() != null ) {
+			if( isCommaRequired ) {
+				builder.append(",");
+			} else {
+				isCommaRequired = true;
+			}
+			getMarkerRenderer().plot( builder, true );
+		} 
+		
 		builder.append("\n}");
 		return builder.toString();
 	}
@@ -667,14 +702,14 @@ public class ChartSeries {
 	/**
 	 * @return the data
 	 */
-	public Map<Object,Number> getData() {
+	public Number[] getData() {
 		return data;
 	}
 
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(Map<Object,Number> data) {
+	public void setData(Number[] data) {
 		this.data = data;
 	}
 
