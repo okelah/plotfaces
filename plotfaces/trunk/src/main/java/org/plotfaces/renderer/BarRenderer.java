@@ -31,9 +31,9 @@ public class BarRenderer extends ChartRenderer {
 		isCommaRequired = PlotUtilities.addVariable( builder, "groups", getGroups(), isCommaRequired );
 		isCommaRequired = PlotUtilities.addVariable( builder, "varyByColor", getVaryByColor(), isCommaRequired );
 		
-		if( isCloseOptions ) {
-			builder.append("}");
-		}
+//		if( isCloseOptions ) {
+//			builder.append("}");
+//		}
 		
 		return isCommaRequired;
 	}
