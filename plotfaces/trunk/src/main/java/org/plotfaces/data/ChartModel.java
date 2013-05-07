@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.plotfaces.PlotUtilities;
+import org.plotfaces.plugins.Highlighter;
 
 /**
  * 
@@ -39,6 +40,7 @@ public class ChartModel {
 	private String fontSize;
 	private Boolean stackSeries;
 	private Integer defaultAxisStart;
+	private Highlighter highlighter;
 
 	public String plot(String optionsVariable) {
 		StringBuilder builder = new StringBuilder();
@@ -63,6 +65,10 @@ public class ChartModel {
 		builder.append(plotLegend());
 		builder.append(plotAxesDefaults());
 		builder.append(plotAxes());
+		if (getHighlighter() != null) {
+			builder.append(", highlighter: ");
+			getHighlighter().plot( builder );
+		}
 
 		builder.append("};\n");
 
@@ -264,5 +270,19 @@ public class ChartModel {
 	 */
 	public void setDataTicks(List<String> dataTicks) {
 		this.dataTicks = dataTicks;
+	}
+
+	/**
+	 * @return the highlighter
+	 */
+	public Highlighter getHighlighter() {
+		return highlighter;
+	}
+
+	/**
+	 * @param highlighter the highlighter to set
+	 */
+	public void setHighlighter(Highlighter highlighter) {
+		this.highlighter = highlighter;
 	}
 }
