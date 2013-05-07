@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.plotfaces.component.RendererOptions;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.plugins.Highlighter;
 import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CategoryAxisRenderer;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * @author Graham Smith
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class LineChartDemo implements Serializable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -42,6 +43,10 @@ public class LineChartDemo implements Serializable {
 			chartModel = new ChartModel();
 			chartModel.setSeriesDefaults(getSeriesDefaults());
 			chartModel.setAxes(getAxes());
+			Highlighter highlighter = new Highlighter();
+			highlighter.setShow(true);
+			highlighter.setSizeAdjust(15d);
+			chartModel.setHighlighter(highlighter);
 
 			ChartSeries chartSeries = new ChartSeries();
 			chartSeries.setData( new Number[] { 5, 2, 9 } );
