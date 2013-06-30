@@ -3,6 +3,7 @@ package org.plotfaces.renderer;
 import org.plotfaces.PlotUtilities;
 
 public class BarRenderer extends ChartRenderer {
+
 	private Integer padding;
 	private Integer barMargin;
 	private String barDirection;
@@ -13,208 +14,212 @@ public class BarRenderer extends ChartRenderer {
 	private Boolean waterfall;
 	private Integer groups;
 	private Boolean varyByColor;
-	
 
-	
-	@Override
-	public boolean plot(StringBuilder builder, boolean isCloseOptions ) {
-		boolean isCommaRequired = super.plot(builder, false );
-
-		isCommaRequired = PlotUtilities.addVariable( builder, "padding", getPadding(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "barMargin", getBarMargin(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "barDirection", getBarDirection(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "barWidth", getBarWidth(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "shadowOffset", getShadowOffset(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "shadowDepth", getShadowDepth(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "shadowAlpha", getShadowAlpha(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "waterfall", getWaterfall(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "groups", getGroups(), isCommaRequired );
-		isCommaRequired = PlotUtilities.addVariable( builder, "varyByColor", getVaryByColor(), isCommaRequired );
-		
-//		if( isCloseOptions ) {
-//			builder.append("}");
-//		}
-		
-		return isCommaRequired;
+	public BarRenderer() {
 	}
-	
+
+	@Override
+	public String getRendererType() {
+		return "BarRenderer";
+	}
+
 	/**
-	 * Number of pixels between adjacent bars at the same axis value.
-	 * default 8
-	 * 
+	 * Number of pixels between adjacent bars at the same axis value. default 8
+	 *
 	 * @return the padding
 	 */
 	public Integer getPadding() {
 		return padding;
 	}
+
 	/**
-	 * Number of pixels between adjacent bars at the same axis value.
-	 * default 8
-	 * 
+	 * Number of pixels between adjacent bars at the same axis value. default 8
+	 *
 	 * @param padding the padding to set
 	 */
 	public void setPadding(Integer padding) {
 		this.padding = padding;
 	}
+
 	/**
-	 * Number of pixels between groups of bars at adjacent axis values.
-	 * default 10
-	 * 
+	 * Number of pixels between groups of bars at adjacent axis values. default
+	 * 10
+	 *
 	 * @return the barMargin
 	 */
 	public Integer getBarMargin() {
 		return barMargin;
 	}
+
 	/**
-	 * Number of pixels between groups of bars at adjacent axis values.
-	 * default 10
-	 * 
+	 * Number of pixels between groups of bars at adjacent axis values. default
+	 * 10
+	 *
 	 * @param barMargin the barMargin to set
 	 */
 	public void setBarMargin(Integer barMargin) {
 		this.barMargin = barMargin;
 	}
+
 	/**
-	 * ’vertical’ = up and down bars, ‘horizontal’ = side to side bars
-	 * default 'vertical'
-	 * 
+	 * ’vertical’ = up and down bars, ‘horizontal’ = side to side bars default
+	 * 'vertical'
+	 *
 	 * @return the barDirection
 	 */
 	public String getBarDirection() {
 		return barDirection;
 	}
+
 	/**
-	 * ’vertical’ = up and down bars, ‘horizontal’ = side to side bars
-	 * default 'vertical'
-	 * 
+	 * ’vertical’ = up and down bars, ‘horizontal’ = side to side bars default
+	 * 'vertical'
+	 *
 	 * @param barDirection the barDirection to set
 	 */
 	public void setBarDirection(String barDirection) {
 		this.barDirection = barDirection;
 	}
+
 	/**
-	 * Width of the bar in pixels (auto by devaul).  null = calculated automatically.
-	 * 
+	 * Width of the bar in pixels (auto by devaul). null = calculated
+	 * automatically.
+	 *
 	 * @return the barWidth
 	 */
 	public Integer getBarWidth() {
 		return barWidth;
 	}
+
 	/**
-	 * Width of the bar in pixels (auto by devaul).  null = calculated automatically.
-	 * 
+	 * Width of the bar in pixels (auto by devaul). null = calculated
+	 * automatically.
+	 *
 	 * @param barWidth the barWidth to set
 	 */
 	public void setBarWidth(Integer barWidth) {
 		this.barWidth = barWidth;
 	}
+
 	/**
-	 * offset of the shadow from the slice and offset of each succesive stroke of the shadow from the last.
-	 * default 2
-	 * 
+	 * offset of the shadow from the slice and offset of each succesive stroke
+	 * of the shadow from the last. default 2
+	 *
 	 * @return the shadowOffset
 	 */
 	public Integer getShadowOffset() {
 		return shadowOffset;
 	}
+
 	/**
-	 * offset of the shadow from the slice and offset of each succesive stroke of the shadow from the last.
-	 * default 2
-	 * 
+	 * offset of the shadow from the slice and offset of each succesive stroke
+	 * of the shadow from the last. default 2
+	 *
 	 * @param shadowOffset the shadowOffset to set
 	 */
 	public void setShadowOffset(Integer shadowOffset) {
 		this.shadowOffset = shadowOffset;
 	}
+
 	/**
-	 * number of strokes to apply to the shadow, each stroke offset shadowOffset from the last.
-	 * default 5
-	 * 
+	 * number of strokes to apply to the shadow, each stroke offset shadowOffset
+	 * from the last. default 5
+	 *
 	 * @return the shadowDepth
 	 */
 	public Integer getShadowDepth() {
 		return shadowDepth;
 	}
+
 	/**
-	 * number of strokes to apply to the shadow, each stroke offset shadowOffset from the last.
-	 * default 5
-	 * 
+	 * number of strokes to apply to the shadow, each stroke offset shadowOffset
+	 * from the last. default 5
+	 *
 	 * @param shadowDepth the shadowDepth to set
 	 */
 	public void setShadowDepth(Integer shadowDepth) {
 		this.shadowDepth = shadowDepth;
 	}
+
 	/**
-	 * transparency of the shadow (0 = transparent, 1 = opaque)
-	 * default 0.08
-	 * 
+	 * transparency of the shadow (0 = transparent, 1 = opaque) default 0.08
+	 *
 	 * @return the shadowAlpha
 	 */
 	public Double getShadowAlpha() {
 		return shadowAlpha;
 	}
+
 	/**
-	 * transparency of the shadow (0 = transparent, 1 = opaque)
-	 * default 0.08
-	 * 
+	 * transparency of the shadow (0 = transparent, 1 = opaque) default 0.08
+	 *
 	 * @param shadowAlpha the shadowAlpha to set
 	 */
 	public void setShadowAlpha(Double shadowAlpha) {
 		this.shadowAlpha = shadowAlpha;
 	}
+
 	/**
-	 * true to enable waterfall plot.
-	 * default false
-	 * 
+	 * true to enable waterfall plot. default false
+	 *
 	 * @return the waterfall
 	 */
 	public Boolean getWaterfall() {
 		return waterfall;
 	}
+
 	/**
-	 * true to enable waterfall plot.
-	 * default false
-	 * 
+	 * true to enable waterfall plot. default false
+	 *
 	 * @param waterfall the waterfall to set
 	 */
 	public void setWaterfall(Boolean waterfall) {
 		this.waterfall = waterfall;
 	}
+
 	/**
-	 * group bars into this many groups
-	 * default 1
-	 * 
+	 * group bars into this many groups default 1
+	 *
 	 * @return the groups
 	 */
 	public Integer getGroups() {
 		return groups;
 	}
+
 	/**
-	 * group bars into this many groups
-	 * default 1
-	 * 
+	 * group bars into this many groups default 1
+	 *
 	 * @param groups the groups to set
 	 */
 	public void setGroups(Integer groups) {
 		this.groups = groups;
 	}
+
 	/**
-	 * true to color each bar of a series separately rather than have every bar of a given series the same color.  If used for non-stacked multiple series bar plots, user should specify a separate ‘seriesColors’ array for each series.  Otherwise, each series will set their bars to the same color array.  This option has no Effect for stacked bar charts and is disabled.
+	 * true to color each bar of a series separately rather than have every bar
+	 * of a given series the same color. If used for non-stacked multiple series
+	 * bar plots, user should specify a separate ‘seriesColors’ array for each
+	 * series. Otherwise, each series will set their bars to the same color
+	 * array. This option has no Effect for stacked bar charts and is disabled.
 	 * default false
-	 * 
+	 *
 	 * @return the varyByColor
 	 */
 	public Boolean getVaryByColor() {
 		return varyByColor;
 	}
+
 	/**
-	 * true to color each bar of a series separately rather than have every bar of a given series the same color.  If used for non-stacked multiple series bar plots, user should specify a separate ‘seriesColors’ array for each series.  Otherwise, each series will set their bars to the same color array.  This option has no Effect for stacked bar charts and is disabled.
+	 * true to color each bar of a series separately rather than have every bar
+	 * of a given series the same color. If used for non-stacked multiple series
+	 * bar plots, user should specify a separate ‘seriesColors’ array for each
+	 * series. Otherwise, each series will set their bars to the same color
+	 * array. This option has no Effect for stacked bar charts and is disabled.
 	 * default false
-	 * 
+	 *
 	 * @param varyByColor the varyByColor to set
 	 */
 	public void setVaryByColor(Boolean varyByColor) {
 		this.varyByColor = varyByColor;
 	}
-
 }

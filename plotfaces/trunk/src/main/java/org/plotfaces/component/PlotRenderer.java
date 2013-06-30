@@ -27,6 +27,7 @@ import javax.faces.render.Renderer;
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Data;
 
 /**
  *
@@ -40,10 +41,11 @@ public class PlotRenderer extends Renderer {
 
 	public static final String DATA_SUFFIX = "_data";
 	public static final String PLOT_SUFFIX = "_plot";
-	public static final String OPTIONS_SUFFIX = "_options";
+	public static final String MODEL_SUFFIX = "_model";
 	private Optimizer optimizer = new Optimizer();
 
-	public PlotRenderer() {}
+	public PlotRenderer() {
+	}
 
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -51,7 +53,7 @@ public class PlotRenderer extends Renderer {
 
 		String safeTargetId = PlotUtilities.getEscapedClientId(context, plot);
 		String plotVariable = PlotUtilities.getSafeClientId(context, plot) + PLOT_SUFFIX;
-		String optionsVariable = PlotUtilities.getSafeClientId(context, plot) + OPTIONS_SUFFIX;
+		String modelVariable = PlotUtilities.getSafeClientId(context, plot) + MODEL_SUFFIX;
 		String dataVariable = PlotUtilities.getSafeClientId(context, plot) + DATA_SUFFIX;
 
 		ResponseWriter out = context.getResponseWriter();
@@ -64,13 +66,13 @@ public class PlotRenderer extends Renderer {
 		StringBuilder builder = new StringBuilder();
 		encodeScriptBegin(builder);
 		encodeData(builder, plot, dataVariable);
-		encodeChartModel(builder, plot, optionsVariable);
-		encodePlot(builder, plotVariable, safeTargetId, dataVariable, optionsVariable);
+		encodeChartModel(builder, plot, modelVariable);
+		encodePlot(builder, plotVariable, safeTargetId, dataVariable, modelVariable);
 		encodeScriptEnd(builder);
-		
+
 		String javascript;
 		RendererOptions rendererOptions = (RendererOptions) plot.getRendererOptions();
-		if( rendererOptions != null && rendererOptions.isUseOptimizer() ) {
+		if (rendererOptions != null && rendererOptions.isUseOptimizer()) {
 			javascript = optimizer.optimize(builder.toString(), rendererOptions);
 		} else {
 			javascript = builder.toString();
@@ -143,37 +145,43 @@ public class PlotRenderer extends Renderer {
 	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable) throws IOException {
 		builder.append("var ");
 		builder.append(dataVariable);
-		builder.append(" = ");
-		List<ChartSeries> chartSeries = plot.getChartModel().getSeries();
-		String processedMapKey;
-		builder.append("[");
-		for (int i = 0, n = chartSeries.size(); i < n; i++) {
-			builder.append("[");
-			int count = 0;
-			for (int j = 0, p = chartSeries.get(i).getData().length; j < p; j++) {
-				builder.append(chartSeries.get(i).getData()[ j ]);
-//				builder.append("]");
-				if (++count != p) {
-					builder.append(",");
-				}
-			}
-			builder.append("]");
-			if (i != (chartSeries.size() - 1)) {
+		builder.append(" = [");
+		for (ChartSeries chartSeries : plot.getChartModel().getSeries()) {
+			Data data = chartSeries.getData();
+			if (data != null) {
+				builder.append(data.encode());
 				builder.append(",\n");
 			}
 		}
-		builder.append("]");
-		builder.append(";\n");
+
+		//There is a slight chance that there will be no data at all if the user
+		//has forgotten to add data to every series being displayed.
+		if (',' == (builder.charAt(builder.length() - 1))) {
+			builder.deleteCharAt(builder.length() - 1);
+		}
+
+		builder.append("];\n");
+
+
+		//Dummy data
+//		builder.append("var " + dataVariable + " = [");
+//		java.util.Random r = new java.util.Random();
+//		for (int i = 0, n = 10; i < n; i++) {
+//			builder.append("[" + i + "," + r.nextInt(100) + "],");
+//		}
+//		builder.deleteCharAt( builder.length() - 1);
+//		builder.append("];\n");
 	}
 
-	private void encodeChartModel(StringBuilder builder, UIPlot plot, String optionsVariable) throws IOException {
+	private void encodeChartModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
 		ChartModel chartModel = (ChartModel) plot.getChartModel();
 		if (chartModel != null) {
-			builder.append(chartModel.plot(optionsVariable));
+			chartModel.setModelVariable(modelVariable);
+			builder.append(chartModel.plot());
 		}
 	}
 
-	private void encodePlot(StringBuilder builder, String plotVariable, String safeTargetId, String dataVariable, String optionsVariable) throws IOException {
+	private void encodePlot(StringBuilder builder, String plotVariable, String safeTargetId, String dataVariable, String modelVariable) throws IOException {
 		builder.append("var ");
 		builder.append(plotVariable);
 		builder.append(" = $.jqplot('");
@@ -181,7 +189,7 @@ public class PlotRenderer extends Renderer {
 		builder.append("', ");
 		builder.append(dataVariable);
 		builder.append(", ");
-		builder.append(optionsVariable);
+		builder.append(modelVariable);
 		builder.append(")\n");
 	}
 

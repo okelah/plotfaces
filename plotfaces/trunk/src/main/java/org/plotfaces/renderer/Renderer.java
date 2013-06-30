@@ -15,13 +15,16 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.List;
-import org.plotfaces.data.Plotable;
-
 /**
- *
  *
  * @author Graham Smith
  */
-public interface TickFormatter extends Plotable {
+public interface Renderer {
+
+	/**
+	 * Provides the name of the renderer.
+	 *
+	 * @return
+	 */
+	String getRendererName();
 }

@@ -16,6 +16,7 @@
 package org.plotfaces.component;
 
 import java.util.List;
+import javax.faces.component.FacesComponent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -33,6 +34,7 @@ import org.plotfaces.data.ChartModel;
  *
  * @author Graham Smith
  */
+@FacesComponent("UIPlot")
 public class UIPlot extends UIComponentBase implements SystemEventListener {
 
 	public static final String DEFAULT_REDERER = "org.plotfaces.component.PlotRenderer";
@@ -58,6 +60,10 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 
 	@Override
 	public void processEvent(SystemEvent event) throws AbortProcessingException {
+		//We are listening for the creation of a new UIViewRoot so that we can
+		//make sure that the jQuery library appears before the jqPlot libraries
+		//and optionally add in the jQuery library if it isn't found.
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		List<UIComponent> componentResources = context.getViewRoot().getComponentResources(context, "head");
 		boolean primefacesExists = false;
@@ -68,9 +74,9 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 				primefacesExists = true;
 				if ("jquery/jquery.js".equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqueryIdx = i;
+					//Move the jQuery library to before the jqPlot library.
 					if (jqPlotIdx != -1) {
-						UIComponent jqueryResource = componentResources.get(jqueryIdx);
-						componentResources.remove(jqueryIdx);
+						UIComponent jqueryResource = componentResources.remove(jqueryIdx);
 						componentResources.add(jqPlotIdx, jqueryResource);
 					}
 					break;
@@ -82,6 +88,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 			}
 		}
 
+		//If we've not found jQuery make sure that it gets added.
 		if (jqueryIdx == -1) {
 			UIOutput js = new UIOutput();
 			js.setRendererType("javax.faces.resource.Script");
@@ -93,19 +100,18 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 				js.getAttributes().put("name", "jquery.js");
 			}
 
-			// add to the start of the list
+			//Add jQuery to the start of the list because it's required by everything.
 			componentResources.add(0, js);
 		}
 	}
-	
-	public UIOutput createPlotFacesJavascript( String fileName ) {
-		UIOutput js = new UIOutput();
-		js.setRendererType("javax.faces.resource.Script");
-		js.getAttributes().put("library", "plotfaces/plugins");
-		js.getAttributes().put("name", fileName );
-		return js;
-	}
 
+//	private UIOutput createPlotFacesJavascript(String fileName) {
+//		UIOutput js = new UIOutput();
+//		js.setRendererType("javax.faces.resource.Script");
+//		js.getAttributes().put("library", "plotfaces/plugins");
+//		js.getAttributes().put("name", fileName);
+//		return js;
+//	}
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
@@ -135,27 +141,28 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		getStateHelper().put(PropertyKeys.chartModel, chartModel);
 	}
 
-	public Object getData() {
-		return getStateHelper().eval(PropertyKeys.data, null);
-	}
-
-	public void setData(Object data) {
-		getStateHelper().put(PropertyKeys.data, data);
-	}
-	
+//	public Object getData() {
+//		return getStateHelper().eval(PropertyKeys.data, null);
+//	}
+//
+//	public void setData(Object data) {
+//		getStateHelper().put(PropertyKeys.data, data);
+//	}
 	/**
-	 * Get the renderer options that control how the output is produced and formatted.
-	 * 
-	 * @return 
+	 * Get the renderer options that control how the output is produced and
+	 * formatted.
+	 *
+	 * @return
 	 */
 	public Object getRendererOptions() {
 		return getStateHelper().eval(PropertyKeys.rendererOptions, null);
 	}
 
 	/**
-	 * Set renderer options that control how the output is produced and formatted.
-	 * 
-	 * @param data 
+	 * Set renderer options that control how the output is produced and
+	 * formatted.
+	 *
+	 * @param data
 	 */
 	public void setRendererOptions(Object data) {
 		getStateHelper().put(PropertyKeys.rendererOptions, data);

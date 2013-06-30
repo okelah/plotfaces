@@ -18,7 +18,7 @@ package org.plotfaces.plugins;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.data.Axis.AxisName;
 import org.plotfaces.renderer.AxisRenderer;
@@ -32,7 +32,7 @@ import org.plotfaces.renderer.TickRenderer;
  * @author Anthony Mayfield
  */
 public class Highlighter {
-	
+
 	private Boolean show;
 	private MarkerRenderer markerRenderer;
 	private Boolean showMarker;
@@ -59,43 +59,42 @@ public class Highlighter {
 	 * @param out
 	 * @throws IOException
 	 */
-	public void plot( StringBuilder builder ) {
+	public void plot(StringBuilder builder) {
 		builder.append("{\n");
-		boolean isCommaRequired = false; 
+		boolean isCommaRequired = false;
 
-		isCommaRequired = PlotUtilities.addVariable( builder, "show", getShow(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
 
 		if (getMarkerRenderer() != null) {
-			if( isCommaRequired ) {
+			if (isCommaRequired) {
 				builder.append(",");
 			} else {
 				isCommaRequired = true;
 			}
-			getMarkerRenderer().plot( builder, true );
+			//getMarkerRenderer().plot(builder, true);
 		}
 
-		isCommaRequired = PlotUtilities.addVariable( builder, "showMarker", getShowMarker(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "lineWidthAdjust", getLineWidthAdjust(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "sizeAdjust", getSizeAdjust(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "showTooltip", getShowTooltip(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "tooltipLocation", getTooltipLocation(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable( builder, "fadeTooltip", getFadeTooltip(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "tooltipFadeSpeed", getTooltipFadeSpeed(), isCommaRequired, true );
-		isCommaRequired = PlotUtilities.addVariable( builder, "tooltipOffset", getTooltipOffset(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "tooltipAxes", getTooltipAxes(), isCommaRequired, true );
-		isCommaRequired = PlotUtilities.addVariable( builder, "useAxesFormatters", getUseAxesFormatters(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "tooltipFormatString", getTooltipFormatString(), isCommaRequired, true );
-		isCommaRequired = PlotUtilities.addVariable( builder, "formatString", getFormatString(), isCommaRequired, true );
-		isCommaRequired = PlotUtilities.addVariable( builder, "yValues", getyValues(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable( builder, "bringSeriesToFront", getBringSeriesToFront(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "showMarker", getShowMarker(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "lineWidthAdjust", getLineWidthAdjust(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "sizeAdjust", getSizeAdjust(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "showTooltip", getShowTooltip(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipLocation", getTooltipLocation(), isCommaRequired, true);
+		isCommaRequired = PlotUtilities.addVariable(builder, "fadeTooltip", getFadeTooltip(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFadeSpeed", getTooltipFadeSpeed(), isCommaRequired, true);
+		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipOffset", getTooltipOffset(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipAxes", getTooltipAxes(), isCommaRequired, true);
+		isCommaRequired = PlotUtilities.addVariable(builder, "useAxesFormatters", getUseAxesFormatters(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFormatString", getTooltipFormatString(), isCommaRequired, true);
+		isCommaRequired = PlotUtilities.addVariable(builder, "formatString", getFormatString(), isCommaRequired, true);
+		isCommaRequired = PlotUtilities.addVariable(builder, "yValues", getyValues(), isCommaRequired);
+		isCommaRequired = PlotUtilities.addVariable(builder, "bringSeriesToFront", getBringSeriesToFront(), isCommaRequired);
 
 		builder.append("\n}");
 	}
 
 	/**
-	 * true to show the highlight.
-	 * default $.jqplot.config.enablePlugins
-	 * 
+	 * true to show the highlight. default $.jqplot.config.enablePlugins
+	 *
 	 * @return the show
 	 */
 	public Boolean getShow() {
@@ -103,9 +102,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * true to show the highlight.
-	 * default $.jqplot.config.enablePlugins
-	 * 
+	 * true to show the highlight. default $.jqplot.config.enablePlugins
+	 *
 	 * @param show the show to set
 	 */
 	public void setShow(Boolean show) {
@@ -120,9 +118,12 @@ public class Highlighter {
 	}
 
 	/**
-	 * Renderer used to draw the marker of the highlighted point.  Renderer will assimilate attributes from the data point being highlighted, so no attributes need set on the renderer directly.  Default is to turn off shadow drawing on the highlighted point.
-	 * default new $.jqplot.MarkerRenderer(	{shadow:false}	)
-	 * 
+	 * Renderer used to draw the marker of the highlighted point. Renderer will
+	 * assimilate attributes from the data point being highlighted, so no
+	 * attributes need set on the renderer directly. Default is to turn off
+	 * shadow drawing on the highlighted point. default new
+	 * $.jqplot.MarkerRenderer(	{shadow:false}	)
+	 *
 	 * @param markerRenderer the markerRenderer to set
 	 */
 	public void setMarkerRenderer(MarkerRenderer markerRenderer) {
@@ -130,9 +131,12 @@ public class Highlighter {
 	}
 
 	/**
-	 * Renderer used to draw the marker of the highlighted point.  Renderer will assimilate attributes from the data point being highlighted, so no attributes need set on the renderer directly.  Default is to turn off shadow drawing on the highlighted point.
-	 * default new $.jqplot.MarkerRenderer(	{shadow:false}	)
-	 * 
+	 * Renderer used to draw the marker of the highlighted point. Renderer will
+	 * assimilate attributes from the data point being highlighted, so no
+	 * attributes need set on the renderer directly. Default is to turn off
+	 * shadow drawing on the highlighted point. default new
+	 * $.jqplot.MarkerRenderer(	{shadow:false}	)
+	 *
 	 * @return the showRenderer
 	 */
 	public Boolean getShowMarker() {
@@ -140,9 +144,12 @@ public class Highlighter {
 	}
 
 	/**
-	 * Renderer used to draw the marker of the highlighted point.  Renderer will assimilate attributes from the data point being highlighted, so no attributes need set on the renderer directly.  Default is to turn off shadow drawing on the highlighted point.
-	 * default new $.jqplot.MarkerRenderer(	{shadow:false}	)
-	 * 
+	 * Renderer used to draw the marker of the highlighted point. Renderer will
+	 * assimilate attributes from the data point being highlighted, so no
+	 * attributes need set on the renderer directly. Default is to turn off
+	 * shadow drawing on the highlighted point. default new
+	 * $.jqplot.MarkerRenderer(	{shadow:false}	)
+	 *
 	 * @param showRenderer the showRenderer to set
 	 */
 	public void setShowMarker(Boolean showMarker) {
@@ -150,9 +157,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixels to add to the lineWidth of the highlight.
-	 * default 2.5
-	 * 
+	 * Pixels to add to the lineWidth of the highlight. default 2.5
+	 *
 	 * @return the lineWidthAdjust
 	 */
 	public Double getLineWidthAdjust() {
@@ -160,9 +166,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixels to add to the lineWidth of the highlight.
-	 * default 2.5
-	 * 
+	 * Pixels to add to the lineWidth of the highlight. default 2.5
+	 *
 	 * @param lineWidthAdjust the lineWidthAdjust to set
 	 */
 	public void setLineWidthAdjust(Double lineWidthAdjust) {
@@ -170,9 +175,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixels to add to the overall size of the highlight.
-	 * default 5 
-	 * 
+	 * Pixels to add to the overall size of the highlight. default 5
+	 *
 	 * @return the sizeAdjust
 	 */
 	public Double getSizeAdjust() {
@@ -180,9 +184,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixels to add to the overall size of the highlight.
-	 * default 5 
-	 * 
+	 * Pixels to add to the overall size of the highlight. default 5
+	 *
 	 * @param sizeAdjust the sizeAdjust to set
 	 */
 	public void setSizeAdjust(Double sizeAdjust) {
@@ -190,9 +193,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Show a tooltip with data point values.
-	 * default true 
-	 * 
+	 * Show a tooltip with data point values. default true
+	 *
 	 * @return the showTooltip
 	 */
 	public Boolean getShowTooltip() {
@@ -200,9 +202,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Show a tooltip with data point values.
-	 * default true 
-	 * 
+	 * Show a tooltip with data point values. default true
+	 *
 	 * @param showTooltip the showTooltip to set
 	 */
 	public void setShowTooltip(Boolean showTooltip) {
@@ -212,7 +213,7 @@ public class Highlighter {
 	/**
 	 * Where to position tooltip, ‘n’, ‘ne’, ‘e’, ‘se’, ‘s’, ‘sw’, ‘w’, ‘nw’
 	 * default 'nw'
-	 * 
+	 *
 	 * @return the tooltipLocation
 	 */
 	public String getTooltipLocation() {
@@ -222,7 +223,7 @@ public class Highlighter {
 	/**
 	 * Where to position tooltip, ‘n’, ‘ne’, ‘e’, ‘se’, ‘s’, ‘sw’, ‘w’, ‘nw’
 	 * default 'nw'
-	 * 
+	 *
 	 * @param tooltipLocation the tooltipLocation to set
 	 */
 	public void setTooltipLocation(String tooltipLocation) {
@@ -230,9 +231,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * true = fade in/out tooltip, flase = show/hide tooltip
-	 * default true 
-	 * 
+	 * true = fade in/out tooltip, flase = show/hide tooltip default true
+	 *
 	 * @return the fadeTooltip
 	 */
 	public Boolean getFadeTooltip() {
@@ -240,9 +240,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * true = fade in/out tooltip, flase = show/hide tooltip
-	 * default true 
-	 * 
+	 * true = fade in/out tooltip, flase = show/hide tooltip default true
+	 *
 	 * @param fadeTooltip the fadeTooltip to set
 	 */
 	public void setFadeTooltip(Boolean fadeTooltip) {
@@ -250,9 +249,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * ’slow’, ‘def’, ‘fast’, or number of milliseconds.
-	 * default 'fast'
-	 * 
+	 * ’slow’, ‘def’, ‘fast’, or number of milliseconds. default 'fast'
+	 *
 	 * @return the tooltipFadeSpeed
 	 */
 	public String getTooltipFadeSpeed() {
@@ -260,9 +258,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * ’slow’, ‘def’, ‘fast’, or number of milliseconds.
-	 * default 'fast'
-	 * 
+	 * ’slow’, ‘def’, ‘fast’, or number of milliseconds. default 'fast'
+	 *
 	 * @param tooltipFadeSpeed the tooltipFadeSpeed to set
 	 */
 	public void setTooltipFadeSpeed(String tooltipFadeSpeed) {
@@ -270,9 +267,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixel offset of tooltip from the highlight.
-	 * default 2
-	 * 
+	 * Pixel offset of tooltip from the highlight. default 2
+	 *
 	 * @return the tooltipOffset
 	 */
 	public Integer getTooltipOffset() {
@@ -280,9 +276,8 @@ public class Highlighter {
 	}
 
 	/**
-	 * Pixel offset of tooltip from the highlight.
-	 * default 2
-	 * 
+	 * Pixel offset of tooltip from the highlight. default 2
+	 *
 	 * @param tooltipOffset the tooltipOffset to set
 	 */
 	public void setTooltipOffset(Integer tooltipOffset) {
@@ -290,9 +285,9 @@ public class Highlighter {
 	}
 
 	/**
-	 * Which axes to display in tooltip, ‘x’, ‘y’ or ‘both’, ‘xy’ or ‘yx’ ‘both’ and ‘xy’ are equivalent, ‘yx’ reverses order of labels.
-	 * default 'both'
-	 * 
+	 * Which axes to display in tooltip, ‘x’, ‘y’ or ‘both’, ‘xy’ or ‘yx’ ‘both’
+	 * and ‘xy’ are equivalent, ‘yx’ reverses order of labels. default 'both'
+	 *
 	 * @return the tooltipAxes
 	 */
 	public String getTooltipAxes() {
@@ -300,9 +295,9 @@ public class Highlighter {
 	}
 
 	/**
-	 * Which axes to display in tooltip, ‘x’, ‘y’ or ‘both’, ‘xy’ or ‘yx’ ‘both’ and ‘xy’ are equivalent, ‘yx’ reverses order of labels.
-	 * default 'both'
-	 * 
+	 * Which axes to display in tooltip, ‘x’, ‘y’ or ‘both’, ‘xy’ or ‘yx’ ‘both’
+	 * and ‘xy’ are equivalent, ‘yx’ reverses order of labels. default 'both'
+	 *
 	 * @param tooltipAxes the tooltipAxes to set
 	 */
 	public void setTooltipAxes(String tooltipAxes) {
@@ -312,7 +307,7 @@ public class Highlighter {
 	/**
 	 * Use the x and y axes formatters to format the text in the tooltip.
 	 * default true
-	 * 
+	 *
 	 * @return the useAxesFormatters
 	 */
 	public Boolean getUseAxesFormatters() {
@@ -322,7 +317,7 @@ public class Highlighter {
 	/**
 	 * Use the x and y axes formatters to format the text in the tooltip.
 	 * default true
-	 * 
+	 *
 	 * @param useAxesFormatters the useAxesFormatters to set
 	 */
 	public void setUseAxesFormatters(Boolean useAxesFormatters) {
@@ -330,9 +325,12 @@ public class Highlighter {
 	}
 
 	/**
-	 * sprintf format string for the tooltip.  Uses Ash Searle’s javascript sprintf implementation found here: http://hexmen.com/blog/2007/03/printf-sprintf/ See http://perldoc.perl.org/functions/sprintf.html for reference.  Additional “p” and “P” format specifiers added by Chris Leonello.
-	 * default '%.5P'
-	 * 
+	 * sprintf format string for the tooltip. Uses Ash Searle’s javascript
+	 * sprintf implementation found here:
+	 * http://hexmen.com/blog/2007/03/printf-sprintf/ See
+	 * http://perldoc.perl.org/functions/sprintf.html for reference. Additional
+	 * “p” and “P” format specifiers added by Chris Leonello. default '%.5P'
+	 *
 	 * @return the tooltipFormatString
 	 */
 	public String getTooltipFormatString() {
@@ -340,9 +338,12 @@ public class Highlighter {
 	}
 
 	/**
-	 * sprintf format string for the tooltip.  Uses Ash Searle’s javascript sprintf implementation found here: http://hexmen.com/blog/2007/03/printf-sprintf/ See http://perldoc.perl.org/functions/sprintf.html for reference.  Additional “p” and “P” format specifiers added by Chris Leonello.
-	 * default '%.5P'
-	 * 
+	 * sprintf format string for the tooltip. Uses Ash Searle’s javascript
+	 * sprintf implementation found here:
+	 * http://hexmen.com/blog/2007/03/printf-sprintf/ See
+	 * http://perldoc.perl.org/functions/sprintf.html for reference. Additional
+	 * “p” and “P” format specifiers added by Chris Leonello. default '%.5P'
+	 *
 	 * @param tooltipFormatString the tooltipFormatString to set
 	 */
 	public void setTooltipFormatString(String tooltipFormatString) {
@@ -350,9 +351,13 @@ public class Highlighter {
 	}
 
 	/**
-	 * alternative to tooltipFormatString will format the whole tooltip text, populating with x, y values as indicated by tooltipAxes option.  So, you could have a tooltip like: ‘Date: %s, number of cats: %d’ to format the whole tooltip at one go.  If useAxesFormatters is true, values will be formatted according to Axes formatters and you can populate your tooltip string with %s placeholders.
-	 * default null
-	 * 
+	 * alternative to tooltipFormatString will format the whole tooltip text,
+	 * populating with x, y values as indicated by tooltipAxes option. So, you
+	 * could have a tooltip like: ‘Date: %s, number of cats: %d’ to format the
+	 * whole tooltip at one go. If useAxesFormatters is true, values will be
+	 * formatted according to Axes formatters and you can populate your tooltip
+	 * string with %s placeholders. default null
+	 *
 	 * @return the formatString
 	 */
 	public String getFormatString() {
@@ -360,9 +365,13 @@ public class Highlighter {
 	}
 
 	/**
-	 * alternative to tooltipFormatString will format the whole tooltip text, populating with x, y values as indicated by tooltipAxes option.  So, you could have a tooltip like: ‘Date: %s, number of cats: %d’ to format the whole tooltip at one go.  If useAxesFormatters is true, values will be formatted according to Axes formatters and you can populate your tooltip string with %s placeholders.
-	 * default null
-	 * 
+	 * alternative to tooltipFormatString will format the whole tooltip text,
+	 * populating with x, y values as indicated by tooltipAxes option. So, you
+	 * could have a tooltip like: ‘Date: %s, number of cats: %d’ to format the
+	 * whole tooltip at one go. If useAxesFormatters is true, values will be
+	 * formatted according to Axes formatters and you can populate your tooltip
+	 * string with %s placeholders. default null
+	 *
 	 * @param formatString the formatString to set
 	 */
 	public void setFormatString(String formatString) {
@@ -370,9 +379,10 @@ public class Highlighter {
 	}
 
 	/**
-	 * Number of y values to expect in the data point array.  Typically this is 1.  Certain plots, like OHLC, will have more y values in each data point array.
-	 * default 1
-	 * 
+	 * Number of y values to expect in the data point array. Typically this is
+	 * 1. Certain plots, like OHLC, will have more y values in each data point
+	 * array. default 1
+	 *
 	 * @return the yValues
 	 */
 	public Integer getyValues() {
@@ -380,9 +390,10 @@ public class Highlighter {
 	}
 
 	/**
-	 * Number of y values to expect in the data point array.  Typically this is 1.  Certain plots, like OHLC, will have more y values in each data point array.
-	 * default 1
-	 * 
+	 * Number of y values to expect in the data point array. Typically this is
+	 * 1. Certain plots, like OHLC, will have more y values in each data point
+	 * array. default 1
+	 *
 	 * @param yValues the yValues to set
 	 */
 	public void setyValues(Integer yValues) {
@@ -390,9 +401,9 @@ public class Highlighter {
 	}
 
 	/**
-	 * This option requires jQuery 1.4+ True to bring the series of the highlighted point to the front of other series.
-	 * default false 
-	 * 
+	 * This option requires jQuery 1.4+ True to bring the series of the
+	 * highlighted point to the front of other series. default false
+	 *
 	 * @return the bringSeriesToFront
 	 */
 	public Boolean getBringSeriesToFront() {
@@ -400,9 +411,9 @@ public class Highlighter {
 	}
 
 	/**
-	 * This option requires jQuery 1.4+ True to bring the series of the highlighted point to the front of other series.
-	 * default false 
-	 * 
+	 * This option requires jQuery 1.4+ True to bring the series of the
+	 * highlighted point to the front of other series. default false
+	 *
 	 * @param bringSeriesToFront the bringSeriesToFront to set
 	 */
 	public void setBringSeriesToFront(Boolean bringSeriesToFront) {
