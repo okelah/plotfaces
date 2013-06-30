@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
-
-import java.util.List;
-import org.plotfaces.data.Plotable;
+package org.plotfaces.data;
 
 /**
- *
+ * Represents data for a single series. The subtype of data placed in a series
+ * must match the chart type being displayed.
  *
  * @author Graham Smith
  */
-public interface TickFormatter extends Plotable {
+public interface Data {
+
+	public String encode();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Graham.
+ * Copyright 2013 Graham Smith.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,20 @@ import com.google.javascript.jscomp.CompilationLevel;
 
 /**
  *
- * @author Graham
+ * @author Graham Smith
  */
 public class RendererOptions {
-	
-	private boolean useOptimizer = true;
+
+	private boolean useOptimizer = false;
 	private CompilationLevel compilationLevel = CompilationLevel.SIMPLE_OPTIMIZATIONS;
 	private boolean prettyPrint = false;
 	private String externs;
 
 	public RendererOptions() {
+	}
+
+	public RendererOptions(boolean useOptimizer) {
+		this.useOptimizer = useOptimizer;
 	}
 
 	public boolean isUseOptimizer() {
@@ -62,8 +66,8 @@ public class RendererOptions {
 	/**
 	 * Indicates external function names that should be preserved in the source
 	 * code when performing advanced optimization.
-	 * 
-	 * @param externs 
+	 *
+	 * @param externs
 	 */
 	public void setExterns(String externs) {
 		this.externs = externs;
