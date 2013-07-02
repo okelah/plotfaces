@@ -55,7 +55,7 @@ public class CanvasAxisTickRenderer extends AxisTickRenderer {
 			fragments.add(PlotUtilities.createVariable(LABEL_POSITION, getLabelPosition()));
 		}
 
-		if (getFontWeight() != null) {
+		if (getFontWeight() != null && !getFontWeight().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(FONT_WEIGHT, getFontWeight()));
 		}
 

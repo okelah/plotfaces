@@ -17,7 +17,6 @@ package org.plotfaces.component;
 
 import java.util.List;
 import javax.faces.component.FacesComponent;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIOutput;
@@ -27,7 +26,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-
 import org.plotfaces.data.ChartModel;
 
 /**
@@ -37,6 +35,11 @@ import org.plotfaces.data.ChartModel;
 @FacesComponent("UIPlot")
 public class UIPlot extends UIComponentBase implements SystemEventListener {
 
+	private static final String PRIMEFACES_LIBRARY = "primefaces";
+	private static final String PRIMEFACES_JQUERY_LIBRARY = "jquery/jquery.js";
+	private static final String PLOTFACES_LIBRARY = "plotfaces";
+	private static final String PLOTFACES_JQUERY_LIBRARY = "jquery.min.js";
+	private static final String JQPLOT_LIBRARY = "jquery.jqplot.cc.js";
 	public static final String DEFAULT_REDERER = "org.plotfaces.component.PlotRenderer";
 	public static final String COMPONENT_FAMILY = "org.plotfaces";
 
@@ -49,7 +52,6 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		setRendererType(DEFAULT_REDERER);
 		FacesContext context = FacesContext.getCurrentInstance();
 		UIViewRoot root = context.getViewRoot();
-
 		root.subscribeToViewEvent(PostAddToViewEvent.class, this);
 	}
 
@@ -70,9 +72,9 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		int jqueryIdx = -1;
 		int jqPlotIdx = -1;
 		for (int i = 0, n = componentResources.size(); i < n; i++) {
-			if ("primefaces".equals(componentResources.get(i).getAttributes().get("library"))) {
+			if (PRIMEFACES_LIBRARY.equals(componentResources.get(i).getAttributes().get("library"))) {
 				primefacesExists = true;
-				if ("jquery/jquery.js".equals(componentResources.get(i).getAttributes().get("name"))) {
+				if (PRIMEFACES_JQUERY_LIBRARY.equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqueryIdx = i;
 					//Move the jQuery library to before the jqPlot library.
 					if (jqPlotIdx != -1) {
@@ -81,8 +83,8 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 					}
 					break;
 				}
-			} else if ("plotfaces".equals(componentResources.get(i).getAttributes().get("library"))) {
-				if ("jqplotCharts.js".equals(componentResources.get(i).getAttributes().get("name"))) {
+			} else if (PLOTFACES_LIBRARY.equals(componentResources.get(i).getAttributes().get("library"))) {
+				if (JQPLOT_LIBRARY.equals(componentResources.get(i).getAttributes().get("name"))) {
 					jqPlotIdx = i;
 				}
 			}
@@ -92,12 +94,15 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		if (jqueryIdx == -1) {
 			UIOutput js = new UIOutput();
 			js.setRendererType("javax.faces.resource.Script");
+			//If we've found PrimeFaces then we've probably found jQuery already
+			//but just in case we haven't add the PrimeFaces version of the
+			//jQuery library. Failing that add our version.
 			if (primefacesExists) {
-				js.getAttributes().put("library", "primefaces");
-				js.getAttributes().put("name", "jquery.js");
+				js.getAttributes().put("library", PRIMEFACES_LIBRARY);
+				js.getAttributes().put("name", PRIMEFACES_JQUERY_LIBRARY);
 			} else {
-				js.getAttributes().put("library", "plotfaces");
-				js.getAttributes().put("name", "jquery.js");
+				js.getAttributes().put("library", PLOTFACES_LIBRARY);
+				js.getAttributes().put("name", PLOTFACES_JQUERY_LIBRARY);
 			}
 
 			//Add jQuery to the start of the list because it's required by everything.
@@ -105,13 +110,6 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		}
 	}
 
-//	private UIOutput createPlotFacesJavascript(String fileName) {
-//		UIOutput js = new UIOutput();
-//		js.setRendererType("javax.faces.resource.Script");
-//		js.getAttributes().put("library", "plotfaces/plugins");
-//		js.getAttributes().put("name", fileName);
-//		return js;
-//	}
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;

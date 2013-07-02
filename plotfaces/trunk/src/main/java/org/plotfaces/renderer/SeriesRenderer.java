@@ -15,16 +15,11 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.PlotUtilities;
+import org.plotfaces.data.Plotable;
 
 /**
  *
  * @author Graham Smith
  */
-public class DefaultTickFormatter implements TickFormatter {
-
-	@Override
-	public String plot() {
-		return PlotUtilities.createVariable("formatter", "$.jqplot.DefaultTickFormatter", true);
-	}
+public interface SeriesRenderer extends Renderer, Plotable {
 }
