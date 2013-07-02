@@ -66,7 +66,7 @@ public class LinearAxisRendererTest {
 		String result = axisRenderer.plot();
 //		System.out.println(result);
 		String expected = "renderer: $.jqplot.LinearAxisRenderer,\n"
-				+ "rendererOptions: {breakTickLagel:'break',\n"
+				+ "rendererOptions: {breakTickLabel:'break',\n"
 				+ "forceTickAt0:true,\n"
 				+ "forceTickAt100:true}";
 		assertEquals(expected, result);

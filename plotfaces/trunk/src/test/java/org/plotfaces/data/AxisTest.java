@@ -165,7 +165,7 @@ public class AxisTest extends TestCase {
 				+ "ticks:['Foo','Bar','Baz'],\n"
 				+ "numberTicks:15,\n"
 				+ "renderer: $.jqplot.LinearAxisRenderer,\n"
-				+ "rendererOptions: {breakTickLagel:'break',\n"
+				+ "rendererOptions: {breakTickLabel:'break',\n"
 				+ "forceTickAt0:true,\n"
 				+ "forceTickAt100:true},\n"
 				+ "showTicks:true,\n"
