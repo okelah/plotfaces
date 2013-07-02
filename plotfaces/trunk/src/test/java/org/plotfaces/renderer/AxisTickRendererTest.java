@@ -85,7 +85,7 @@ public class AxisTickRendererTest {
 				+ "markSize:16,\n"
 				+ "show:true,\n"
 				+ "showLabel:true,\n"
-				+ "formatter:'formatter:'$.jqplot.DefaultTickFormatter'',\n"
+				+ "formatter:$.jqplot.DefaultTickFormatter,\n"
 				+ "prefix:'pre',\n"
 				+ "formatString:'format',\n"
 				+ "fontFamily:'font_family',\n"
