@@ -27,7 +27,7 @@ import org.plotfaces.PlotUtilities;
 public class LinearAxisRenderer extends AbstractAxisRenderer {
 
 	private static final String BREAK_POINTS = "breakPoints";
-	private static final String BREAK_TICK_LABEL = "breakTickLagel";
+	private static final String BREAK_TICK_LABEL = "breakTickLabel";
 	private static final String FORCE_TICK_AT_0 = "forceTickAt0";
 	private static final String FORCE_TICK_AT_100 = "forceTickAt100";
 	//TODO: support breakPoints, probably an array of something
