@@ -35,7 +35,7 @@ import org.plotfaces.data.Data;
  */
 @ResourceDependencies({
 	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.min.css"),
-	@ResourceDependency(library = "plotfaces", name = "jqplotCharts.js")})
+	@ResourceDependency(library = "plotfaces", name = "jquery.jqplot.cc.js")})
 @FacesRenderer(componentFamily = UIPlot.COMPONENT_FAMILY, rendererType = UIPlot.DEFAULT_REDERER)
 public class PlotRenderer extends Renderer {
 
@@ -77,6 +77,9 @@ public class PlotRenderer extends Renderer {
 		} else {
 			javascript = builder.toString();
 		}
+
+		System.out.println("********* Chart Start *********\n" + javascript + "\n********* Chart End *********");
+
 		out.write(javascript);
 
 		encodeScriptEndTag(out);
@@ -150,7 +153,7 @@ public class PlotRenderer extends Renderer {
 			Data data = chartSeries.getData();
 			if (data != null) {
 				builder.append(data.encode());
-				builder.append(",\n");
+				builder.append(",");
 			}
 		}
 
@@ -161,16 +164,6 @@ public class PlotRenderer extends Renderer {
 		}
 
 		builder.append("];\n");
-
-
-		//Dummy data
-//		builder.append("var " + dataVariable + " = [");
-//		java.util.Random r = new java.util.Random();
-//		for (int i = 0, n = 10; i < n; i++) {
-//			builder.append("[" + i + "," + r.nextInt(100) + "],");
-//		}
-//		builder.deleteCharAt( builder.length() - 1);
-//		builder.append("];\n");
 	}
 
 	private void encodeChartModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
@@ -190,7 +183,7 @@ public class PlotRenderer extends Renderer {
 		builder.append(dataVariable);
 		builder.append(", ");
 		builder.append(modelVariable);
-		builder.append(")\n");
+		builder.append(");\n");
 	}
 
 	/**

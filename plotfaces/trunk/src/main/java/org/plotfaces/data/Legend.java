@@ -48,34 +48,34 @@ public class Legend {
 	public String plot() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
-		boolean isCommaRequired = false;
-
-		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "location", getLocation(), isCommaRequired, true);
-
-		if (getLabels() != null && getLabels().length > 0) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "labels", "{'" + StringUtils.join(getLabels(), "','") + "'}", isCommaRequired, false);
-		}
-
-		isCommaRequired = PlotUtilities.addVariable(builder, "showLabels", getShowLabels(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "showSwatch", getShowSwatch(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "placement", getPlacement(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "xoffset", getXoffset(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "yoffset", getYoffset(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "border", getBorder(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "background", getBackground(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "textColor", getTextColor(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "fontFamily", getFontFamily(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "fontSize", getFontSize(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "rowSpacing", getRowSpacing(), isCommaRequired, true);
-		if (getRendererOptions() != null && getRendererOptions().length > 0) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "rendererOptions", "{'" + StringUtils.join(getRendererOptions(), "','") + "'}", isCommaRequired, false);
-		}
-		isCommaRequired = PlotUtilities.addVariable(builder, "predraw", getPredraw(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "marginTop", getMarginTop(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "marginRight", getMarginRight(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "marginBottom", getMarginBottom(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "marginLeft", getMarginLeft(), isCommaRequired, true);
+//		boolean isCommaRequired = false;
+//
+//		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "location", getLocation(), isCommaRequired, true);
+//
+//		if (getLabels() != null && getLabels().length > 0) {
+//			isCommaRequired = PlotUtilities.addVariable(builder, "labels", "{'" + StringUtils.join(getLabels(), "','") + "'}", isCommaRequired, false);
+//		}
+//
+//		isCommaRequired = PlotUtilities.addVariable(builder, "showLabels", getShowLabels(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "showSwatch", getShowSwatch(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "placement", getPlacement(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "xoffset", getXoffset(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "yoffset", getYoffset(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "border", getBorder(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "background", getBackground(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "textColor", getTextColor(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "fontFamily", getFontFamily(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "fontSize", getFontSize(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "rowSpacing", getRowSpacing(), isCommaRequired, true);
+//		if (getRendererOptions() != null && getRendererOptions().length > 0) {
+//			isCommaRequired = PlotUtilities.addVariable(builder, "rendererOptions", "{'" + StringUtils.join(getRendererOptions(), "','") + "'}", isCommaRequired, false);
+//		}
+//		isCommaRequired = PlotUtilities.addVariable(builder, "predraw", getPredraw(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "marginTop", getMarginTop(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "marginRight", getMarginRight(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "marginBottom", getMarginBottom(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "marginLeft", getMarginLeft(), isCommaRequired, true);
 
 		builder.append("\n}");
 		return builder.toString();

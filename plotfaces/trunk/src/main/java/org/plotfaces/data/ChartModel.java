@@ -34,12 +34,12 @@ public class ChartModel implements Plotable {
 	private ChartSeries seriesDefaults;
 	private List<ChartSeries> series = new ArrayList<>();
 	private List<String> dataTicks = new ArrayList<>();
-	private Boolean sortData;
-	private String title;
-	private String fontSize;
-	private Boolean stackSeries;
-	private Integer defaultAxisStart;
-	private Highlighter highlighter;
+//	private Boolean sortData;
+//	private String title;
+//	private String fontSize;
+//	private Boolean stackSeries;
+//	private Integer defaultAxisStart;
+//	private Highlighter highlighter;
 	private String modelVariable;
 
 	public ChartModel() {

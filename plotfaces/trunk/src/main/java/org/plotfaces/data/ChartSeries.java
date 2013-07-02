@@ -15,11 +15,13 @@
  */
 package org.plotfaces.data;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.plotfaces.PlotUtilities;
-import org.plotfaces.renderer.ChartRenderer;
+import org.plotfaces.renderer.AbstractSeriesRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
+import org.plotfaces.renderer.SeriesRenderer;
 
 /**
  *
@@ -27,36 +29,68 @@ import org.plotfaces.renderer.MarkerRenderer;
  */
 public class ChartSeries {
 
-	private Boolean show;
+	public enum FillAxis {
+
+		x, y
+	};
+	private static final String SHOW = "show";
+	private static final String X_AXIS = "xaxis";
+	private static final String Y_AXIS = "yaxis";
+	private static final String LABEL = "label";
+	private static final String SHOW_LABEL = "showLabel";
+	private static final String COLOR = "color";
+	private static final String LINE_WIDTH = "lineWidth";
+	private static final String LINE_JOIN = "lineJoin";
+	private static final String LINE_CAP = "lineCap";
+	private static final String SHADOW = "shadow";
+	private static final String SHADOW_ANGLE = "shadowAngle";
+	private static final String SHADOW_OFFSET = "shadowOffset";
+	private static final String SHADOW_DEPTH = "shadowDepth";
+	private static final String SHADOW_ALPHA = "shadowAlpha";
+	private static final String BREAK_ON_NULL = "breakOnNull";
+	private static final String SHOW_LINE = "showLine";
+	private static final String SHOW_MARKER = "showMarker";
+	private static final String INDEX = "index";
+	private static final String FILL = "fill";
+	private static final String FILL_COLOR = "fillColor";
+	private static final String FILL_ALPHA = "fillAlpha";
+	private static final String FILL_AND_STROKE = "fillAndStroke";
+	private static final String DISABLE_STACK = "disableStack";
+	private static final String NEIGHBOR_THRESHOLD = "neighborThreshold";
+	private static final String FILL_TO_ZERO = "fillToZero";
+	private static final String FILL_TO_VALUE = "fillToVALUE";
+	private static final String FILL_AXIS = "fillAxis";
+	private static final String USE_NEGATIVE_COLORS = "useNegativeColors";
+	private Boolean show = Boolean.TRUE;
 	private Axis.AxisName xAxis;
 	private Axis.AxisName yAxis;
+	private SeriesRenderer renderer; //Supplies rendererOptions
 	private String label;
 	private Boolean showLabel;
 	private String color;
 	private Double lineWidth;
-	private String lineJoin;
-	private String lineCap;
+	private String lineJoin; //TODO: This is probably an enum of types
+	private String lineCap; //TODO: This is probably an enum of types
 	private Boolean shadow;
 	private Integer shadowAngle;
 	private Double shadowOffset;
 	private Integer shadowDepth;
 	private Double shadowAlpha;
 	private Boolean breakOnNull;
+	private MarkerRenderer markerRenderer; //Supplies markerOptions
 	private Boolean showLine;
 	private Boolean showMarker;
 	private Integer index;
 	private Boolean fill;
-	private Boolean fillAndStroke;
 	private String fillColor;
 	private String fillAlpha;
+	private Boolean fillAndStroke;
 	private Boolean disableStack;
 	private Integer neighbourThreshold;
 	private Boolean fillToZero;
 	private Integer fillToValue;
-	private String fillAxis;
+	private FillAxis fillAxis;
 	private Boolean useNegativeColors;
-	private ChartRenderer renderer;
-	private MarkerRenderer markerRenderer;
 	private Data data;
 
 	public ChartSeries() {
@@ -64,39 +98,20 @@ public class ChartSeries {
 
 	public String plot() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\n{");
-		boolean isCommaRequired = false;
+		builder.append("{\n");
 
-		if (getShow() != null) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "show", Boolean.toString(getShow()), isCommaRequired);
-		}
+		List<String> fragments = new ArrayList<>();
+		fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
 
-		if (getxAxis() != null) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "xaxis", getxAxis().name(), isCommaRequired, true);
-		}
-		if (getyAxis() != null) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "yaxis", getyAxis().name(), isCommaRequired, true);
-		}
 
-		if (getRenderer() != null) {
-			isCommaRequired = PlotUtilities.addVariable(builder, "renderer", "$.jqplot." + getRenderer().getRendererType(), isCommaRequired);
-		}
 
-		if (getMarkerRenderer() != null) {
-			if (isCommaRequired) {
-				builder.append(",");
-			} else {
-				isCommaRequired = true;
-			}
-			//getMarkerRenderer().plot( builder, true );
-		}
-
+		builder.append(StringUtils.join(fragments.toArray(), ",\n"));
 		builder.append("\n}");
 		return builder.toString();
 	}
 
 	/**
-	 * whether or not to draw the series. default true
+	 * Whether or not to draw the series. default true
 	 *
 	 * @return the show
 	 */
@@ -105,12 +120,17 @@ public class ChartSeries {
 	}
 
 	/**
-	 * whether or not to draw the series. default true
+	 * Whether or not to draw the series. If null is provided it is silently
+	 * converted to true, the default value.
 	 *
 	 * @param show the show to set
 	 */
 	public void setShow(Boolean show) {
-		this.show = show;
+		if (show == null) {
+			this.show = true;
+		} else {
+			this.show = show;
+		}
 	}
 
 	/**
@@ -598,7 +618,7 @@ public class ChartSeries {
 	 *
 	 * @return the fillAxis
 	 */
-	public String getFillAxis() {
+	public FillAxis getFillAxis() {
 		return fillAxis;
 	}
 
@@ -609,7 +629,7 @@ public class ChartSeries {
 	 *
 	 * @param fillAxis the fillAxis to set
 	 */
-	public void setFillAxis(String fillAxis) {
+	public void setFillAxis(FillAxis fillAxis) {
 		this.fillAxis = fillAxis;
 	}
 
@@ -639,7 +659,7 @@ public class ChartSeries {
 	 *
 	 * @return the renderer
 	 */
-	public ChartRenderer getRenderer() {
+	public SeriesRenderer getRenderer() {
 		return renderer;
 	}
 
@@ -649,7 +669,7 @@ public class ChartSeries {
 	 *
 	 * @param renderer the renderer to set
 	 */
-	public void setRenderer(ChartRenderer renderer) {
+	public void setRenderer(SeriesRenderer renderer) {
 		this.renderer = renderer;
 	}
 

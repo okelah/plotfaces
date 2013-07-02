@@ -20,11 +20,12 @@ import java.util.Map;
 
 /**
  *
+ * @param <T>
  * @author Graham Smith
  */
-public class KeyedData implements Data {
+public class KeyedData<T extends Object> implements Data {
 
-	private Map<Object, Number> values = new HashMap<>();
+	private Map<T, Number> values = new HashMap<>();
 
 	public KeyedData() {
 	}
@@ -51,15 +52,15 @@ public class KeyedData implements Data {
 		return builder.toString();
 	}
 
-	public Map<Object, Number> getValues() {
+	public Map<T, Number> getValues() {
 		return values;
 	}
 
-	public void setValues(Map<Object, Number> values) {
+	public void setValues(Map<T, Number> values) {
 		this.values = values;
 	}
 
-	public void addValue(Object key, Number value) {
+	public void addValue(T key, Number value) {
 		this.values.put(key, value);
 	}
 }

@@ -30,8 +30,8 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 	private static final String BREAK_TICK_LABEL = "breakTickLagel";
 	private static final String FORCE_TICK_AT_0 = "forceTickAt0";
 	private static final String FORCE_TICK_AT_100 = "forceTickAt100";
-	//TODO: support breakPoints
-	//private
+	//TODO: support breakPoints, probably an array of something
+	//private String breakPoints
 	private String breakTickLabel;
 	private Boolean forceTickAtZero;
 	private Boolean forceTickAtOneHundred;

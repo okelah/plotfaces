@@ -56,15 +56,6 @@ public class AxisLabelRenderer extends AbstractLabelRenderer {
 	}
 
 	@Override
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(plotBegin());
-		builder.append(StringUtils.join(getFragments().toArray(), ",\n"));
-		builder.append(plotEnd());
-		return builder.toString();
-	}
-
-	@Override
 	public String getRendererName() {
 		return "AxisLabelRenderer";
 	}

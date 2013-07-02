@@ -63,7 +63,7 @@ public class Highlighter {
 		builder.append("{\n");
 		boolean isCommaRequired = false;
 
-		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
 
 		if (getMarkerRenderer() != null) {
 			if (isCommaRequired) {
@@ -74,20 +74,20 @@ public class Highlighter {
 			//getMarkerRenderer().plot(builder, true);
 		}
 
-		isCommaRequired = PlotUtilities.addVariable(builder, "showMarker", getShowMarker(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "lineWidthAdjust", getLineWidthAdjust(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "sizeAdjust", getSizeAdjust(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "showTooltip", getShowTooltip(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipLocation", getTooltipLocation(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "fadeTooltip", getFadeTooltip(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFadeSpeed", getTooltipFadeSpeed(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipOffset", getTooltipOffset(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipAxes", getTooltipAxes(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "useAxesFormatters", getUseAxesFormatters(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFormatString", getTooltipFormatString(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "formatString", getFormatString(), isCommaRequired, true);
-		isCommaRequired = PlotUtilities.addVariable(builder, "yValues", getyValues(), isCommaRequired);
-		isCommaRequired = PlotUtilities.addVariable(builder, "bringSeriesToFront", getBringSeriesToFront(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "showMarker", getShowMarker(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "lineWidthAdjust", getLineWidthAdjust(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "sizeAdjust", getSizeAdjust(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "showTooltip", getShowTooltip(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipLocation", getTooltipLocation(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "fadeTooltip", getFadeTooltip(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFadeSpeed", getTooltipFadeSpeed(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipOffset", getTooltipOffset(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipAxes", getTooltipAxes(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "useAxesFormatters", getUseAxesFormatters(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "tooltipFormatString", getTooltipFormatString(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "formatString", getFormatString(), isCommaRequired, true);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "yValues", getyValues(), isCommaRequired);
+//		isCommaRequired = PlotUtilities.addVariable(builder, "bringSeriesToFront", getBringSeriesToFront(), isCommaRequired);
 
 		builder.append("\n}");
 	}

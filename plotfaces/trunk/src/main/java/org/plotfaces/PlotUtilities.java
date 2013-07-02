@@ -41,55 +41,6 @@ public final class PlotUtilities {
 		return component.getClientId(context).replace(":", "\\\\:");
 	}
 
-	@Deprecated
-	public static boolean addVariable(StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired) {
-		return addVariable(stringBuilder, variableName, variableValue, isCommaRequired, true);
-	}
-
-	@Deprecated
-	public static boolean addVariable(StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired, boolean addApostrophes) {
-		if (variableValue != null && !variableValue.equals("")) {
-			if (addApostrophes) {
-				StringBuffer variableValueBuf = new StringBuffer();
-				variableValueBuf.append("'");
-				variableValueBuf.append(variableValue);
-				variableValueBuf.append("'");
-				variableValue = variableValueBuf.toString();
-			}
-			addProcessedVariable(stringBuilder, variableName, String.valueOf(variableValue), isCommaRequired);
-			return true;
-		}
-		return isCommaRequired;
-	}
-
-	@Deprecated
-	public static boolean addVariable(StringBuilder stringBuilder, String variableName, Number variableValue, Boolean isCommaRequired) {
-		if (variableValue != null) {
-			addProcessedVariable(stringBuilder, variableName, String.valueOf(variableValue), isCommaRequired);
-			return true;
-		}
-		return isCommaRequired;
-	}
-
-	@Deprecated
-	public static boolean addVariable(StringBuilder stringBuilder, String variableName, Boolean variableValue, Boolean isCommaRequired) {
-		if (variableValue != null) {
-			addProcessedVariable(stringBuilder, variableName, String.valueOf(variableValue), isCommaRequired);
-			return true;
-		}
-		return isCommaRequired;
-	}
-
-	@Deprecated
-	private static void addProcessedVariable(StringBuilder stringBuilder, String variableName, String variableValue, Boolean isCommaRequired) {
-		if (isCommaRequired) {
-			stringBuilder.append(",");
-		}
-		stringBuilder.append("\n");
-		stringBuilder.append(variableName).append(":");
-		stringBuilder.append(variableValue);
-	}
-
 	/**
 	 * Creates a new variable entry with the format:<br/>
 	 * variableName:variableValue<br/>

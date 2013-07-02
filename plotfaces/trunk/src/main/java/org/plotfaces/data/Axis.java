@@ -99,7 +99,6 @@ public class Axis implements Plotable {
 	public String plot() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{\n");
-		//boolean isCommaRequired = false;
 
 		List<String> fragments = new ArrayList<>();
 		fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
@@ -155,7 +154,7 @@ public class Axis implements Plotable {
 		}
 
 		//numberTicks and tickInterval are mutually exclusive.
-		if (getTickInterval() != null && getTickInterval() == null) {
+		if (getTickInterval() != null && getNumberTicks() == null) {
 			fragments.add(PlotUtilities.createVariable(TICK_INTERVAL, getTickInterval()));
 		}
 
@@ -213,7 +212,7 @@ public class Axis implements Plotable {
 	 * The name of this axis. Supports all of the current x (two), y (nine) and
 	 * the default axes provided by jqPlot.
 	 *
-	 * @param axis
+	 * @param axisName
 	 */
 	public void setAxisName(AxisName axisName) {
 		this.axisName = axisName;
@@ -225,6 +224,9 @@ public class Axis implements Plotable {
 	 * numberTicks, tickInterval and pad options do work with autoscale,
 	 * although tickInterval has not been tested yet. padMin and padMax do
 	 * nothing when autoscale is on.
+	 *
+	 * NOTE: This setting is deprecated in jqPlot in favour of the default
+	 * scaling algorithm
 	 *
 	 * @return true to auto-scale this axis.
 	 *
@@ -239,6 +241,9 @@ public class Axis implements Plotable {
 	 * numberTicks, tickInterval and pad options do work with autoscale,
 	 * although tickInterval has not been tested yet. padMin and padMax do
 	 * nothing when autoscale is on.
+	 *
+	 * NOTE: This setting is deprecated in jqPlot in favour of the default
+	 * scaling algorithm
 	 *
 	 * @param autoScale true to auto-scale this axis.
 	 */
@@ -472,6 +477,9 @@ public class Axis implements Plotable {
 
 	/**
 	 * Whether to display the axis on the graph. Defaults to true.
+	 *
+	 * NOTE: The x-axis and y-axis are always shown regardless of the value of
+	 * the show settings, only the secondary axes can be hidden.
 	 *
 	 * @return true to show axis.
 	 */

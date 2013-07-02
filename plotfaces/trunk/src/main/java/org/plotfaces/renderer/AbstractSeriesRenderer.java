@@ -17,23 +17,19 @@ package org.plotfaces.renderer;
 
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.plotfaces.data.Plotable;
 
-public abstract class AbstractTickRenderer implements TickRenderer {
-
-	public AbstractTickRenderer() {
-	}
+public abstract class AbstractSeriesRenderer implements SeriesRenderer {
 
 	/**
-	 * Provides the standard opening to the tickRenderer block of options.
+	 * Provides the standard opening to the renderer block of options.
 	 *
 	 * @return
 	 */
 	protected String plotBegin() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("tickRenderer: $.jqplot.");
+		builder.append("renderer: $.jqplot.");
 		builder.append(getRendererName());
-		builder.append(",\ntickOptions: ");
+		builder.append(",\nrendererOptions: ");
 		builder.append("{");
 		return builder.toString();
 

@@ -39,7 +39,7 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 	private static final String MARK_SIZE = "markSize";
 	private static final String SHOW = "show";
 	private static final String SHOW_LABEL = "showLabel";
-	private static final String FORMATTER = "formatter";
+	//private static final String FORMATTER = "formatter";
 	private static final String PREFIX = "prefix";
 	private static final String FORMAT_STRING = "formatString";
 	private static final String FONT_FAMILY = "fontFamily";
@@ -55,8 +55,8 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 	private Boolean show;
 	private Boolean showLabel;
 	private TickFormatter formatter;
-	private String formatString;
 	private String prefix;
+	private String formatString;
 	private String fontFamily;
 	private String fontSize;
 	private String textColor;
@@ -100,26 +100,26 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 		}
 
 		if (getFormatter() != null) {
-			fragments.add(PlotUtilities.createVariable(FORMATTER, getFormatter().plot()));
+			fragments.add(getFormatter().plot());
 		}
 
-		if (getPrefix() != null) {
+		if (getPrefix() != null && !getPrefix().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(PREFIX, getPrefix()));
 		}
 
-		if (getFormatString() != null) {
+		if (getFormatString() != null && !getFormatString().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(FORMAT_STRING, getFormatString()));
 		}
 
-		if (getFontFamily() != null) {
+		if (getFontFamily() != null && !getFontFamily().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(FONT_FAMILY, getFontFamily()));
 		}
 
-		if (getFontSize() != null) {
+		if (getFontSize() != null && !getFontSize().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(FONT_SIZE, getFontSize()));
 		}
 
-		if (getTextColor() != null) {
+		if (getTextColor() != null && !getTextColor().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(TEXT_COLOR, getTextColor()));
 		}
 
@@ -128,15 +128,6 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 		}
 
 		return fragments;
-	}
-
-	@Override
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(plotBegin());
-		builder.append(StringUtils.join(getFragments().toArray(), ",\n"));
-		builder.append(plotEnd());
-		return builder.toString();
 	}
 
 	@Override
