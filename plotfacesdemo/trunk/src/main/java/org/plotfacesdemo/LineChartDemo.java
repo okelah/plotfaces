@@ -3,39 +3,37 @@ package org.plotfacesdemo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.plotfaces.component.RendererOptions;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
-import org.plotfaces.plugins.Highlighter;
-import org.plotfaces.renderer.BarRenderer;
+import org.plotfaces.data.SimpleData;
+import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
-import org.plotfaces.renderer.CategoryAxisRenderer;
+import org.plotfaces.renderer.DefaultTickFormatter;
+import org.plotfaces.renderer.LineRenderer;
+import org.plotfaces.renderer.LinearAxisRenderer;
+import org.plotfaces.renderer.MarkerRenderer;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author Graham Smith
  */
-@ManagedBean
-@ViewScoped
+@Named
+@SessionScoped
 public class LineChartDemo implements Serializable {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	@Inject
+	private Logger logger;
 	private ChartModel chartModel;
 	private RendererOptions rendererOptions;
+	private CollapseHandler collapseHandler = new CollapseHandler();
 
 	public LineChartDemo() {
-	}
-
-	public String initializeField() {
-		chartModel.getAxes().get(0).setShowLabel(true);
-		return null;
 	}
 
 	public ChartModel getChartModel() {
@@ -43,25 +41,82 @@ public class LineChartDemo implements Serializable {
 			chartModel = new ChartModel();
 			chartModel.setSeriesDefaults(getSeriesDefaults());
 			chartModel.setAxes(getAxes());
-			Highlighter highlighter = new Highlighter();
-			highlighter.setShow(true);
-			highlighter.setSizeAdjust(15d);
-			chartModel.setHighlighter(highlighter);
-
-			ChartSeries chartSeries = new ChartSeries();
-			chartSeries.setData( new Number[] { 5, 2, 9 } );
-			chartSeries.setRenderer( new BarRenderer() );
-			chartModel.getSeries().add( chartSeries );
+			chartModel.addSeries(getSeries1());
+			chartModel.addSeries(getSeries2());
 		}
+
 		return chartModel;
 	}
 
-	public void setChartModel(ChartModel chartModel) {
-		this.chartModel = chartModel;
+	private ChartSeries getSeries1() {
+		ChartSeries series = new ChartSeries();
+		series.setLabel("Series 1");
+		series.setRenderer(new LineRenderer());
+
+		//Some data for series 1
+		SimpleData data = new SimpleData();
+		data.addValue(2);
+		data.addValue(1);
+		data.addValue(3);
+		data.addValue(6);
+		data.addValue(8);
+		series.setData(data);
+
+		return series;
+	}
+
+	private ChartSeries getSeries2() {
+		ChartSeries series = new ChartSeries();
+		series.setLabel("Series 2");
+		MarkerRenderer markerRenderer = new MarkerRenderer();
+		markerRenderer.setStyle(MarkerRenderer.MarkerStyle.circle);
+		series.setRenderer(new LineRenderer());
+
+		//Some data for series 2
+		SimpleData data = new SimpleData();
+		data.addValue(6);
+		data.addValue(3);
+		data.addValue(2);
+		data.addValue(7);
+		data.addValue(8);
+		series.setData(data);
+
+		return series;
+	}
+
+	private List<Axis> getAxes() {
+		List<Axis> axes = new ArrayList<>();
+
+		Axis x = new Axis(Axis.AxisName.xaxis);
+		x.setLabel("X-Axis");
+		CanvasAxisTickRenderer xTickRenderer = new CanvasAxisTickRenderer();
+		xTickRenderer.setFormatter(new DefaultTickFormatter());
+		x.setTickRenderer(xTickRenderer);
+		x.setLabelRenderer(new AxisLabelRenderer());
+		x.setRenderer(new LinearAxisRenderer());
+		axes.add(x);
+
+		Axis y = new Axis(Axis.AxisName.yaxis);
+		y.setLabel("Y-Axis");
+		CanvasAxisTickRenderer yTickRenderer = new CanvasAxisTickRenderer();
+		yTickRenderer.setFormatter(new DefaultTickFormatter());
+		y.setTickRenderer(yTickRenderer);
+		x.setLabelRenderer(new AxisLabelRenderer());
+		x.setRenderer(new LinearAxisRenderer());
+		axes.add(y);
+
+		return axes;
+	}
+
+	private ChartSeries getSeriesDefaults() {
+		ChartSeries series = new ChartSeries();
+		series.setxAxis(Axis.AxisName.xaxis);
+		series.setyAxis(Axis.AxisName.yaxis);
+		return series;
 	}
 
 	public RendererOptions getRendererOptions() {
-		if( rendererOptions == null ) {
+		if (rendererOptions == null) {
 			rendererOptions = new RendererOptions();
 		}
 		return rendererOptions;
@@ -71,39 +126,7 @@ public class LineChartDemo implements Serializable {
 		this.rendererOptions = rendererOptions;
 	}
 
-	private List<Axis> getAxes() {
-		Axis defaultAxis = new Axis();
-		CanvasAxisTickRenderer canvasAxisTickRenderer = new CanvasAxisTickRenderer();
-		canvasAxisTickRenderer.setAngle( -30 );
-		canvasAxisTickRenderer.setFontSize( "10pt" );
-		defaultAxis.setTickRenderer( canvasAxisTickRenderer );
-		chartModel.setAxesDefaults(defaultAxis);
-		
-		List<Axis> axes = new ArrayList<Axis>();
-
-		Axis x = new Axis(Axis.AxisName.xaxis);
-//		x.setLabel("X-Axis");
-		List<String> ticks = new ArrayList<String>();
-		ticks.add( "Funky" );
-		ticks.add( "Spunky" );
-		ticks.add( "Monkey" );
-		x.setTicks( ticks );
-		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
-		x.setRenderer(categoryAxisRenderer);
-		axes.add(x);
-
-//		Axis y = new Axis(Axis.AxisName.yaxis);
-//		y.setLabel("Y-Axis");
-//		axes.add(y);
-
-		return axes;
-	}
-
-	private ChartSeries getSeriesDefaults() {
-		ChartSeries series = new ChartSeries();
-//		series.setxAxis(Axis.AxisName.xaxis);
-//		series.setyAxis(Axis.AxisName.yaxis);
-//		series.setRenderer( new BarRenderer() );
-		return series;
+	public CollapseHandler getCollapseHandler() {
+		return collapseHandler;
 	}
 }

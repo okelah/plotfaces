@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+
+	<composite:interface>
+		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<p:tabView var="axis" value="#{cc.attrs.model.axes}" >
+			<p:tab title="#{axis.axisName}">
+				<!--
+					This must be the first button on the page so that it catches
+					the user pressing the enter key. Search for enter key problem
+					or disable entry key. PrimeFaces has the p:defaultCommand
+					tag but it didn't seem to work.
+
+					Commond buttons should use action listeners rather than onclick
+					handlers for reset.
+				-->
+				<p:commandButton id="defaultButton" value="#{msg.refresh}" />
+
+				<p:spacer height="10"/>
+				<axis:general axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+				<p:spacer height="10"/>
+				<axis:axisTickRenderer tickRenderer="#{axis.tickRenderer}" collapseHandler="#{cc.attrs.collapseHandler}" rendered="#{typeCheck.isAxisTickRenderer(axis.tickRenderer)}"/>
+				<p:spacer height="10"/>
+				<axis:canvasAxisTickRenderer tickRenderer="#{axis.tickRenderer}" collapseHandler="#{cc.attrs.collapseHandler}" rendered="#{typeCheck.isCanvasAxisTickRenderer(axis.tickRenderer)}"/>
+				<p:spacer height="10"/>
+				<axis:padding axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+				<p:spacer height="10"/>
+				<axis:border axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+				<p:spacer height="10"/>
+				<axis:label axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+				<p:spacer height="10"/>
+				<axis:ticks axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+
+			</p:tab>
+		</p:tabView>
+	</composite:implementation>
+</html>
+
