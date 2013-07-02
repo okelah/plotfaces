@@ -4,8 +4,8 @@
  */
 package org.plotfacesdemo;
 
-//import javax.enterprise.inject.Produces;
-//import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,12 +15,8 @@ import org.slf4j.LoggerFactory;
  */
 public class LoggingUtilities {
 
-public class LoggerFactoryProducer {
-    
-//    @Produces
-//    public Logger produceLog(InjectionPoint injectionPoint) {
-//        return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
-//    }
-
-}
+	@Produces
+	public Logger produceLogger(final InjectionPoint injectionPoint) {
+		return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
+	}
 }

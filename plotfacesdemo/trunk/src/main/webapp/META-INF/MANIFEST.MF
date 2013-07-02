@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: ant-1.8.2.jar ant-launcher-1.8.2.jar args4j-2.0.16.jar clo
- sure-compiler-r2388.jar commons-lang-2.4.jar guava-13.0.1.jar jarjar-
- 1.1.jar jsf-api-2.1.17.jar jsf-impl-2.1.17.jar json-20090211.jar jsr3
- 05-1.3.9.jar logback-classic-1.0.0.jar logback-core-1.0.0.jar plotfac
- es.jar primefaces-3.6-SNAPSHOT.jar protobuf-java-2.4.1.jar slf4j-api-
- 1.6.4.jar
-
