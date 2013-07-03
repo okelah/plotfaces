@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+	<composite:interface>
+		<composite:attribute name="axisRenderer" required="true" type="org.plotfaces.renderer.LinearAxisRenderer"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+
+		<!--
+			All message resources should have the _linearAxisRenderer suffix.
+		-->
+
+		<p:panel id="linearAxisRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('linearAxisRenderer')}" header="#{msg.linearAxisRenderer}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
+			<p:panelGrid id="linearAxisRendererGrid" columns="3">
+				<h:panelGroup>
+					#{msg.breakTickLabel_linearAxisRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.axisRenderer.breakTickLabel}" rendered="#{not empty cc.attrs.axisRenderer.breakTickLabel}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axisRenderer.setBreakTickLabel( '~' )}" rendered="#{empty cc.attrs.axisRenderer.breakTickLabel}" update="linearAxisRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.axisRenderer.breakTickLabel}" update="linearAxisRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axisRenderer.breakTickLabel}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.breakTickLabel_linearAxisRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.forceZero_linearAxisRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.axisRenderer.forceTickAtZero}" rendered="#{cc.attrs.axisRenderer.forceTickAtZero != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.axisRenderer.setForceTickAtZero( true )}" rendered="#{cc.attrs.axisRenderer.forceTickAtZero == null}" update="linearAxisRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axisRenderer.forceTickAtZero != null}" update="linearAxisRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axisRenderer.forceTickAtZero}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.forceZero_linearAxisRenderer}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.forceOneHundred_linearAxisRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.axisRenderer.forceTickAtOneHundred}" rendered="#{cc.attrs.axisRenderer.forceTickAtOneHundred != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.axisRenderer.setForceTickAtOneHundred( true )}" rendered="#{cc.attrs.axisRenderer.forceTickAtOneHundred == null}" update="linearAxisRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axisRenderer.forceTickAtOneHundred != null}" update="linearAxisRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axisRenderer.forceTickAtOneHundred}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.forceOneHundred_linearAxisRenderer}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

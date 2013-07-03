@@ -5,50 +5,54 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="axis" required="true" type="org.plotfaces.data.Axis"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
+		<!--
+			All message resources should have the _axisLabel suffix.
+		-->
+
 		<p:panel id="axisLabel" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('axisLabel')}" header="#{msg.label}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
-			<p:panelGrid columns="3">
+			<p:panelGrid id="axisLabelGrid" columns="3">
 				<h:panelGroup>
-					#{msg.labelDisplay}
+					#{msg.labelDisplay_axisLabel}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{axis.showLabel}" rendered="#{axis.showLabel != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowLabel( true )}" rendered="#{axis.showLabel == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.showLabel != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowLabel( true )}" rendered="#{axis.showLabel == null}" update="axisLabelGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{axis.showLabel != null}" update="axisLabelGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{axis.showLabel}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.labelDisplay_notes}
+					#{msg.labelDisplay_axisLabel_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.labelText}
+					#{msg.labelText_axisLabel}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.label}" size="25" rendered="#{axis.label != null}">
-						<p:ajax update=":form:plot"/>
+					<p:inputText value="#{axis.label}" size="25" rendered="#{not empty axis.label}">
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setLabel( 'label' )}" rendered="#{axis.label == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.label != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{axis.setLabel( 'label' )}" rendered="#{empty axis.label}" update="axisLabelGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty axis.label}" update="axisLabelGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{axis.label}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.labelText_notes}
+					#{msg.labelText_axisLabel_notes}
 				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>

@@ -9,124 +9,124 @@
 	<composite:interface>
 		<composite:attribute name="tickRenderer" required="true" type="org.plotfaces.renderer.CanvasAxisTickRenderer"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
 
 		<!--
-			All message resource should have the _tick suffix to indicate they are
-			for the AxisTickRenderer or sub-classes of it.
+			All message resources should have the _canvasAxisTickRenderer suffix.
 		-->
 
 		<p:panel id="canvasAxisTickRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('canvasAxisTickRenderer')}" header="#{msg.canvasAxisTickRenderer}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
-			<p:panelGrid columns="3">
+			<p:panelGrid id="canvasAxisTickRendererGrid" columns="3">
 				<h:panelGroup>
-					#{msg.angle_tick}
+					#{msg.angle_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.angle}" rendered="#{cc.attrs.tickRenderer.angle != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setAngle( 320 )}" rendered="#{cc.attrs.tickRenderer.angle == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.angle != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setAngle( 320 )}" rendered="#{cc.attrs.tickRenderer.angle == null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.angle != null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.angle}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.angle_tick_notes}
+					#{msg.angle_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.labelPosition_tick}
+					#{msg.labelPosition_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectOneMenu value="#{cc.attrs.tickRenderer.labelPosition}" rendered="#{cc.attrs.tickRenderer.labelPosition != null}">
 						<f:selectItems value="#{enumTypes.axisTickLabelPositions}"/>
-						<p:ajax update=":form:mainTabs:axesSettings :form:plot"/>
+						<p:ajax update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
 					</p:selectOneMenu>
 
-					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.tickRenderer.labelPosition == null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.tickRenderer.labelPosition == null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.labelPosition}" value="auto" />
 					</p:commandButton>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.labelPosition != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.labelPosition != null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.labelPosition}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.labelPosition_tick_notes}
+					#{msg.labelPosition_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.fontWeight_tick}
+					#{msg.fontWeight_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.fontWeight}" rendered="#{not empty cc.attrs.tickRenderer.fontWeight}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontWeight( 'bold' )}" rendered="#{empty cc.attrs.tickRenderer.fontWeight}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontWeight}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontWeight( 'bold' )}" rendered="#{empty cc.attrs.tickRenderer.fontWeight}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontWeight}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.fontWeight}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.fontWeight_tick_notes}
+					#{msg.fontWeight_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.fontStretch_tick}
+					#{msg.fontStretch_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.fontStretch}" rendered="#{cc.attrs.tickRenderer.fontStretch != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontStretch( 1.5 )}" rendered="#{cc.attrs.tickRenderer.fontStretch == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.fontStretch != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontStretch( 1.5 )}" rendered="#{cc.attrs.tickRenderer.fontStretch == null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.fontStretch != null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.fontStretch}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.fontStretch_tick_notes}
+					#{msg.fontStretch_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.enableFontSupport_tick}
+					#{msg.enableFontSupport_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.tickRenderer.enableFontSupport}" rendered="#{cc.attrs.tickRenderer.enableFontSupport != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setEnableFontSupport( true )}" rendered="#{cc.attrs.tickRenderer.enableFontSupport == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.enableFontSupport != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setEnableFontSupport( true )}" rendered="#{cc.attrs.tickRenderer.enableFontSupport == null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.enableFontSupport != null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.enableFontSupport}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.enableFontSupport_tick_notes}
+					#{msg.enableFontSupport_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.pt2px_tick}
+					#{msg.pt2px_canvasAxisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.pt2px}" rendered="#{cc.attrs.tickRenderer.pt2px != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setPt2px( 1.0 )}" rendered="#{cc.attrs.tickRenderer.pt2px == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.pt2px != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setPt2px( 1.0 )}" rendered="#{cc.attrs.tickRenderer.pt2px == null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.pt2px != null}" update="canvasAxisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.pt2px}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.pt2px_tick_notes}
+					#{msg.pt2px_canvasAxisTickRenderer_notes}
 				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>

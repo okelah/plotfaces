@@ -5,20 +5,24 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="axis" required="true" type="org.plotfaces.data.Axis"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
+		<!--
+			All message resources should have the _axisBorder suffix.
+		-->
+
 		<p:panel id="axisBorder" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('axisBorder')}" header="#{msg.border}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
-			<p:panelGrid columns="3">
+			<p:panelGrid id="axisBorderGrid" columns="3">
 				<h:panelGroup>
-					#{msg.borderColor}
+					#{msg.borderColor_axisBorder}
 				</h:panelGroup>
 				<h:panelGroup>
 					<!--
@@ -30,36 +34,36 @@
 					<!--#{axis.borderColor == null}-->
 
 					<p:colorPicker value="#{axis.borderColor}" rendered="#{not empty axis.borderColor}" mode="inline"/>
-					<p:commandButton value="#{msg.update}" rendered="#{not empty axis.borderColor}" update=":form:plot" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty axis.borderColor}" update="#{cc.attrs.plot}" />
 					<!--<p:inputText value="#{axis.borderColor}" rendered="#{axis.borderColor != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>-->
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderColor( 'cccccc' )}" rendered="#{empty axis.borderColor}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty axis.borderColor}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderColor( 'cccccc' )}" rendered="#{empty axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{axis.borderColor}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.borderColor_notes}
+					#{msg.borderColor_axisBorder_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.borderWidth}
+					#{msg.borderWidth_axisBorder}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{axis.borderWidth}" rendered="#{axis.borderWidth != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber maxFractionDigits="0"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderWidth( 1.0 )}" rendered="#{axis.borderWidth == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.borderWidth != null}" update=":form:mainTabs:axesSettings :form:plot" immediate="true">
+					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderWidth( 1.0 )}" rendered="#{axis.borderWidth == null}" update="axisBorderGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{axis.borderWidth != null}" update="axisBorderGrid #{cc.attrs.plot}" immediate="true">
 						<f:setPropertyActionListener target="#{axis.borderWidth}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.borderWidth_notes}
+					#{msg.borderWidth_axisBorder_notes}
 				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>

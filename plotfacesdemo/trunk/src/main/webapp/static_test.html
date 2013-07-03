@@ -28,35 +28,51 @@ limitations under the License.
 		<script>
 
 			$(document).ready(function() {
-				var form_plot_data = [[2, 1, 3, 6, 8], [6, 3, 2, 7, 8]];
+				var form_plot_data = [[3, 1, 3, 6, 8], [6, 3, 2, 7, 8]];
 				var form_plot_model = {
-					seriesDefaults: {
-						show: true
-					}, series: [{
-							show: true
-						}, {
-							show: true
-						}],
-					axes: {
-						xaxis: {
-							show: true,
-							tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-							tickOptions: {isMinorTick: true,
-								formatter: $.jqplot.DefaultTickFormatter},
-							labelRenderer: $.jqplot.AxisLabelRenderer,
-							labelOptions: {},
-							label: 'X-Axis',
-							renderer: $.jqplot.LinearAxisRenderer,
-							rendererOptions: {},
-							showMinorTicks: false
+					"axes": {
+						"xaxis": {
+							"axisName": "xaxis",
+							"show": true,
+							"tickRenderer": $.jqplot.CanvasAxisTickRenderer,
+							"tickOptions": {
+								"formatter": $.jqplot.DefaultTickFormatter,
+								"formatterOptions": {}
+							},
+							"label": "X-Axis",
+							"renderer": $.jqplot.LinearAxisRenderer,
+							"rendererOptions": {}
 						},
-						yaxis: {
-							show: true,
-							tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-							tickOptions: {formatter: $.jqplot.DefaultTickFormatter},
-							label: 'Y-Axis'
+						"yaxis": {
+							"axisName": "yaxis",
+							"show": true,
+							"tickRenderer": $.jqplot.AxisTickRenderer,
+							"tickOptions": {},
+							"label": "Y-Axis",
+							"renderer": $.jqplot.CategoryAxisRenderer,
+							"rendererOptions": {}
 						}
-					}
+					},
+					"seriesDefaults": {
+						"show": true,
+						"xAxis": "xaxis",
+						"yAxis": "yaxis"
+					},
+					"series": [
+						{
+							"show": true,
+							"label": "Series 1",
+							"data": {
+								"values": [
+									2,
+									1,
+									3,
+									6,
+									8
+								]
+							}
+						}
+					]
 				};
 				var form_plot_plot = $.jqplot('form\\:plot', form_plot_data, form_plot_model);
 			});

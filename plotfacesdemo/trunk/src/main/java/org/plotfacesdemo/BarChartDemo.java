@@ -38,7 +38,7 @@ public class BarChartDemo implements Serializable {
 		if (chartModel == null) {
 			chartModel = new ChartModel();
 			chartModel.setSeriesDefaults(getSeriesDefaults());
-			chartModel.setAxes(getAxes());
+//			chartModel.setAxes(getAxes());
 
 			ChartSeries chartSeries = new ChartSeries();
 			KeyedData<String> data = new KeyedData<>();
@@ -61,7 +61,7 @@ public class BarChartDemo implements Serializable {
 		CanvasAxisTickRenderer canvasAxisTickRenderer = new CanvasAxisTickRenderer();
 		canvasAxisTickRenderer.setAngle(-30);
 		canvasAxisTickRenderer.setFontSize("10pt");
-		defaultAxis.setTickRenderer(canvasAxisTickRenderer);
+//		defaultAxis.setTickRenderer(canvasAxisTickRenderer);
 		chartModel.setAxesDefaults(defaultAxis);
 
 		List<Axis> axes = new ArrayList<Axis>();
@@ -73,9 +73,9 @@ public class BarChartDemo implements Serializable {
 //		ticks.add( "Spunky" );
 //		ticks.add( "Monkey" );
 //		x.setTicks( ticks );
-		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
-		x.setRenderer(categoryAxisRenderer);
-		axes.add(x);
+//		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
+//		x.setRenderer(categoryAxisRenderer);
+//		axes.add(x);
 
 //		Axis y = new Axis(Axis.AxisName.yaxis);
 //		y.setLabel("Y-Axis");

@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.plotfaces.component.RendererOptions;
+import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
@@ -40,7 +41,7 @@ public class LineChartDemo implements Serializable {
 		if (chartModel == null) {
 			chartModel = new ChartModel();
 			chartModel.setSeriesDefaults(getSeriesDefaults());
-			chartModel.setAxes(getAxes());
+			setAxes(chartModel);
 			chartModel.addSeries(getSeries1());
 			chartModel.addSeries(getSeries2());
 		}
@@ -84,28 +85,28 @@ public class LineChartDemo implements Serializable {
 		return series;
 	}
 
-	private List<Axis> getAxes() {
-		List<Axis> axes = new ArrayList<>();
+	private void setAxes(ChartModel chartModel) {
+		Axes axes = new Axes();
 
 		Axis x = new Axis(Axis.AxisName.xaxis);
 		x.setLabel("X-Axis");
 		CanvasAxisTickRenderer xTickRenderer = new CanvasAxisTickRenderer();
-		xTickRenderer.setFormatter(new DefaultTickFormatter());
-		x.setTickRenderer(xTickRenderer);
+		xTickRenderer.setFormatterOptions(new DefaultTickFormatter());
+		x.setTickOptions(xTickRenderer);
 		x.setLabelRenderer(new AxisLabelRenderer());
-		x.setRenderer(new LinearAxisRenderer());
-		axes.add(x);
+		x.setRendererOptions(new LinearAxisRenderer());
+		axes.setXaxis(x);
 
 		Axis y = new Axis(Axis.AxisName.yaxis);
 		y.setLabel("Y-Axis");
 		CanvasAxisTickRenderer yTickRenderer = new CanvasAxisTickRenderer();
-		yTickRenderer.setFormatter(new DefaultTickFormatter());
-		y.setTickRenderer(yTickRenderer);
-		x.setLabelRenderer(new AxisLabelRenderer());
-		x.setRenderer(new LinearAxisRenderer());
-		axes.add(y);
+		yTickRenderer.setFormatterOptions(new DefaultTickFormatter());
+		y.setTickOptions(yTickRenderer);
+		y.setLabelRenderer(new AxisLabelRenderer());
+		y.setRendererOptions(new LinearAxisRenderer());
+		axes.setYaxis(y);
 
-		return axes;
+		chartModel.setAxes(axes);
 	}
 
 	private ChartSeries getSeriesDefaults() {
