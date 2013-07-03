@@ -17,8 +17,10 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import org.plotfaces.renderer.AxisRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.LinearAxisRenderer;
 import org.plotfaces.renderer.TickRenderer;
 
 /**
@@ -40,10 +42,23 @@ public class TypeCheck {
 	}
 
 	public boolean isAxisTickRenderer(TickRenderer tickRenderer) {
+		if (tickRenderer == null) {
+			return false;
+		}
 		return tickRenderer instanceof AxisTickRenderer;
 	}
 
 	public boolean isCanvasAxisTickRenderer(TickRenderer tickRenderer) {
+		if (tickRenderer == null) {
+			return false;
+		}
 		return tickRenderer instanceof CanvasAxisTickRenderer;
+	}
+
+	public boolean isLinearAxisRenderer(AxisRenderer axisRenderer) {
+		if (axisRenderer == null) {
+			return false;
+		}
+		return axisRenderer instanceof LinearAxisRenderer;
 	}
 }

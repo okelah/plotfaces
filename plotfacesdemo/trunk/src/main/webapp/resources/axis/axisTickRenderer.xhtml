@@ -9,258 +9,268 @@
 	<composite:interface>
 		<composite:attribute name="tickRenderer" required="true" type="org.plotfaces.renderer.AxisTickRenderer"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
 
 		<!--
-			All message resource should have the _tick suffix to indicate they are
-			for the AxisTickRenderer or sub-classes of it.
+			All message resources should have the _axisTickRenderer suffix.
 		-->
 
 		<p:panel id="axisTickRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('axisTickRenderer')}" header="#{msg.axisTickRenderer}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
-			<p:panelGrid columns="3">
+			<p:panelGrid id="axisTickRendererGrid" columns="3">
 				<h:panelGroup>
-					#{msg.mark_tick}
+					#{msg.mark_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectOneMenu value="#{cc.attrs.tickRenderer.mark}" rendered="#{cc.attrs.tickRenderer.mark != null}">
 						<f:selectItems value="#{enumTypes.axisTickMarks}"/>
-						<p:ajax update=":form:mainTabs:axesSettings :form:plot"/>
+						<p:ajax update="axisTickRendererGrid #{cc.attrs.plot}"/>
 					</p:selectOneMenu>
 
-					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.tickRenderer.mark == null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.tickRenderer.mark == null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.mark}" value="outside" />
 					</p:commandButton>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.mark != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.mark != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.mark}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.mark_tick_notes}
+					#{msg.mark_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.showMark_tick}
+					#{msg.showMark_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.tickRenderer.showMark}" rendered="#{cc.attrs.tickRenderer.showMark != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowMark( true )}" rendered="#{cc.attrs.tickRenderer.showMark == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showMark != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowMark( true )}" rendered="#{cc.attrs.tickRenderer.showMark == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showMark != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.showMark}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.showMark_tick_notes}
+					#{msg.showMark_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.showGridline_tick}
+					#{msg.showGridline_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.tickRenderer.showGridline}" rendered="#{cc.attrs.tickRenderer.showGridline != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowGridline( true )}" rendered="#{cc.attrs.tickRenderer.showGridline == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showGridline != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowGridline( true )}" rendered="#{cc.attrs.tickRenderer.showGridline == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showGridline != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.showGridline}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.showGridline_tick_notes}
+					#{msg.showGridline_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.isMinorTick_tick}
+					#{msg.isMinorTick_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.tickRenderer.isMinorTick}" rendered="#{cc.attrs.tickRenderer.isMinorTick != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setIsMinorTick( true )}" rendered="#{cc.attrs.tickRenderer.isMinorTick == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.isMinorTick != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setIsMinorTick( true )}" rendered="#{cc.attrs.tickRenderer.isMinorTick == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.isMinorTick != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.isMinorTick}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.isMinorTick_tick_notes}
+					#{msg.isMinorTick_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.size_tick}
+					#{msg.size_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.size}" rendered="#{cc.attrs.tickRenderer.size != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setSize( 4 )}" rendered="#{cc.attrs.tickRenderer.size == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.size != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setSize( 4 )}" rendered="#{cc.attrs.tickRenderer.size == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.size != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.size}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.size_tick_notes}
+					#{msg.size_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.markSize_tick}
+					#{msg.markSize_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.markSize}" rendered="#{cc.attrs.tickRenderer.markSize != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setMarkSize( 6 )}" rendered="#{cc.attrs.tickRenderer.markSize == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.markSize != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setMarkSize( 6 )}" rendered="#{cc.attrs.tickRenderer.markSize == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.markSize != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.markSize}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.markSize_tick_notes}
+					#{msg.markSize_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.showTicks_tick}
+					#{msg.showTicks_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.tickRenderer.show}" rendered="#{cc.attrs.tickRenderer.show != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShow( true )}" rendered="#{cc.attrs.tickRenderer.show == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.show != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShow( true )}" rendered="#{cc.attrs.tickRenderer.show == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.show != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.show}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.showTicks_tick_notes}
+					#{msg.showTicks_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.showLabel_tick}
+					#{msg.showLabel_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.tickRenderer.showLabel}" rendered="#{cc.attrs.tickRenderer.showLabel != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowLabel( true )}" rendered="#{cc.attrs.tickRenderer.showLabel == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showLabel != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setShowLabel( true )}" rendered="#{cc.attrs.tickRenderer.showLabel == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.showLabel != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.showLabel}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.showLabel_tick_notes}
+					#{msg.showLabel_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.prefix_tick}
+					#{msg.formatter_axisTickRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.tickRenderer.formatter['class'].simpleName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.formatter_axisTickRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.prefix_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.prefix}" rendered="#{not empty cc.attrs.tickRenderer.prefix}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setPrefix( 'pre' )}" rendered="#{empty cc.attrs.tickRenderer.prefix}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.prefix}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setPrefix( 'pre' )}" rendered="#{empty cc.attrs.tickRenderer.prefix}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.prefix}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.prefix}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.prefix_tick_notes}
+					#{msg.prefix_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.formatString_tick}
+					#{msg.formatString_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.formatString}" rendered="#{not empty cc.attrs.tickRenderer.formatString}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFormatString( '%03d' )}" rendered="#{empty cc.attrs.tickRenderer.formatString}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.formatString}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFormatString( '%03d' )}" rendered="#{empty cc.attrs.tickRenderer.formatString}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.formatString}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.formatString}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.formatString_tick_notes}
+					#{msg.formatString_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.fontFamily_tick}
+					#{msg.fontFamily_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.fontFamily}" rendered="#{not empty cc.attrs.tickRenderer.fontFamily}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontFamily( 'Times New Roman' )}" rendered="#{empty cc.attrs.tickRenderer.fontFamily}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontFamily}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontFamily( 'Times New Roman' )}" rendered="#{empty cc.attrs.tickRenderer.fontFamily}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontFamily}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.fontFamily}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.fontFamily_tick_notes}
+					#{msg.fontFamily_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.fontSize_tick}
+					#{msg.fontSize_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.tickRenderer.fontSize}" rendered="#{not empty cc.attrs.tickRenderer.fontSize}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontSize( '150%' )}" rendered="#{empty cc.attrs.tickRenderer.fontSize}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontSize}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setFontSize( '150%' )}" rendered="#{empty cc.attrs.tickRenderer.fontSize}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.fontSize}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.fontSize}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.fontSize_tick_notes}
+					#{msg.fontSize_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.textColor_tick}
+					#{msg.textColor_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:colorPicker value="#{cc.attrs.tickRenderer.textColor}" rendered="#{not empty cc.attrs.tickRenderer.textColor}" mode="inline"/>
-					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.tickRenderer.textColor}" update=":form:plot" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.tickRenderer.textColor}" update="#{cc.attrs.plot}" />
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setTextColor( 'cccccc' )}" rendered="#{empty cc.attrs.tickRenderer.textColor}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.textColor}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.tickRenderer.setTextColor( 'cccccc' )}" rendered="#{empty cc.attrs.tickRenderer.textColor}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.tickRenderer.textColor}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.textColor}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.textColor_tick_notes}
+					#{msg.textColor_axisTickRenderer_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.escapeHTML_tick}
+					#{msg.escapeHTML_axisTickRenderer}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.tickRenderer.escapeHTML}" rendered="#{cc.attrs.tickRenderer.escapeHTML != null}">
-						<p:ajax update=":form:plot"/>
+						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setEscapeHTML( true )}" rendered="#{cc.attrs.tickRenderer.escapeHTML == null}" update=":form:mainTabs:axesSettings :form:plot"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.escapeHTML != null}" update=":form:mainTabs:axesSettings :form:plot">
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.tickRenderer.setEscapeHTML( true )}" rendered="#{cc.attrs.tickRenderer.escapeHTML == null}" update="axisTickRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.tickRenderer.escapeHTML != null}" update="axisTickRendererGrid #{cc.attrs.plot}">
 						<f:setPropertyActionListener target="#{cc.attrs.tickRenderer.escapeHTML}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.escapeHTML_tick_notes}
+					#{msg.escapeHTML_axisTickRenderer_notes}
 				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>

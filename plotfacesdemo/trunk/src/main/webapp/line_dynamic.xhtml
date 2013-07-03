@@ -15,6 +15,16 @@
     </h:head>
     <h:body>
 		<h:form prependId="true" id="form">
+			<!--
+					This must be the first button on the page so that it catches
+					the user pressing the enter key. Search for enter key problem
+					or disable entry key. PrimeFaces has the p:defaultCommand
+					tag but it didn't seem to work.
+
+					Commond buttons should use action listeners rather than onclick
+					handlers for reset.
+			-->
+			<p:commandButton id="defaultButton" value="#{msg.refresh}" />
 			<h:commandLink value="${msg.home}" action="index"/>
 			<plot:plot id="plot" chartModel="#{lineChartDemo.chartModel}" rendererOptions="#{lineChartDemo.rendererOptions}" style="width: 900px; height: 400px;"/>
 			<p:tabView id="mainTabs">

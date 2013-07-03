@@ -5,8 +5,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="axis" required="true" type="org.plotfaces.data.Axis"/>
@@ -15,11 +14,15 @@
 	</composite:interface>
 
     <composite:implementation>
+		<!--
+			All message resources should have the _axisGeneral suffix.
+		-->
+
 		<p:panel id="axisGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('axisGeneral')}" header="#{msg.general}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
 			<p:panelGrid id="axisGeneralGrid" columns="3">
 				<h:panelGroup>
-					#{msg.show}
+					#{msg.show_axisGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.show}" rendered="#{cc.attrs.axis.show != null}">
@@ -27,11 +30,11 @@
 					</p:selectBooleanButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.show_notes}
+					#{msg.show_axisGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.useSeriesColor}
+					#{msg.useSeriesColor_axisGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.notUsed}" onLabel="#{msg.used}" value="#{cc.attrs.axis.useSeriesColor}" rendered="#{cc.attrs.axis.useSeriesColor != null}">
@@ -44,11 +47,11 @@
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.useSeriesColor_notes}
+					#{msg.useSeriesColor_axisGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.autoScale}
+					#{msg.autoScale_axisGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:selectBooleanButton offLabel="#{msg.manual}" onLabel="#{msg.automatic}" value="#{cc.attrs.axis.autoScale}" rendered="#{cc.attrs.axis.autoScale != null}">
@@ -61,11 +64,11 @@
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.autoScale_notes}
+					#{msg.autoScale_axisGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.minimum}
+					#{msg.minimum_axisGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.axis.min}" rendered="#{cc.attrs.axis.min != null}">
@@ -79,11 +82,11 @@
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.minimum_notes}
+					#{msg.minimum_axisGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.maximum}
+					#{msg.maximum_axisGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
 					<p:inputText value="#{cc.attrs.axis.max}" rendered="#{cc.attrs.axis.max != null}">
@@ -97,7 +100,7 @@
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
-					#{msg.maximum_notes}
+					#{msg.maximum_axisGeneral_notes}
 				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>

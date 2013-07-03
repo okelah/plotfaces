@@ -15,34 +15,21 @@
 	</composite:interface>
 
     <composite:implementation>
+		<!--
+			All message resources should have the _axis suffix.
+		-->
+
 		<p:tabView var="axis" value="#{cc.attrs.model.axes}" >
 			<p:tab title="#{axis.axisName}">
-				<!--
-					This must be the first button on the page so that it catches
-					the user pressing the enter key. Search for enter key problem
-					or disable entry key. PrimeFaces has the p:defaultCommand
-					tag but it didn't seem to work.
-
-					Commond buttons should use action listeners rather than onclick
-					handlers for reset.
-				-->
-				<p:commandButton id="defaultButton" value="#{msg.refresh}" />
-
-				<p:spacer height="10"/>
 				<axis:general axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
-				<p:spacer height="10"/>
-				<axis:axisTickRenderer tickRenderer="#{axis.tickRenderer}" collapseHandler="#{cc.attrs.collapseHandler}" rendered="#{typeCheck.isAxisTickRenderer(axis.tickRenderer)}"/>
-				<p:spacer height="10"/>
-				<axis:canvasAxisTickRenderer tickRenderer="#{axis.tickRenderer}" collapseHandler="#{cc.attrs.collapseHandler}" rendered="#{typeCheck.isCanvasAxisTickRenderer(axis.tickRenderer)}"/>
-				<p:spacer height="10"/>
-				<axis:padding axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
-				<p:spacer height="10"/>
-				<axis:border axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
-				<p:spacer height="10"/>
-				<axis:label axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
-				<p:spacer height="10"/>
-				<axis:ticks axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}"/>
 
+
+				<p>Notes: There are a small number of items that aren't currently supported:</p>
+				<ul>
+					<li>Specifying an array of ticks isn't currently supported through this interface but it is in ChartModel.</li>
+					<li>The axis tick renderer formatter is always set to the default value.</li>
+					<li>Break points aren't supported on linear axis renderer.</li>
+				</ul>
 			</p:tab>
 		</p:tabView>
 	</composite:implementation>
