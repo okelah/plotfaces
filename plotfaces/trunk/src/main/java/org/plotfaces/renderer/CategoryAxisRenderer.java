@@ -80,6 +80,6 @@ public class CategoryAxisRenderer extends AbstractAxisRenderer {
 
 	@Override
 	public String getRendererName() {
-		return "CategoryAxisRenderer";
+		return RENDERER_NAME_PREFIX + "CategoryAxisRenderer";
 	}
 }

@@ -68,7 +68,7 @@ public class AxisTickRendererTest {
 		tickRenderer.setMarkSize(16);
 		tickRenderer.setShow(true);
 		tickRenderer.setShowLabel(true);
-		tickRenderer.setFormatter(new DefaultTickFormatter());
+		tickRenderer.setFormatterOptions(new DefaultTickFormatter());
 		tickRenderer.setPrefix("pre");
 		tickRenderer.setFormatString("format");
 		tickRenderer.setFontFamily("font_family");

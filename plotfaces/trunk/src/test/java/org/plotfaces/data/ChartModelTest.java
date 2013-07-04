@@ -17,6 +17,8 @@ package org.plotfaces.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.StringWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -25,8 +27,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.plotfaces.JsonEmptyStringSerializer;
+import org.plotfaces.PlotUtilities;
+import org.plotfaces.component.FunctionFixer;
 import org.plotfaces.renderer.AxisLabelRenderer;
+import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.CategoryAxisRenderer;
+import org.plotfaces.renderer.TableLegendRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
@@ -56,32 +64,38 @@ public class ChartModelTest {
 	public void tearDown() {
 	}
 
-	/**
-	 * Test of getModelVariable method, of class ChartModel.
-	 */
-	@Test
-	public void testGetModelVariable() {
-	}
-
-	/**
-	 * Test of setModelVariable method, of class ChartModel.
-	 */
-	@Test
-	public void testSetModelVariable() {
-	}
-
 	@Test
 	public void testGson() {
 		ChartModel chartModel = new ChartModel();
 
+		setSeriesDefaults(chartModel);
+		setSeriesOne(chartModel);
+		setXAxis(chartModel);
+		setYAxis(chartModel);
+		setLegend(chartModel);
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		gsonBuilder.registerTypeAdapter(String.class, new JsonEmptyStringSerializer());
+		Gson gson = gsonBuilder.create();
+		String result = gson.toJson(chartModel);
+		FunctionFixer fixer = new FunctionFixer();
+		fixer.setPrettyPrint(true);
+		result = fixer.fix(chartModel, result);
+		System.out.println(result);
+	}
+
+	private void setSeriesDefaults(ChartModel chartModel) {
 		ChartSeries seriesDefaults = new ChartSeries();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
 		chartModel.setSeriesDefaults(seriesDefaults);
+	}
 
+	private void setSeriesOne(ChartModel chartModel) {
 		ChartSeries series = new ChartSeries();
 		series.setLabel("Series 1");
-		series.setRenderer(new LineRenderer());
+//		series.setRenderer(new LineRenderer());
 
 		//Some data for series 1
 		SimpleData data = new SimpleData();
@@ -93,115 +107,37 @@ public class ChartModelTest {
 		series.setData(data);
 
 		chartModel.addSeries(series);
+	}
 
-		List<Axis> axes = new ArrayList<>();
-
+	private void setXAxis(ChartModel chartModel) {
 		Axis x = new Axis(Axis.AxisName.xaxis);
 		x.setLabel("X-Axis");
 		CanvasAxisTickRenderer xTickRenderer = new CanvasAxisTickRenderer();
-		xTickRenderer.setFormatter(new DefaultTickFormatter());
-		x.setTickRenderer(xTickRenderer);
-		x.setLabelRenderer(new AxisLabelRenderer());
-		x.setRenderer(new LinearAxisRenderer());
-		axes.add(x);
+		xTickRenderer.setFormatterOptions(new DefaultTickFormatter());
+		x.setTickOptions(xTickRenderer);
+		x.setLabelOptions(new AxisLabelRenderer());
+		LinearAxisRenderer xAxisRenderer = new LinearAxisRenderer();
+		//Tests that empty strings get set to null.
+		xAxisRenderer.setBreakTickLabel("");
+		x.setRendererOptions(xAxisRenderer);
+		chartModel.getAxes().setXaxis(x);
+	}
 
+	private void setYAxis(ChartModel chartModel) {
 		Axis y = new Axis(Axis.AxisName.yaxis);
 		y.setLabel("Y-Axis");
-		CanvasAxisTickRenderer yTickRenderer = new CanvasAxisTickRenderer();
-		yTickRenderer.setFormatter(new DefaultTickFormatter());
-		y.setTickRenderer(yTickRenderer);
-		x.setLabelRenderer(new AxisLabelRenderer());
-		x.setRenderer(new LinearAxisRenderer());
-		axes.add(y);
-
-		chartModel.setAxes(axes);
-
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String result = gson.toJson(chartModel);
-		System.out.println(result);
+		AxisTickRenderer yTickRenderer = new AxisTickRenderer();
+		y.setTickOptions(yTickRenderer);
+		y.setLabelOptions(new AxisLabelRenderer());
+		y.setRendererOptions(new CategoryAxisRenderer());
+		chartModel.getAxes().setYaxis(y);
 	}
 
-	/**
-	 * Test of plot method, of class ChartModel.
-	 */
-	@Test
-	public void testPlot() {
-	}
-
-	/**
-	 * Test of getAxesDefaults method, of class ChartModel.
-	 */
-	@Test
-	public void testGetAxesDefaults() {
-	}
-
-	/**
-	 * Test of setAxesDefaults method, of class ChartModel.
-	 */
-	@Test
-	public void testSetAxesDefaults() {
-	}
-
-	/**
-	 * Test of getAxes method, of class ChartModel.
-	 */
-	@Test
-	public void testGetAxes() {
-	}
-
-	/**
-	 * Test of setAxes method, of class ChartModel.
-	 */
-	@Test
-	public void testSetAxes() {
-	}
-
-	/**
-	 * Test of getLegend method, of class ChartModel.
-	 */
-	@Test
-	public void testGetLegend() {
-	}
-
-	/**
-	 * Test of setLegend method, of class ChartModel.
-	 */
-	@Test
-	public void testSetLegend() {
-	}
-
-	/**
-	 * Test of getSeriesDefaults method, of class ChartModel.
-	 */
-	@Test
-	public void testGetSeriesDefaults() {
-	}
-
-	/**
-	 * Test of setSeriesDefaults method, of class ChartModel.
-	 */
-	@Test
-	public void testSetSeriesDefaults() {
-	}
-
-	/**
-	 * Test of getSeries method, of class ChartModel.
-	 */
-	@Test
-	public void testGetSeries() {
-	}
-
-	/**
-	 * Test of setSeries method, of class ChartModel.
-	 */
-	@Test
-	public void testSetSeries() {
-	}
-
-	/**
-	 * Test of addSeries method, of class ChartModel.
-	 */
-	@Test
-	public void testAddSeries() {
+	private void setLegend(ChartModel chartModel) {
+		Legend legend = new Legend();
+		legend.setShow(true);
+		legend.setPlacement(Legend.Placement.insideGrid);
+		legend.setRendererOptions(new TableLegendRenderer());
+		chartModel.setLegend(legend);
 	}
 }

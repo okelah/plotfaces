@@ -23,5 +23,5 @@ import org.plotfaces.data.Plotable;
  *
  * @author Graham Smith
  */
-public interface TickFormatter extends Plotable {
+public interface TickFormatter extends Plotable, Renderer {
 }

@@ -16,6 +16,7 @@
 package org.plotfaces.renderer;
 
 import org.plotfaces.PlotUtilities;
+import static org.plotfaces.renderer.AbstractTickFormatter.RENDERER_NAME_PREFIX;
 
 /**
  * A tick formatter that allows the use to specify a custom formatter to use. It
@@ -24,7 +25,7 @@ import org.plotfaces.PlotUtilities;
  *
  * @author Graham Smith
  */
-public class CustomTickFormatter implements TickFormatter {
+public class CustomTickFormatter extends AbstractTickFormatter {
 
 	private String formatter;
 
@@ -38,6 +39,11 @@ public class CustomTickFormatter implements TickFormatter {
 	@Override
 	public String plot() {
 		return PlotUtilities.createVariable("formatter", getFormatter());
+	}
+
+	@Override
+	public String getRendererName() {
+		return getFormatter();
 	}
 
 	public String getFormatter() {

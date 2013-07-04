@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.renderer;
 
 /**
+ * A class to hold options for the default table legend renderer. There are no
+ * options beyond those specified by {@code Legend}.
  *
  * @author Graham Smith
- * @deprecated
  */
-@Deprecated
-public interface Plotable {
+public class TableLegendRenderer extends AbstractLegendRenderer {
 
-	String plot();
+	public TableLegendRenderer() {
+	}
+
+	@Override
+	public String getRendererName() {
+		return RENDERER_NAME_PREFIX + "TableLegendRenderer";
+	}
 }

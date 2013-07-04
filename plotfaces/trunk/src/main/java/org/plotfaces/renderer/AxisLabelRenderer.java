@@ -57,7 +57,7 @@ public class AxisLabelRenderer extends AbstractLabelRenderer {
 
 	@Override
 	public String getRendererName() {
-		return "AxisLabelRenderer";
+		return RENDERER_NAME_PREFIX + "AxisLabelRenderer";
 	}
 
 	public Boolean getShow() {

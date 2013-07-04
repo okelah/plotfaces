@@ -54,7 +54,9 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 	private Integer markSize;
 	private Boolean show;
 	private Boolean showLabel;
-	private TickFormatter formatter;
+//	private TickFormatter formatter;
+	private String formatter;
+	private TickFormatter formatterOptions;
 	private String prefix;
 	private String formatString;
 	private String fontFamily;
@@ -99,9 +101,9 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 			fragments.add(PlotUtilities.createVariable(SHOW_LABEL, getShowLabel()));
 		}
 
-		if (getFormatter() != null) {
-			fragments.add(getFormatter().plot());
-		}
+//		if (getFormatter() != null) {
+//			fragments.add(getFormatter().plot());
+//		}
 
 		if (getPrefix() != null && !getPrefix().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(PREFIX, getPrefix()));
@@ -132,7 +134,7 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 
 	@Override
 	public String getRendererName() {
-		return "AxisTickRenderer";
+		return RENDERER_NAME_PREFIX + "AxisTickRenderer";
 	}
 
 	/**
@@ -295,22 +297,52 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 		this.showLabel = showLabel;
 	}
 
-	/**
-	 * A class of a formatter for the tick text. sprintf by default.
-	 *
-	 * @return the formatter
-	 */
-	public TickFormatter getFormatter() {
+	//	/**
+	//	 * A class of a formatter for the tick text. sprintf by default.
+	//	 *
+	//	 * @return the formatter
+	//	 */
+	//	public TickFormatter getFormatter() {
+	//		return formatter;
+	//	}
+	//
+	//	/**
+	//	 * A class of a formatter for the tick text. sprintf by default.
+	//	 *
+	//	 * @param formatter the formatter to set
+	//	 */
+	//	public void setFormatter(TickFormatter formatter) {
+	//		this.formatter = formatter;
+	//	}
+	protected String getFormatter() {
 		return formatter;
 	}
 
-	/**
-	 * A class of a formatter for the tick text. sprintf by default.
-	 *
-	 * @param formatter the formatter to set
-	 */
-	public void setFormatter(TickFormatter formatter) {
+	protected void setFormatter(String formatter) {
 		this.formatter = formatter;
+	}
+
+	/**
+	 * Non-standard options for the tick formatter.
+	 *
+	 * @return
+	 */
+	public TickFormatter getFormatterOptions() {
+		return formatterOptions;
+	}
+
+	/**
+	 * Non-standard options for the tick formatter.
+	 *
+	 * @param formatterOptions
+	 */
+	public void setFormatterOptions(TickFormatter formatterOptions) {
+		this.formatterOptions = formatterOptions;
+		if (formatterOptions == null) {
+			setFormatter(null);
+		} else {
+			setFormatter(formatterOptions.getRendererName());
+		}
 	}
 
 	/**

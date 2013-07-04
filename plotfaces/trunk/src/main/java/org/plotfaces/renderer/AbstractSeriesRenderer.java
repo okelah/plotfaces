@@ -20,6 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractSeriesRenderer implements SeriesRenderer {
 
+	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+
 	/**
 	 * Provides the standard opening to the renderer block of options.
 	 *
@@ -27,7 +29,7 @@ public abstract class AbstractSeriesRenderer implements SeriesRenderer {
 	 */
 	protected String plotBegin() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("renderer: $.jqplot.");
+		builder.append("renderer: ");
 		builder.append(getRendererName());
 		builder.append(",\nrendererOptions: ");
 		builder.append("{");

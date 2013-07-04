@@ -21,6 +21,8 @@ import org.plotfaces.data.Plotable;
 
 public abstract class AbstractTickRenderer implements TickRenderer {
 
+	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+
 	public AbstractTickRenderer() {
 	}
 
@@ -31,7 +33,7 @@ public abstract class AbstractTickRenderer implements TickRenderer {
 	 */
 	protected String plotBegin() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("tickRenderer: $.jqplot.");
+		builder.append("tickRenderer: ");
 		builder.append(getRendererName());
 		builder.append(",\ntickOptions: ");
 		builder.append("{");

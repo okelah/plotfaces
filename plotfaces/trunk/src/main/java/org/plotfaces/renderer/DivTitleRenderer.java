@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.renderer;
 
 /**
+ * The default title renderer. It has no settings beyond those provided to all
+ * title renderers.
  *
  * @author Graham Smith
- * @deprecated
  */
-@Deprecated
-public interface Plotable {
+public class DivTitleRenderer extends AbstractTitleRenderer {
 
-	String plot();
+	public DivTitleRenderer() {
+	}
+
+	@Override
+	public String getRendererName() {
+		return RENDERER_NAME_PREFIX + "DivTitleRenderer";
+	}
 }

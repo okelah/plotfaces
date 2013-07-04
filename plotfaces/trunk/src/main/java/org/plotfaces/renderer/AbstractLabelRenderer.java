@@ -6,6 +6,8 @@ import org.plotfaces.data.Plotable;
 
 public abstract class AbstractLabelRenderer implements LabelRenderer {
 
+	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+
 	public AbstractLabelRenderer() {
 	}
 
@@ -16,7 +18,7 @@ public abstract class AbstractLabelRenderer implements LabelRenderer {
 	 */
 	protected String plotBegin() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("labelRenderer: $.jqplot.");
+		builder.append("labelRenderer: ");
 		builder.append(getRendererName());
 		builder.append(",\nlabelOptions: ");
 		builder.append("{");

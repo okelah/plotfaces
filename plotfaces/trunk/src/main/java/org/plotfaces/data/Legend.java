@@ -15,8 +15,9 @@
  */
 package org.plotfaces.data;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
 import org.plotfaces.PlotUtilities;
+import org.plotfaces.renderer.LegendRenderer;
 
 /**
  *
@@ -24,12 +25,21 @@ import org.plotfaces.PlotUtilities;
  */
 public class Legend {
 
+	public enum Placement {
+
+		insideGrid, outsideGrid, inside, outside
+	};
+
+	public enum Location {
+
+		nw, n, ne, e, se, s, sw, w
+	};
 	private Boolean show;
-	private String location;
-	private String[] labels;
+	private Location location;
+	private List<String> labels;
 	private Boolean showLabels;
-	private Boolean showSwatch;
-	private String placement;
+	private Boolean showSwatches;
+	private Placement placement;
 	private Integer xoffset;
 	private Integer yoffset;
 	private String border;
@@ -38,47 +48,16 @@ public class Legend {
 	private String fontFamily;
 	private String fontSize;
 	private String rowSpacing;
-	private String[] rendererOptions;
+	private String renderer;
+	private LegendRenderer rendererOptions;
 	private Boolean predraw;
 	private String marginTop;
 	private String marginRight;
 	private String marginBottom;
 	private String marginLeft;
+	private Boolean escapeHTML;
 
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("{");
-//		boolean isCommaRequired = false;
-//
-//		isCommaRequired = PlotUtilities.addVariable(builder, "show", getShow(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "location", getLocation(), isCommaRequired, true);
-//
-//		if (getLabels() != null && getLabels().length > 0) {
-//			isCommaRequired = PlotUtilities.addVariable(builder, "labels", "{'" + StringUtils.join(getLabels(), "','") + "'}", isCommaRequired, false);
-//		}
-//
-//		isCommaRequired = PlotUtilities.addVariable(builder, "showLabels", getShowLabels(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "showSwatch", getShowSwatch(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "placement", getPlacement(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "xoffset", getXoffset(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "yoffset", getYoffset(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "border", getBorder(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "background", getBackground(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "textColor", getTextColor(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "fontFamily", getFontFamily(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "fontSize", getFontSize(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "rowSpacing", getRowSpacing(), isCommaRequired, true);
-//		if (getRendererOptions() != null && getRendererOptions().length > 0) {
-//			isCommaRequired = PlotUtilities.addVariable(builder, "rendererOptions", "{'" + StringUtils.join(getRendererOptions(), "','") + "'}", isCommaRequired, false);
-//		}
-//		isCommaRequired = PlotUtilities.addVariable(builder, "predraw", getPredraw(), isCommaRequired);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "marginTop", getMarginTop(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "marginRight", getMarginRight(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "marginBottom", getMarginBottom(), isCommaRequired, true);
-//		isCommaRequired = PlotUtilities.addVariable(builder, "marginLeft", getMarginLeft(), isCommaRequired, true);
-
-		builder.append("\n}");
-		return builder.toString();
+	public Legend() {
 	}
 
 	/**
@@ -105,7 +84,7 @@ public class Legend {
 	 *
 	 * @return the location
 	 */
-	public String getLocation() {
+	public Location getLocation() {
 		return location;
 	}
 
@@ -115,7 +94,7 @@ public class Legend {
 	 *
 	 * @param location the location to set
 	 */
-	public void setLocation(String location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 
@@ -126,7 +105,7 @@ public class Legend {
 	 *
 	 * @return the labels
 	 */
-	public String[] getLabels() {
+	public List<String> getLabels() {
 		return labels;
 	}
 
@@ -137,7 +116,7 @@ public class Legend {
 	 *
 	 * @param labels the labels to set
 	 */
-	public void setLabels(String[] labels) {
+	public void setLabels(List<String> labels) {
 		this.labels = labels;
 	}
 
@@ -164,8 +143,8 @@ public class Legend {
 	 *
 	 * @return the showSwatch
 	 */
-	public Boolean getShowSwatch() {
-		return showSwatch;
+	public Boolean getShowSwatches() {
+		return showSwatches;
 	}
 
 	/**
@@ -173,8 +152,8 @@ public class Legend {
 	 *
 	 * @param showSwatch the showSwatch to set
 	 */
-	public void setShowSwatch(Boolean showSwatch) {
-		this.showSwatch = showSwatch;
+	public void setShowSwatches(Boolean showSwatches) {
+		this.showSwatches = showSwatches;
 	}
 
 	/**
@@ -187,7 +166,7 @@ public class Legend {
 	 *
 	 * @return the placement
 	 */
-	public String getPlacement() {
+	public Placement getPlacement() {
 		return placement;
 	}
 
@@ -201,7 +180,7 @@ public class Legend {
 	 *
 	 * @param placement the placement to set
 	 */
-	public void setPlacement(String placement) {
+	public void setPlacement(Placement placement) {
 		this.placement = placement;
 	}
 
@@ -287,12 +266,14 @@ public class Legend {
 	}
 
 	/**
-	 * css color spec for the legend text.
+	 * CSS color spec for the legend text. Note: uses the
+	 * {@code PlotUtilities.fixColor} method.
 	 *
 	 * @param textColor the textColor to set
 	 */
 	public void setTextColor(String textColor) {
-		this.textColor = textColor;
+		this.textColor = PlotUtilities.fixColor(textColor);
+
 	}
 
 	/**
@@ -349,12 +330,20 @@ public class Legend {
 		this.rowSpacing = rowSpacing;
 	}
 
+	protected String getRenderer() {
+		return renderer;
+	}
+
+	protected void setRenderer(String renderer) {
+		this.renderer = renderer;
+	}
+
 	/**
 	 * renderer specific options passed to the renderer.
 	 *
 	 * @return the rendererOptions
 	 */
-	public String[] getRendererOptions() {
+	public LegendRenderer getRendererOptions() {
 		return rendererOptions;
 	}
 
@@ -363,8 +352,13 @@ public class Legend {
 	 *
 	 * @param rendererOptions the rendererOptions to set
 	 */
-	public void setRendererOptions(String[] rendererOptions) {
+	public void setRendererOptions(LegendRenderer rendererOptions) {
 		this.rendererOptions = rendererOptions;
+		if (this.rendererOptions == null) {
+			setRenderer(null);
+		} else {
+			setRenderer(this.rendererOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -473,5 +467,13 @@ public class Legend {
 	 */
 	public void setMarginLeft(String marginLeft) {
 		this.marginLeft = marginLeft;
+	}
+
+	public Boolean getEscapeHTML() {
+		return escapeHTML;
+	}
+
+	public void setEscapeHTML(Boolean escapeHTML) {
+		this.escapeHTML = escapeHTML;
 	}
 }

@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.renderer;
 
 /**
  *
  * @author Graham Smith
- * @deprecated
  */
-@Deprecated
-public interface Plotable {
+public abstract class AbstractLegendRenderer implements LegendRenderer {
 
-	String plot();
+	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+
+	public AbstractLegendRenderer() {
+	}
 }
