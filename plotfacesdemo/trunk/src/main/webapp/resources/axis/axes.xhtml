@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+
+	<composite:interface>
+		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _axis suffix.
+		-->
+
+		<p:tabView>
+			<p:tab title="#{cc.attrs.model.axes.xaxis.axisName}" rendered="#{cc.attrs.model.axes.xaxis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.xaxis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.x2axis.axisName}" rendered="#{cc.attrs.model.axes.x2axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.x2axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.yaxis.axisName}" rendered="#{cc.attrs.model.axes.yaxis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.yaxis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y2axis.axisName}" rendered="#{cc.attrs.model.axes.y2axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y2axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y3axis.axisName}" rendered="#{cc.attrs.model.axes.y3axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y3axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y4axis.axisName}" rendered="#{cc.attrs.model.axes.y4axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y4axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y5axis.axisName}" rendered="#{cc.attrs.model.axes.y5axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y5axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y6axis.axisName}" rendered="#{cc.attrs.model.axes.y6axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y6axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y7axis.axisName}" rendered="#{cc.attrs.model.axes.y7axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y7axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y8axis.axisName}" rendered="#{cc.attrs.model.axes.y8axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y8axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.y9axis.axisName}" rendered="#{cc.attrs.model.axes.y9axis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.y9axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+		</p:tabView>
+	</composite:implementation>
+</html>
+

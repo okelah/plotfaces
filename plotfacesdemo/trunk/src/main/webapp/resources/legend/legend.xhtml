@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:legend="http://xmlns.jcp.org/jsf/composite/legend">
+
+	<composite:interface>
+		<composite:attribute name="legend" required="true" type="org.plotfaces.data.Legend"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _legend suffix.
+		-->
+
+		<legend:general legend="#{cc.attrs.legend}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+		<p:spacer height="10"/>
+		<legend:enhancedLegendRenderer legendRenderer="#{cc.attrs.legend.rendererOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isEnhancedLegendRenderer(cc.attrs.legend.rendererOptions)}"/>
+	</composite:implementation>
+</html>
+

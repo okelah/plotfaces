@@ -25,13 +25,13 @@
 					#{msg.labelDisplay_axisLabel}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{axis.showLabel}" rendered="#{axis.showLabel != null}">
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.showLabel}" rendered="#{cc.attrs.axis.showLabel != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowLabel( true )}" rendered="#{axis.showLabel == null}" update="axisLabelGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.showLabel != null}" update="axisLabelGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.showLabel}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setShowLabel( true )}" rendered="#{cc.attrs.axis.showLabel == null}" update="axisLabelGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.showLabel != null}" update="axisLabelGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.showLabel}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -42,13 +42,13 @@
 					#{msg.labelText_axisLabel}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.label}" size="25" rendered="#{not empty axis.label}">
+					<p:inputText value="#{cc.attrs.axis.label}" size="25" rendered="#{not empty cc.attrs.axis.label}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setLabel( 'label' )}" rendered="#{empty axis.label}" update="axisLabelGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty axis.label}" update="axisLabelGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.label}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setLabel( 'label' )}" rendered="#{empty cc.attrs.axis.label}" update="axisLabelGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.axis.label}" update="axisLabelGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.label}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>

@@ -25,13 +25,13 @@
 					#{msg.tickDisplay_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{axis.showTicks}" rendered="#{axis.showTicks != null}">
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.showTicks}" rendered="#{cc.attrs.axis.showTicks != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowTicks( true )}" rendered="#{axis.showTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.showTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.showTicks}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setShowTicks( true )}" rendered="#{cc.attrs.axis.showTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.showTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.showTicks}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -42,12 +42,12 @@
 					#{msg.tickCount_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:spinner value="#{axis.numberTicks}" rendered="#{axis.numberTicks != null}">
+					<p:spinner value="#{cc.attrs.axis.numberTicks}" rendered="#{cc.attrs.axis.numberTicks != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:spinner>
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setNumberTicks( 5 )}" update="#{cc.attrs.plot} axisTicksGrid" rendered="#{axis.numberTicks == null}"/>
-					<p:commandButton value="#{msg.reset}" update="#{cc.attrs.plot} axisTicksGrid" rendered="#{axis.numberTicks != null}">
-						<f:setPropertyActionListener target="#{axis.numberTicks}" value="#{null}"/>
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setNumberTicks( 5 )}" update="#{cc.attrs.plot} axisTicksGrid" rendered="#{cc.attrs.axis.numberTicks == null}"/>
+					<p:commandButton value="#{msg.reset}" update="#{cc.attrs.plot} axisTicksGrid" rendered="#{cc.attrs.axis.numberTicks != null}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.numberTicks}" value="#{null}"/>
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -58,14 +58,14 @@
 					#{msg.tickInterval_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.tickInterval}" rendered="#{axis.tickInterval != null}">
+					<p:inputText value="#{cc.attrs.axis.tickInterval}" rendered="#{cc.attrs.axis.tickInterval != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber maxFractionDigits="0"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setTickInterval( 1.0 )}" rendered="#{axis.tickInterval == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.tickInterval != null}" update="axisTicksGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.tickInterval}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setTickInterval( 1.0 )}" rendered="#{cc.attrs.axis.tickInterval == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.tickInterval != null}" update="axisTicksGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.tickInterval}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -76,14 +76,14 @@
 					#{msg.tickSpacing_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.tickSpacing}" rendered="#{axis.tickSpacing != null}">
+					<p:inputText value="#{cc.attrs.axis.tickSpacing}" rendered="#{cc.attrs.axis.tickSpacing != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber maxFractionDigits="0"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setTickSpacing( 20.0 )}" rendered="#{axis.tickSpacing == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.tickSpacing != null}" update="axisTicksGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.tickSpacing}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setTickSpacing( 20.0 )}" rendered="#{cc.attrs.axis.tickSpacing == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.tickSpacing != null}" update="axisTicksGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.tickSpacing}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -94,13 +94,13 @@
 					#{msg.tickMarks_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{axis.showTickMarks}" rendered="#{axis.showTickMarks != null}">
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.showTickMarks}" rendered="#{cc.attrs.axis.showTickMarks != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowTickMarks( true )}" rendered="#{axis.showTickMarks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.showTickMarks != null}" update="axisTicksGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.showTickMarks}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setShowTickMarks( true )}" rendered="#{cc.attrs.axis.showTickMarks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.showTickMarks != null}" update="axisTicksGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.showTickMarks}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -111,13 +111,13 @@
 					#{msg.minorTicks_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{axis.showMinorTicks}" rendered="#{axis.showMinorTicks != null}">
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.showMinorTicks}" rendered="#{cc.attrs.axis.showMinorTicks != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setShowMinorTicks( true )}" rendered="#{axis.showMinorTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.showMinorTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.showMinorTicks}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setShowMinorTicks( true )}" rendered="#{cc.attrs.axis.showMinorTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.showMinorTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.showMinorTicks}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -128,13 +128,13 @@
 					#{msg.syncTicks_axisTicks}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.off}" onLabel="#{msg.on}" value="#{axis.syncTicks}" rendered="#{axis.syncTicks != null}">
+					<p:selectBooleanButton offLabel="#{msg.off}" onLabel="#{msg.on}" value="#{cc.attrs.axis.syncTicks}" rendered="#{cc.attrs.axis.syncTicks != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setSyncTicks( true )}" rendered="#{axis.syncTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.syncTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.syncTicks}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setSyncTicks( true )}" rendered="#{cc.attrs.axis.syncTicks == null}" update="axisTicksGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.syncTicks != null}" update="axisTicksGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.syncTicks}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>

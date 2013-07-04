@@ -5,9 +5,8 @@
       xmlns:plot="http://www.plotfaces.org"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:c="http://java.sun.com/jsp/jstl/core"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
+	  xmlns:model="http://xmlns.jcp.org/jsf/composite/model">
 	<f:loadBundle var="msg" basename="messages"/>
     <h:head>
 		<h:outputStylesheet library="styles" name="style.css"/>
@@ -27,18 +26,7 @@
 			<p:commandButton id="defaultButton" value="#{msg.refresh}" />
 			<h:commandLink value="${msg.home}" action="index"/>
 			<plot:plot id="plot" chartModel="#{lineChartDemo.chartModel}" rendererOptions="#{lineChartDemo.rendererOptions}" style="width: 900px; height: 400px;"/>
-			<p:tabView id="mainTabs">
-				<p:tab id="axesTab" title="#{msg.axesOptions}">
-					<p:panel id="axesSettings">
-						<axis:axis model="#{lineChartDemo.chartModel}" collapseHandler="#{lineChartDemo.collapseHandler}" plot=":form:plot"/>
-					</p:panel>
-				</p:tab>
-				<p:tab id="rendererTab" title="#{msg.rendererOptions}">
-					<p:panel id="rendererSettings">
-						<ui:include src="renderer.xhtml"/>
-					</p:panel>
-				</p:tab>
-			</p:tabView>
+			<model:model model="#{lineChartDemo.chartModel}" collapseHandler="#{lineChartDemo.collapseHandler}" plot=":form:plot"/>
 		</h:form>
     </h:body>
 </html>

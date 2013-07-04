@@ -11,10 +11,17 @@ import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Legend;
 import org.plotfaces.data.SimpleData;
+import org.plotfaces.data.Title;
 import org.plotfaces.renderer.AxisLabelRenderer;
+import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.CategoryAxisRenderer;
+import org.plotfaces.renderer.TableLegendRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
+import org.plotfaces.renderer.DivTitleRenderer;
+import org.plotfaces.renderer.EnhancedLegendRenderer;
 import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
@@ -40,19 +47,29 @@ public class LineChartDemo implements Serializable {
 	public ChartModel getChartModel() {
 		if (chartModel == null) {
 			chartModel = new ChartModel();
-			chartModel.setSeriesDefaults(getSeriesDefaults());
-			setAxes(chartModel);
-			chartModel.addSeries(getSeries1());
-			chartModel.addSeries(getSeries2());
+			setSeriesDefaults(chartModel);
+			setSeriesOne(chartModel);
+			setSeriesTwo(chartModel);
+			setXAxis(chartModel);
+			setYAxis(chartModel);
+			setLegend(chartModel);
+			setTitle(chartModel);
 		}
 
 		return chartModel;
 	}
 
-	private ChartSeries getSeries1() {
+	private void setSeriesDefaults(ChartModel chartModel) {
+		ChartSeries seriesDefaults = new ChartSeries();
+		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
+		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
+		chartModel.setSeriesDefaults(seriesDefaults);
+	}
+
+	private void setSeriesOne(ChartModel chartModel) {
 		ChartSeries series = new ChartSeries();
 		series.setLabel("Series 1");
-		series.setRenderer(new LineRenderer());
+//		series.setRenderer(new LineRenderer());
 
 		//Some data for series 1
 		SimpleData data = new SimpleData();
@@ -63,15 +80,15 @@ public class LineChartDemo implements Serializable {
 		data.addValue(8);
 		series.setData(data);
 
-		return series;
+		chartModel.addSeries(series);
 	}
 
-	private ChartSeries getSeries2() {
+	private void setSeriesTwo(ChartModel chartModel) {
 		ChartSeries series = new ChartSeries();
 		series.setLabel("Series 2");
 		MarkerRenderer markerRenderer = new MarkerRenderer();
 		markerRenderer.setStyle(MarkerRenderer.MarkerStyle.circle);
-		series.setRenderer(new LineRenderer());
+//		series.setRenderer(new LineRenderer());
 
 		//Some data for series 2
 		SimpleData data = new SimpleData();
@@ -82,38 +99,43 @@ public class LineChartDemo implements Serializable {
 		data.addValue(8);
 		series.setData(data);
 
-		return series;
+		chartModel.addSeries(series);
 	}
 
-	private void setAxes(ChartModel chartModel) {
-		Axes axes = new Axes();
-
-		Axis x = new Axis(Axis.AxisName.xaxis);
-		x.setLabel("X-Axis");
-		CanvasAxisTickRenderer xTickRenderer = new CanvasAxisTickRenderer();
-		xTickRenderer.setFormatterOptions(new DefaultTickFormatter());
-		x.setTickOptions(xTickRenderer);
-		x.setLabelRenderer(new AxisLabelRenderer());
-		x.setRendererOptions(new LinearAxisRenderer());
-		axes.setXaxis(x);
-
-		Axis y = new Axis(Axis.AxisName.yaxis);
-		y.setLabel("Y-Axis");
-		CanvasAxisTickRenderer yTickRenderer = new CanvasAxisTickRenderer();
-		yTickRenderer.setFormatterOptions(new DefaultTickFormatter());
-		y.setTickOptions(yTickRenderer);
-		y.setLabelRenderer(new AxisLabelRenderer());
-		y.setRendererOptions(new LinearAxisRenderer());
-		axes.setYaxis(y);
-
-		chartModel.setAxes(axes);
+	private void setXAxis(ChartModel chartModel) {
+		Axis axis = new Axis(Axis.AxisName.xaxis);
+		axis.setLabel("X-Axis");
+		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
+		tickRenderer.setFormatterOptions(new DefaultTickFormatter());
+		axis.setTickOptions(tickRenderer);
+		axis.setLabelOptions(new AxisLabelRenderer());
+		axis.setRendererOptions(new LinearAxisRenderer());
+		chartModel.getAxes().setXaxis(axis);
 	}
 
-	private ChartSeries getSeriesDefaults() {
-		ChartSeries series = new ChartSeries();
-		series.setxAxis(Axis.AxisName.xaxis);
-		series.setyAxis(Axis.AxisName.yaxis);
-		return series;
+	private void setYAxis(ChartModel chartModel) {
+		Axis axis = new Axis(Axis.AxisName.yaxis);
+		axis.setLabel("Y-Axis");
+		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
+		tickRenderer.setFormatterOptions(new DefaultTickFormatter());
+		axis.setTickOptions(tickRenderer);
+		axis.setLabelOptions(new AxisLabelRenderer());
+		axis.setRendererOptions(new LinearAxisRenderer());
+		chartModel.getAxes().setYaxis(axis);
+	}
+
+	private void setLegend(ChartModel chartModel) {
+		Legend legend = new Legend();
+		legend.setShow(true);
+		legend.setRendererOptions(new EnhancedLegendRenderer());
+		chartModel.setLegend(legend);
+	}
+
+	private void setTitle(ChartModel chartModel) {
+		Title title = new Title();
+		title.setShow(true);
+		title.setRendererOptions(new DivTitleRenderer());
+		chartModel.setTitle(title);
 	}
 
 	public RendererOptions getRendererOptions() {

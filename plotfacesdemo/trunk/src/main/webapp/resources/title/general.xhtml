@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="title" required="true" type="org.plotfaces.data.Title"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _titleGeneral suffix.
+		-->
+
+		<p:panel id="titleGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('titleGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="titleGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.show_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.title.show}" rendered="#{cc.attrs.title.show != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.show_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.text_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.title.text}" rendered="#{not empty cc.attrs.title.text}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.title.setText( 'Title' )}" rendered="#{empty cc.attrs.title.text}" update="titleGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.title.text}" update="titleGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.title.text}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.text_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fontFamily_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.title.fontFamily}" rendered="#{not empty cc.attrs.title.fontFamily}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.title.setFontFamily( 'Times New Roman' )}" rendered="#{empty cc.attrs.title.fontFamily}" update="titleGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.title.fontFamily}" update="titleGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.title.fontFamily}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fontFamily_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fontSize_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.title.fontSize}" rendered="#{not empty cc.attrs.title.fontSize}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.title.setFontSize( '2.5em' )}" rendered="#{empty cc.attrs.title.fontSize}" update="titleGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.title.fontSize}" update="titleGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.title.fontSize}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fontSize_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.textAlign_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.title.textAlign}" rendered="#{not empty cc.attrs.title.textAlign}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.title.setTextAlign( 'center' )}" rendered="#{empty cc.attrs.title.textAlign}" update="titleGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.title.textAlign}" update="titleGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.title.textAlign}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.textAlign_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.textColor_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.title.textColor}" rendered="#{not empty cc.attrs.title.textColor}" mode="inline" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.title.textColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.title.setTextColor( 'cccccc' )}" rendered="#{empty cc.attrs.title.textColor}" update="titleGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.title.textColor}" update="titleGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.title.textColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.textColor_titleGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.rendererOptions_titleGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.title.rendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.rendererOptions_titleGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

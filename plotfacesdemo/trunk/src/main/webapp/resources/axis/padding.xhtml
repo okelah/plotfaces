@@ -17,7 +17,6 @@
 		<!--
 			All message resources should have the _axisPadding suffix.
 		-->
-
 		<p:panel id="axisPadding" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('axisPadding')}" header="#{msg.padding}">
 			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}" />
 			<p:panelGrid id="axisPaddingGrid" columns="3">
@@ -25,14 +24,14 @@
 					#{msg.padding_axisPadding}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.pad}" rendered="#{axis.pad != null}">
+					<p:inputText value="#{cc.attrs.axis.pad}" rendered="#{cc.attrs.axis.pad != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setPad( 1.0 )}" rendered="#{axis.pad == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.pad != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.pad}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPad( 1.0 )}" rendered="#{cc.attrs.axis.pad == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.pad != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.pad}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -43,14 +42,14 @@
 					#{msg.paddingMinimum_axisPadding}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.padMin}" rendered="#{axis.padMin != null}">
+					<p:inputText value="#{cc.attrs.axis.padMin}" rendered="#{cc.attrs.axis.padMin != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setPadMin( 1.0 )}" rendered="#{axis.padMin == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.padMin != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.padMin}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMin( 1.0 )}" rendered="#{cc.attrs.axis.padMin == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.padMin != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.padMin}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -61,14 +60,14 @@
 					#{msg.paddingMaximum_axisPadding}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.padMax}" rendered="#{axis.padMax != null}">
+					<p:inputText value="#{cc.attrs.axis.padMax}" rendered="#{cc.attrs.axis.padMax != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setPadMax( 1.0 )}" rendered="#{axis.padMax == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.padMax != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.padMax}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMax( 1.0 )}" rendered="#{cc.attrs.axis.padMax == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.padMax != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.padMax}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>

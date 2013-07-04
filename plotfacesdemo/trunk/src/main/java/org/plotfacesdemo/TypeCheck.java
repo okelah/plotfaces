@@ -20,6 +20,8 @@ import javax.inject.Named;
 import org.plotfaces.renderer.AxisRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.EnhancedLegendRenderer;
+import org.plotfaces.renderer.LegendRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
 import org.plotfaces.renderer.TickRenderer;
 
@@ -60,5 +62,12 @@ public class TypeCheck {
 			return false;
 		}
 		return axisRenderer instanceof LinearAxisRenderer;
+	}
+
+	public boolean isEnhancedLegendRenderer(LegendRenderer legendRenderer) {
+		if (legendRenderer == null) {
+			return false;
+		}
+		return legendRenderer instanceof EnhancedLegendRenderer;
 	}
 }

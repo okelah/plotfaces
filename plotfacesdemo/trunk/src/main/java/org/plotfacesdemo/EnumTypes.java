@@ -17,6 +17,7 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import org.plotfaces.data.Legend;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 
@@ -37,5 +38,13 @@ public class EnumTypes {
 
 	public CanvasAxisTickRenderer.LabelPosition[] getAxisTickLabelPositions() {
 		return CanvasAxisTickRenderer.LabelPosition.values();
+	}
+
+	public Legend.Location[] getLegendLocations() {
+		return Legend.Location.values();
+	}
+
+	public Legend.Placement[] getLegendPlacements() {
+		return Legend.Placement.values();
 	}
 }
