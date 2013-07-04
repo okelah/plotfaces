@@ -81,7 +81,7 @@ public class CanvasAxisTickRendererTest {
 	@Test
 	public void testGetRendererName() {
 		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
-		assertEquals("CanvasAxisTickRenderer", tickRenderer.getRendererName());
+		assertEquals("$.jqplot.CanvasAxisTickRenderer", tickRenderer.getRendererName());
 	}
 
 	/**

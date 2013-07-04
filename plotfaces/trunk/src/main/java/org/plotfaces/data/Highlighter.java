@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.plugins;
+package org.plotfaces.data;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +24,7 @@ import org.plotfaces.data.Axis.AxisName;
 import org.plotfaces.renderer.AxisRenderer;
 import org.plotfaces.renderer.LabelRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
+import org.plotfaces.renderer.MarkerRenderer;
 import org.plotfaces.renderer.TickRenderer;
 
 /**
@@ -33,21 +34,31 @@ import org.plotfaces.renderer.TickRenderer;
  */
 public class Highlighter {
 
+	public enum Location {
+
+		n, ne, e, se, s, sw, w, nw
+	};
+
+	public enum TooltipAxes {
+
+		x, y, both, xy, yx
+	};
 	private Boolean show;
-	private MarkerRenderer markerRenderer;
+	private String markerRenderer;
+	private MarkerRenderer markerRendererOptions;
 	private Boolean showMarker;
 	private Double lineWidthAdjust;
 	private Double sizeAdjust;
 	private Boolean showTooltip;
-	private String tooltipLocation;
+	private Location tooltipLocation;
 	private Boolean fadeTooltip;
 	private String tooltipFadeSpeed;
-	private Integer tooltipOffset;
-	private String tooltipAxes;
+	private Double tooltipOffset;
+	private TooltipAxes tooltipAxes;
 	private Boolean useAxesFormatters;
 	private String tooltipFormatString;
 	private String formatString;
-	private Integer yValues;
+	private Integer yvalues;
 	private Boolean bringSeriesToFront;
 
 	public Highlighter() {
@@ -113,7 +124,7 @@ public class Highlighter {
 	/**
 	 * @return the markerRenderer
 	 */
-	public MarkerRenderer getMarkerRenderer() {
+	protected String getMarkerRenderer() {
 		return markerRenderer;
 	}
 
@@ -126,8 +137,21 @@ public class Highlighter {
 	 *
 	 * @param markerRenderer the markerRenderer to set
 	 */
-	public void setMarkerRenderer(MarkerRenderer markerRenderer) {
+	protected void setMarkerRenderer(String markerRenderer) {
 		this.markerRenderer = markerRenderer;
+	}
+
+	public MarkerRenderer getMarkerRendererOptions() {
+		return markerRendererOptions;
+	}
+
+	public void setMarkerRendererOptions(MarkerRenderer markerRendererOptions) {
+		this.markerRendererOptions = markerRendererOptions;
+		if (this.markerRendererOptions == null) {
+			setMarkerRenderer(null);
+		} else {
+			setMarkerRenderer(this.markerRendererOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -216,7 +240,7 @@ public class Highlighter {
 	 *
 	 * @return the tooltipLocation
 	 */
-	public String getTooltipLocation() {
+	public Location getTooltipLocation() {
 		return tooltipLocation;
 	}
 
@@ -226,7 +250,7 @@ public class Highlighter {
 	 *
 	 * @param tooltipLocation the tooltipLocation to set
 	 */
-	public void setTooltipLocation(String tooltipLocation) {
+	public void setTooltipLocation(Location tooltipLocation) {
 		this.tooltipLocation = tooltipLocation;
 	}
 
@@ -271,7 +295,7 @@ public class Highlighter {
 	 *
 	 * @return the tooltipOffset
 	 */
-	public Integer getTooltipOffset() {
+	public Double getTooltipOffset() {
 		return tooltipOffset;
 	}
 
@@ -280,7 +304,7 @@ public class Highlighter {
 	 *
 	 * @param tooltipOffset the tooltipOffset to set
 	 */
-	public void setTooltipOffset(Integer tooltipOffset) {
+	public void setTooltipOffset(Double tooltipOffset) {
 		this.tooltipOffset = tooltipOffset;
 	}
 
@@ -290,7 +314,7 @@ public class Highlighter {
 	 *
 	 * @return the tooltipAxes
 	 */
-	public String getTooltipAxes() {
+	public TooltipAxes getTooltipAxes() {
 		return tooltipAxes;
 	}
 
@@ -300,7 +324,7 @@ public class Highlighter {
 	 *
 	 * @param tooltipAxes the tooltipAxes to set
 	 */
-	public void setTooltipAxes(String tooltipAxes) {
+	public void setTooltipAxes(TooltipAxes tooltipAxes) {
 		this.tooltipAxes = tooltipAxes;
 	}
 
@@ -385,8 +409,8 @@ public class Highlighter {
 	 *
 	 * @return the yValues
 	 */
-	public Integer getyValues() {
-		return yValues;
+	public Integer getyvalues() {
+		return yvalues;
 	}
 
 	/**
@@ -396,8 +420,8 @@ public class Highlighter {
 	 *
 	 * @param yValues the yValues to set
 	 */
-	public void setyValues(Integer yValues) {
-		this.yValues = yValues;
+	public void setyvalues(Integer yvalues) {
+		this.yvalues = yvalues;
 	}
 
 	/**
