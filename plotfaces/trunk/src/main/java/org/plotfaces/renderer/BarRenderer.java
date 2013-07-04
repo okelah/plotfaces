@@ -15,17 +15,17 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.plotfaces.PlotUtilities;
-
 public class BarRenderer extends AbstractSeriesRenderer {
 
+	public enum BarDirection {
+
+		vertical, horizontal
+	};
 	private Integer padding;
 	private Integer barMargin;
-	private String barDirection;
+	private BarDirection barDirection;
 	private Integer barWidth;
-	private Integer shadowOffset;
+	private Double shadowOffset;
 	private Integer shadowDepth;
 	private Double shadowAlpha;
 	private Boolean waterfall;
@@ -36,16 +36,8 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	}
 
 	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-
-		return fragments;
-	}
-
-	@Override
 	public String getRendererName() {
-		return "BarRenderer";
+		return RENDERER_NAME_PREFIX + "BarRenderer";
 	}
 
 	/**
@@ -92,7 +84,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @return the barDirection
 	 */
-	public String getBarDirection() {
+	public BarDirection getBarDirection() {
 		return barDirection;
 	}
 
@@ -102,7 +94,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @param barDirection the barDirection to set
 	 */
-	public void setBarDirection(String barDirection) {
+	public void setBarDirection(BarDirection barDirection) {
 		this.barDirection = barDirection;
 	}
 
@@ -132,7 +124,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @return the shadowOffset
 	 */
-	public Integer getShadowOffset() {
+	public Double getShadowOffset() {
 		return shadowOffset;
 	}
 
@@ -142,7 +134,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @param shadowOffset the shadowOffset to set
 	 */
-	public void setShadowOffset(Integer shadowOffset) {
+	public void setShadowOffset(Double shadowOffset) {
 		this.shadowOffset = shadowOffset;
 	}
 

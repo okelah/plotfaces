@@ -28,7 +28,7 @@ public class ChartModel {
 	private ChartSeries seriesDefaults;
 	private List<ChartSeries> series = new ArrayList<>();
 	private Axes axes = new Axes();
-//	private Grid grid;
+	private Grid grid;
 	private Legend legend;
 	private List<String> seriesColors;
 	private Boolean sortData;
@@ -139,5 +139,13 @@ public class ChartModel {
 
 	public void setSeriesColors(List<String> seriesColors) {
 		this.seriesColors = seriesColors;
+	}
+
+	public Grid getGrid() {
+		return grid;
+	}
+
+	public void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 }
