@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="highlighter" required="true" type="org.plotfaces.data.Highlighter"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _highlighterGeneral suffix.
+		-->
+
+		<p:panel id="highlighterGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('highlighterGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="highlighterGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.show_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.highlighter.show}" rendered="#{cc.attrs.highlighter.show != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setShow( true )}" rendered="#{cc.attrs.highlighter.show == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.show != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.show}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.show_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.renderer_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.highlighter.markerRendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.renderer_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showMarker_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.highlighter.showMarker}" rendered="#{cc.attrs.highlighter.showMarker != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setShowMarker( true )}" rendered="#{cc.attrs.highlighter.showMarker == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.showMarker != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.showMarker}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showMarker_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.lineWidthAdjust_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.lineWidthAdjust}" rendered="#{cc.attrs.highlighter.lineWidthAdjust != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setLineWidthAdjust( 5 )}" rendered="#{cc.attrs.highlighter.lineWidthAdjust == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.lineWidthAdjust != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.lineWidthAdjust}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.lineWidthAdjust_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.sizeAdjust_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.sizeAdjust}" rendered="#{cc.attrs.highlighter.sizeAdjust != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setSizeAdjust( 5 )}" rendered="#{cc.attrs.highlighter.sizeAdjust == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.sizeAdjust != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.sizeAdjust}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.sizeAdjust_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showTooltip_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.highlighter.showTooltip}" rendered="#{cc.attrs.highlighter.showTooltip != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setShowTooltip( true )}" rendered="#{cc.attrs.highlighter.showTooltip == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.showTooltip != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.showTooltip}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showTooltip_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.tooltipLocation_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.highlighter.tooltipLocation}" rendered="#{cc.attrs.highlighter.tooltipLocation != null}">
+						<f:selectItems value="#{enumTypes.highlighterLocations}"/>
+						<p:ajax update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.highlighter.tooltipLocation == null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipLocation}" value="ne" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.tooltipLocation != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipLocation}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.tooltipLocation_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fadeTooltip_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.highlighter.fadeTooltip}" rendered="#{cc.attrs.highlighter.fadeTooltip != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setFadeTooltip( true )}" rendered="#{cc.attrs.highlighter.fadeTooltip == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.fadeTooltip != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.fadeTooltip}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fadeTooltip_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.tooltipFadeSpeed_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.tooltipFadeSpeed}" rendered="#{not empty cc.attrs.highlighter.tooltipFadeSpeed}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setTooltipFadeSpeed( 'slow' )}" rendered="#{empty cc.attrs.highlighter.tooltipFadeSpeed}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.highlighter.tooltipFadeSpeed}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipFadeSpeed}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.tooltipFadeSpeed_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.tooltipOffset_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.tooltipOffset}" rendered="#{cc.attrs.highlighter.tooltipOffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setTooltipOffset( 5 )}" rendered="#{cc.attrs.highlighter.tooltipOffset == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.tooltipOffset != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipOffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.sizeAdjust_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.tooltipAxes_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.highlighter.tooltipAxes}" rendered="#{cc.attrs.highlighter.tooltipAxes != null}">
+						<f:selectItems value="#{enumTypes.highlighterTooltipAxes}"/>
+						<p:ajax update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.highlighter.tooltipAxes == null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipAxes}" value="both" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.tooltipAxes != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipAxes}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.tooltipAxes_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.useAxesFormatters_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.highlighter.useAxesFormatters}" rendered="#{cc.attrs.highlighter.useAxesFormatters != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setUseAxesFormatters( true )}" rendered="#{cc.attrs.highlighter.useAxesFormatters == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.useAxesFormatters != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.useAxesFormatters}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.useAxesFormatters_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.tooltipFormatString_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.tooltipFormatString}" rendered="#{not empty cc.attrs.highlighter.tooltipFormatString}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setTooltipFormatString( '%.5P' )}" rendered="#{empty cc.attrs.highlighter.tooltipFormatString}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.highlighter.tooltipFormatString}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.tooltipFormatString}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.tooltipFormatString_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.formatString_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.formatString}" rendered="#{not empty cc.attrs.highlighter.formatString}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setFormatString( 'X %s, Y %s' )}" rendered="#{empty cc.attrs.highlighter.formatString}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.highlighter.formatString}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.formatString}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.formatString_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.yvalues_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.highlighter.yvalues}" rendered="#{cc.attrs.highlighter.yvalues != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.highlighter.setyvalues( 5 )}" rendered="#{cc.attrs.highlighter.yvalues == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.yvalues != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.yvalues}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.yvalues_highlighterGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.bringSeriesToFront_highlighterGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.highlighter.bringSeriesToFront}" rendered="#{cc.attrs.highlighter.bringSeriesToFront != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.highlighter.setBringSeriesToFront( true )}" rendered="#{cc.attrs.highlighter.bringSeriesToFront == null}" update="highlighterGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.highlighter.bringSeriesToFront != null}" update="highlighterGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.highlighter.bringSeriesToFront}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.bringSeriesToFront_highlighterGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

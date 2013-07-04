@@ -17,9 +17,11 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.DefaultMarkerRenderer;
 
 /**
  *
@@ -46,5 +48,17 @@ public class EnumTypes {
 
 	public Legend.Placement[] getLegendPlacements() {
 		return Legend.Placement.values();
+	}
+
+	public Highlighter.Location[] getHighlighterLocations() {
+		return Highlighter.Location.values();
+	}
+
+	public Highlighter.TooltipAxes[] getHighlighterTooltipAxes() {
+		return Highlighter.TooltipAxes.values();
+	}
+
+	public DefaultMarkerRenderer.MarkerStyle[] getMarkerStyles() {
+		return DefaultMarkerRenderer.MarkerStyle.values();
 	}
 }

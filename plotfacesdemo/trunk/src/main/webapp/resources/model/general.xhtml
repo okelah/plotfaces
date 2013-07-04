@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _modelGeneral suffix.
+		-->
+
+		<p:panel id="modelGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('modelGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="modelGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.sortData_modelGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.model.sortData}" rendered="#{cc.attrs.model.sortData != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.model.setSortData( true )}" rendered="#{cc.attrs.model.sortData == null}" update="modelGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.model.sortData != null}" update="modelGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.model.sortData}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.sortData_modelGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fontSize_modelGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.model.fontSize}" rendered="#{not empty cc.attrs.model.fontSize}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.model.setFontSize( '1.0em' )}" rendered="#{empty cc.attrs.model.fontSize}" update="modelGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.model.fontSize}" update="modelGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.model.fontSize}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fontSize_modelGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.stackSeries_modelGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.model.stackSeries}" rendered="#{cc.attrs.model.stackSeries != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.model.setStackSeries( true )}" rendered="#{cc.attrs.model.stackSeries == null}" update="modelGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.model.stackSeries != null}" update="modelGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.model.stackSeries}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.stackSeries_modelGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.defaultAxisStart_modelGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.model.defaultAxisStart}" rendered="#{cc.attrs.model.defaultAxisStart != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.model.setDefaultAxisStart( 0 )}" rendered="#{cc.attrs.model.defaultAxisStart == null}" update="modelGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.model.defaultAxisStart != null}" update="modelGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.model.defaultAxisStart}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.defaultAxisStart_modelGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.seriesColors_modelGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.notEditable}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.seriesColors_modelGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

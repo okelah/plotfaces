@@ -29,7 +29,7 @@
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPad( 1.0 )}" rendered="#{cc.attrs.axis.pad == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPad( 1.2 )}" rendered="#{cc.attrs.axis.pad == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
 					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.pad != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
 						<f:setPropertyActionListener target="#{cc.attrs.axis.pad}" value="#{null}" />
 					</p:commandButton>
@@ -47,7 +47,7 @@
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMin( 1.0 )}" rendered="#{cc.attrs.axis.padMin == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMin( 1.2 )}" rendered="#{cc.attrs.axis.padMin == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
 					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.padMin != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
 						<f:setPropertyActionListener target="#{cc.attrs.axis.padMin}" value="#{null}" />
 					</p:commandButton>
@@ -65,7 +65,7 @@
 						<f:convertNumber/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMax( 1.0 )}" rendered="#{cc.attrs.axis.padMax == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setPadMax( 1.2 )}" rendered="#{cc.attrs.axis.padMax == null}" update="axisPaddingGrid #{cc.attrs.plot}"/>
 					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.padMax != null}" update="axisPaddingGrid #{cc.attrs.plot}" immediate="true">
 						<f:setPropertyActionListener target="#{cc.attrs.axis.padMax}" value="#{null}" />
 					</p:commandButton>

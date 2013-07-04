@@ -28,6 +28,11 @@
 					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.axis.show}" rendered="#{cc.attrs.axis.show != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 					</p:selectBooleanButton>
+
+					<!--<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.axis.setShow( true )}" rendered="#{cc.attrs.axis.show == null}" update="axisGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.show != null}" update="axisGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.show}" value="#{null}" />
+					</p:commandButton>-->
 				</h:panelGroup>
 				<h:panelGroup>
 					#{msg.show_axisGeneral_notes}

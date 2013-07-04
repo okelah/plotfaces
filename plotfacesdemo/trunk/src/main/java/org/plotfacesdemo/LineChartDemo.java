@@ -11,6 +11,7 @@ import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
 import org.plotfaces.data.SimpleData;
 import org.plotfaces.data.Title;
@@ -18,6 +19,7 @@ import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CategoryAxisRenderer;
+import org.plotfaces.renderer.DefaultMarkerRenderer;
 import org.plotfaces.renderer.TableLegendRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.DivTitleRenderer;
@@ -50,10 +52,12 @@ public class LineChartDemo implements Serializable {
 			setSeriesDefaults(chartModel);
 			setSeriesOne(chartModel);
 			setSeriesTwo(chartModel);
+			setAxesDefaults(chartModel);
 			setXAxis(chartModel);
 			setYAxis(chartModel);
 			setLegend(chartModel);
 			setTitle(chartModel);
+			setHighlighter(chartModel);
 		}
 
 		return chartModel;
@@ -86,8 +90,6 @@ public class LineChartDemo implements Serializable {
 	private void setSeriesTwo(ChartModel chartModel) {
 		ChartSeries series = new ChartSeries();
 		series.setLabel("Series 2");
-		MarkerRenderer markerRenderer = new MarkerRenderer();
-		markerRenderer.setStyle(MarkerRenderer.MarkerStyle.circle);
 //		series.setRenderer(new LineRenderer());
 
 		//Some data for series 2
@@ -100,6 +102,12 @@ public class LineChartDemo implements Serializable {
 		series.setData(data);
 
 		chartModel.addSeries(series);
+	}
+
+	private void setAxesDefaults(ChartModel chartModel) {
+		Axis axis = new Axis(Axis.AxisName.axisDefaults);
+		axis.setShow(false);
+		chartModel.setAxesDefaults(axis);
 	}
 
 	private void setXAxis(ChartModel chartModel) {
@@ -136,6 +144,13 @@ public class LineChartDemo implements Serializable {
 		title.setShow(true);
 		title.setRendererOptions(new DivTitleRenderer());
 		chartModel.setTitle(title);
+	}
+
+	public void setHighlighter(ChartModel chartModel) {
+		Highlighter highlighter = new Highlighter();
+		highlighter.setShow(true);
+		highlighter.setMarkerRendererOptions(new DefaultMarkerRenderer());
+		chartModel.setHighlighter(highlighter);
 	}
 
 	public RendererOptions getRendererOptions() {
