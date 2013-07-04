@@ -9,7 +9,7 @@
 	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
 
 	<composite:interface>
-		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="axis" required="true" type="org.plotfaces.data.Axis"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
@@ -18,20 +18,28 @@
 		<!--
 			All message resources should have the _axis suffix.
 		-->
+		<axis:general axis="#{cc.attrs.axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+		<p:spacer height="10"/>
+		<axis:axisTickRenderer tickRenderer="#{cc.attrs.axis.tickOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isAxisTickRenderer(cc.attrs.axis.tickOptions)}"/>
+		<p:spacer height="10"/>
+		<axis:canvasAxisTickRenderer tickRenderer="#{cc.attrs.axis.tickOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isCanvasAxisTickRenderer(cc.attrs.axis.tickOptions)}"/>
+		<p:spacer height="10"/>
+		<axis:linearAxisRenderer axisRenderer="#{cc.attrs.axis.rendererOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isLinearAxisRenderer(cc.attrs.axis.rendererOptions)}"/>
+		<p:spacer height="10"/>
+		<axis:padding axis="#{cc.attrs.axis}" plot="#{cc.attrs.plot}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+		<p:spacer height="10"/>
+		<axis:border axis="#{cc.attrs.axis}" plot="#{cc.attrs.plot}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+		<p:spacer height="10"/>
+		<axis:label axis="#{cc.attrs.axis}" plot="#{cc.attrs.plot}" collapseHandler="#{cc.attrs.collapseHandler}"/>
+		<p:spacer height="10"/>
+		<axis:ticks axis="#{cc.attrs.axis}" plot="#{cc.attrs.plot}" collapseHandler="#{cc.attrs.collapseHandler}"/>
 
-		<p:tabView var="axis" value="#{cc.attrs.model.axes}" >
-			<p:tab title="#{axis.axisName}">
-				<axis:general axis="#{axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
-
-
-				<p>Notes: There are a small number of items that aren't currently supported:</p>
-				<ul>
-					<li>Specifying an array of ticks isn't currently supported through this interface but it is in ChartModel.</li>
-					<li>The axis tick renderer formatter is always set to the default value.</li>
-					<li>Break points aren't supported on linear axis renderer.</li>
-				</ul>
-			</p:tab>
-		</p:tabView>
+		<p>Notes: There are a small number of items that aren't currently supported:</p>
+		<ul>
+			<li>Specifying an array of ticks isn't currently supported through this interface but it is in ChartModel.</li>
+			<li>The axis tick renderer formatter is always set to the default value.</li>
+			<li>Break points aren't supported on linear axis renderer.</li>
+		</ul>
 	</composite:implementation>
 </html>
 

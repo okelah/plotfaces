@@ -25,23 +25,12 @@
 					#{msg.borderColor_axisBorder}
 				</h:panelGroup>
 				<h:panelGroup>
-					<!--
-						There seems to be a bug in GF4 which is meaning it always interprets null as
-						and empty string. This doesn't cause PlotFaces a problem as the JavaSctipt
-						producer treats an empty string as if it was null but it does mean the
-						demo doesn't update correctly - the picker is always displayed.
-					-->
-					<!--#{axis.borderColor == null}-->
+					<p:colorPicker value="#{cc.attrs.axis.borderColor}" rendered="#{not empty cc.attrs.axis.borderColor}" mode="inline"/>
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.axis.borderColor}" update="#{cc.attrs.plot}" />
 
-					<p:colorPicker value="#{axis.borderColor}" rendered="#{not empty axis.borderColor}" mode="inline"/>
-					<p:commandButton value="#{msg.update}" rendered="#{not empty axis.borderColor}" update="#{cc.attrs.plot}" />
-					<!--<p:inputText value="#{axis.borderColor}" rendered="#{axis.borderColor != null}">
-						<p:ajax update="#{cc.attrs.plot}"/>
-					</p:inputText>-->
-
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderColor( 'cccccc' )}" rendered="#{empty axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{not empty axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{axis.borderColor}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setBorderColor( 'cccccc' )}" rendered="#{empty cc.attrs.axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.axis.borderColor}" update="axisBorderGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.borderColor}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -52,14 +41,14 @@
 					#{msg.borderWidth_axisBorder}
 				</h:panelGroup>
 				<h:panelGroup>
-					<p:inputText value="#{axis.borderWidth}" rendered="#{axis.borderWidth != null}">
+					<p:inputText value="#{cc.attrs.axis.borderWidth}" rendered="#{cc.attrs.axis.borderWidth != null}">
 						<p:ajax update="#{cc.attrs.plot}"/>
 						<f:convertNumber maxFractionDigits="0"/>
 					</p:inputText>
 
-					<p:commandButton value="#{msg.initialize}" action="#{axis.setBorderWidth( 1.0 )}" rendered="#{axis.borderWidth == null}" update="axisBorderGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{axis.borderWidth != null}" update="axisBorderGrid #{cc.attrs.plot}" immediate="true">
-						<f:setPropertyActionListener target="#{axis.borderWidth}" value="#{null}" />
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.axis.setBorderWidth( 1.0 )}" rendered="#{cc.attrs.axis.borderWidth == null}" update="axisBorderGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.axis.borderWidth != null}" update="axisBorderGrid #{cc.attrs.plot}" immediate="true">
+						<f:setPropertyActionListener target="#{cc.attrs.axis.borderWidth}" value="#{null}" />
 					</p:commandButton>
 				</h:panelGroup>
 				<h:panelGroup>

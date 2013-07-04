@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="legendRenderer" required="true" type="org.plotfaces.renderer.EnhancedLegendRenderer"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _enhancedLegendRenderer suffix.
+		-->
+
+		<p:panel id="enhancedLegendRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('enhancedLegendRenderer')}" header="#{msg.enhancedLegendRenderer}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="enhancedLegendRendererGrid" columns="3">
+
+				<h:panelGroup>
+					#{msg.numberRows_enhancedLegendRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legendRenderer.numberRows}" rendered="#{cc.attrs.legendRenderer.numberRows != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legendRenderer.setNumberRows( 5 )}" rendered="#{cc.attrs.legendRenderer.numberRows == null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legendRenderer.numberRows != null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legendRenderer.numberRows}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.numberRows_enhancedLegendRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.numberColumns_enhancedLegendRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legendRenderer.numberColumns}" rendered="#{cc.attrs.legendRenderer.numberColumns != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legendRenderer.setNumberColumns( 5 )}" rendered="#{cc.attrs.legendRenderer.numberColumns == null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legendRenderer.numberColumns != null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legendRenderer.numberColumns}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.numberColumns_enhancedLegendRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.seriesToggle_enhancedLegendRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legendRenderer.seriesToggle}" rendered="#{not empty cc.attrs.legendRenderer.seriesToggle}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legendRenderer.setSeriesToggle( 'normal' )}" rendered="#{empty cc.attrs.legendRenderer.seriesToggle}" update="enhancedLegendRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legendRenderer.seriesToggle}" update="enhancedLegendRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legendRenderer.seriesToggle}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.seriesToggle_enhancedLegendRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.disableIEFading_enhancedLegendRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.legendRenderer.disableIEFading}" rendered="#{cc.attrs.legendRenderer.disableIEFading != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.legendRenderer.setDisableIEFading( true )}" rendered="#{cc.attrs.legendRenderer.disableIEFading == null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legendRenderer.disableIEFading != null}" update="enhancedLegendRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legendRenderer.disableIEFading}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.disableIEFading_enhancedLegendRenderer_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

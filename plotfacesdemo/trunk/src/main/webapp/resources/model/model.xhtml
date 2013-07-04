@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis"
+	  xmlns:legend="http://xmlns.jcp.org/jsf/composite/legend"
+	  xmlns:title="http://xmlns.jcp.org/jsf/composite/title">
+
+	<composite:interface>
+		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _model suffix.
+		-->
+
+		<p:tabView id="mainTabs">
+			<p:tab id="axesTab" title="#{msg.axesOptions}">
+				<p:panel id="axesSettings">
+					<axis:axes model="#{cc.attrs.model}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+				</p:panel>
+			</p:tab>
+			<p:tab id="legendTab" title="#{msg.legendOptions}">
+				<p:panel id="legendSettings">
+					<legend:legend legend="#{cc.attrs.model.legend}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+				</p:panel>
+			</p:tab>
+			<p:tab id="titleTab" title="#{msg.titleOptions}">
+				<p:panel id="titleSettings">
+					<title:title title="#{cc.attrs.model.title}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+				</p:panel>
+			</p:tab>
+			<!--<p:tab id="rendererTab" title="#{msg.rendererOptions}">
+				<p:panel id="rendererSettings">
+					<ui:include src="renderer.xhtml"/>
+				</p:panel>
+			</p:tab>-->
+		</p:tabView>
+	</composite:implementation>
+</html>
+

@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="legend" required="true" type="org.plotfaces.data.Legend"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _legendGeneral suffix.
+		-->
+
+		<p:panel id="legendGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('legendGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="legendGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.show_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.legend.show}" rendered="#{cc.attrs.legend.show != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.show_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.location_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.legend.location}" rendered="#{cc.attrs.legend.location != null}">
+						<f:selectItems value="#{enumTypes.legendLocations}"/>
+						<p:ajax update="legendGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.legend.location == null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.location}" value="ne" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.location != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.location}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.location_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.labels_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.notEditable}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.labels_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showLabels_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.legend.showLabels}" rendered="#{cc.attrs.legend.showLabels != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.legend.setShowLabels( true )}" rendered="#{cc.attrs.legend.showLabels == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.showLabels != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.showLabels}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showLabels_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showSwatches_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.legend.showSwatches}" rendered="#{cc.attrs.legend.showSwatches != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.legend.setShowSwatches( true )}" rendered="#{cc.attrs.legend.showSwatches == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.showSwatches != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.showSwatches}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showSwatches_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.placement_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.legend.placement}" rendered="#{cc.attrs.legend.placement != null}">
+						<f:selectItems value="#{enumTypes.legendPlacements}"/>
+						<p:ajax update="legendGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.legend.placement == null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.placement}" value="insideGrid" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.placement != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.placement}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.placement_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.xoffset_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.xoffset}" rendered="#{cc.attrs.legend.xoffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setXoffset( 5 )}" rendered="#{cc.attrs.legend.xoffset == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.xoffset != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.xoffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.xoffset_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.yoffset_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.yoffset}" rendered="#{cc.attrs.legend.yoffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setYoffset( 5 )}" rendered="#{cc.attrs.legend.yoffset == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.yoffset != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.yoffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.yoffset_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.border_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.border}" rendered="#{not empty cc.attrs.legend.border}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setBorder( '1px dashed red' )}" rendered="#{empty cc.attrs.legend.border}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.border}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.border}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.border_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.background_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.background}" rendered="#{not empty cc.attrs.legend.background}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setBackground( '#b0c4de' )}" rendered="#{empty cc.attrs.legend.background}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.background}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.background}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.background_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.textColor_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.legend.textColor}" rendered="#{not empty cc.attrs.legend.textColor}" mode="inline" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.legend.textColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setTextColor( 'cccccc' )}" rendered="#{empty cc.attrs.legend.textColor}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.textColor}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.textColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.textColor_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fontFamily_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.fontFamily}" rendered="#{not empty cc.attrs.legend.fontFamily}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setFontFamily( 'Times New Roman' )}" rendered="#{empty cc.attrs.legend.fontFamily}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.fontFamily}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.fontFamily}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fontFamily_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fontSize_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.fontSize}" rendered="#{not empty cc.attrs.legend.fontSize}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setFontSize( '0.5em' )}" rendered="#{empty cc.attrs.legend.fontSize}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.fontSize}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.fontSize}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fontSize_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.rowSpacing_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.rowSpacing}" rendered="#{not empty cc.attrs.legend.rowSpacing}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setRowSpacing( '0.5em' )}" rendered="#{empty cc.attrs.legend.rowSpacing}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.rowSpacing}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.rowSpacing}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.rowSpacing_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.rendererOptions_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.legend.rendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.rendererOptions_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.predraw_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.legend.predraw}" rendered="#{cc.attrs.legend.predraw != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.legend.setPredraw( true )}" rendered="#{cc.attrs.legend.predraw == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.predraw != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.predraw}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.predraw_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.marginTop_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.marginTop}" rendered="#{not empty cc.attrs.legend.marginTop}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setMarginTop( '0.5em' )}" rendered="#{empty cc.attrs.legend.marginTop}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.marginTop}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.marginTop}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.marginTop_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.marginRight_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.marginRight}" rendered="#{not empty cc.attrs.legend.marginRight}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setMarginRight( '0.5em' )}" rendered="#{empty cc.attrs.legend.marginRight}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.marginRight}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.marginRight}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.marginRight_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.marginBottom_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.marginBottom}" rendered="#{not empty cc.attrs.legend.marginBottom}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setMarginBottom( '0.5em' )}" rendered="#{empty cc.attrs.legend.marginBottom}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.marginBottom}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.marginBottom}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.marginBottom_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.marginLeft_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.legend.marginLeft}" rendered="#{not empty cc.attrs.legend.marginLeft}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.legend.setMarginLeft( '0.5em' )}" rendered="#{empty cc.attrs.legend.marginLeft}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.legend.marginLeft}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.marginLeft}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.marginLeft_legendGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.escapeHTML_legendGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.legend.escapeHTML}" rendered="#{cc.attrs.legend.escapeHTML != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.legend.setEscapeHTML( true )}" rendered="#{cc.attrs.legend.escapeHTML == null}" update="legendGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.legend.escapeHTML != null}" update="legendGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.legend.escapeHTML}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.escapeHTML_legendGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+
