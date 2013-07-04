@@ -15,12 +15,8 @@
  */
 package org.plotfaces.data;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.plotfaces.PlotUtilities;
-import org.plotfaces.plugins.Highlighter;
 
 /**
  *
@@ -29,28 +25,20 @@ import org.plotfaces.plugins.Highlighter;
 public class ChartModel {
 
 	private Axis axesDefaults;
-	private Axes axes = new Axes();
-	private Legend legend;
 	private ChartSeries seriesDefaults;
 	private List<ChartSeries> series = new ArrayList<>();
-//	private List<String> dataTicks = new ArrayList<>();
-//	private Boolean sortData;
+	private Axes axes = new Axes();
+//	private Grid grid;
+	private Legend legend;
+//	private SeriesColors seriesColors;
+	private Boolean sortData;
+	private String fontSize;
+	private Boolean stackSeries;
+	private Integer defaultAxisStart;
 	private Title title;
-//	private String fontSize;
-//	private Boolean stackSeries;
-//	private Integer defaultAxisStart;
-//	private Highlighter highlighter;
-	private String modelVariable;
+	private Highlighter highlighter;
 
 	public ChartModel() {
-	}
-
-	public String getModelVariable() {
-		return modelVariable;
-	}
-
-	public void setModelVariable(String modelVariable) {
-		this.modelVariable = modelVariable;
 	}
 
 	public Axis getAxesDefaults() {
@@ -103,5 +91,45 @@ public class ChartModel {
 
 	public void setTitle(Title title) {
 		this.title = title;
+	}
+
+	public Boolean getSortData() {
+		return sortData;
+	}
+
+	public void setSortData(Boolean sortData) {
+		this.sortData = sortData;
+	}
+
+	public String getFontSize() {
+		return fontSize;
+	}
+
+	public void setFontSize(String fontSize) {
+		this.fontSize = fontSize;
+	}
+
+	public Boolean getStackSeries() {
+		return stackSeries;
+	}
+
+	public void setStackSeries(Boolean stackSeries) {
+		this.stackSeries = stackSeries;
+	}
+
+	public Integer getDefaultAxisStart() {
+		return defaultAxisStart;
+	}
+
+	public void setDefaultAxisStart(Integer defaultAxisStart) {
+		this.defaultAxisStart = defaultAxisStart;
+	}
+
+	public Highlighter getHighlighter() {
+		return highlighter;
+	}
+
+	public void setHighlighter(Highlighter highlighter) {
+		this.highlighter = highlighter;
 	}
 }
