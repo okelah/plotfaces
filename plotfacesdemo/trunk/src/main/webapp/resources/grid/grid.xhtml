@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:grid="http://xmlns.jcp.org/jsf/composite/grid">
+
+	<composite:interface>
+		<composite:attribute name="grid" required="true" type="org.plotfaces.data.Grid"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _grid suffix.
+		-->
+
+		<grid:general grid="#{cc.attrs.grid}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+
+	</composite:implementation>
+</html>
+

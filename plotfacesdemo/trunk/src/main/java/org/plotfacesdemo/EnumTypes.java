@@ -20,6 +20,7 @@ import javax.inject.Named;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
 import org.plotfaces.renderer.AxisTickRenderer;
+import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
 
@@ -60,5 +61,9 @@ public class EnumTypes {
 
 	public DefaultMarkerRenderer.MarkerStyle[] getMarkerStyles() {
 		return DefaultMarkerRenderer.MarkerStyle.values();
+	}
+
+	public BarRenderer.BarDirection[] getBarRendererBarDirection() {
+		return BarRenderer.BarDirection.values();
 	}
 }
