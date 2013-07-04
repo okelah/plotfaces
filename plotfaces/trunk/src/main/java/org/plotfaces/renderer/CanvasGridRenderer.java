@@ -15,13 +15,19 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
+/**
+ * The standard grid renderer. This grid renderer has no options beyond those
+ * provided by the {@code Grid} class.
+ *
+ * @author Graham Smith
+ */
+public class CanvasGridRenderer extends AbstractGridRenderer {
 
-public abstract class AbstractSeriesRenderer implements SeriesRenderer {
-
-	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+	public CanvasGridRenderer() {
+	}
 
 	@Override
-	public abstract String getRendererName();
+	public String getRendererName() {
+		return RENDERER_NAME_PREFIX + "CanvasGridRenderer";
+	}
 }

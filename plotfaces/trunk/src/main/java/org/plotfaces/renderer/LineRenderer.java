@@ -1,9 +1,5 @@
 package org.plotfaces.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.plotfaces.PlotUtilities;
-
 public class LineRenderer extends AbstractSeriesRenderer {
 
 	private Boolean highlightMouseOver;
@@ -14,16 +10,8 @@ public class LineRenderer extends AbstractSeriesRenderer {
 	}
 
 	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-
-		return fragments;
-	}
-
-	@Override
 	public String getRendererName() {
-		return "LineRenderer";
+		return RENDERER_NAME_PREFIX + "LineRenderer";
 	}
 
 	/**

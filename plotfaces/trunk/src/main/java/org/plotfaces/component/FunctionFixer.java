@@ -18,6 +18,7 @@ package org.plotfaces.component;
 import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
+import org.plotfaces.data.Grid;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
 import org.plotfaces.data.Title;
@@ -72,6 +73,7 @@ public class FunctionFixer {
 		fixed = fixLegend(model.getLegend(), fixed);
 		fixed = fixTitle(model.getTitle(), fixed);
 		fixed = fixHighlighter(model.getHighlighter(), fixed);
+		fixed = fixGrid(model.getGrid(), fixed);
 		return fixed;
 
 
@@ -162,6 +164,14 @@ public class FunctionFixer {
 			return fixed;
 		}
 		return fix("markerRenderer", "", highlighter.getMarkerRendererOptions().getRendererName(), "()", fixed);
+	}
+
+	private String fixGrid(Grid grid, final String original) {
+		String fixed = original;
+		if (grid == null || grid.getRendererOptions() == null) {
+			return fixed;
+		}
+		return fix("renderer", grid.getRendererOptions().getRendererName(), fixed);
 	}
 
 	private String fix(final String key, final String value, final String original) {

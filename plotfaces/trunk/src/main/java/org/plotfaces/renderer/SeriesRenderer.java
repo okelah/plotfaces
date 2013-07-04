@@ -15,11 +15,9 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.data.Plotable;
-
 /**
  *
  * @author Graham Smith
  */
-public interface SeriesRenderer extends Renderer, Plotable {
+public interface SeriesRenderer extends Renderer {
 }

@@ -15,13 +15,9 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-
-public abstract class AbstractSeriesRenderer implements SeriesRenderer {
-
-	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
-
-	@Override
-	public abstract String getRendererName();
+/**
+ *
+ * @author Graham Smith
+ */
+public interface GridRenderer extends Renderer {
 }
