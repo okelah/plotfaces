@@ -146,18 +146,42 @@ public class FunctionFixer {
 		return fix("renderer", title.getRendererOptions().getRendererName(), fixed);
 	}
 
+	/**
+	 * TODO: Is there any way options could be passed into this function? They
+	 * are available held under the variable markerRendererOptions. The function
+	 * name must have a set of brackets appended to the end or JavaScript
+	 * exception is thrown regarding it not having an init function.
+	 *
+	 * @param highlighter
+	 * @param original
+	 * @return
+	 */
 	private String fixHighlighter(Highlighter highlighter, final String original) {
 		String fixed = original;
 		if (highlighter == null || highlighter.getMarkerRendererOptions() == null) {
 			return fixed;
 		}
-		return fix("markerRenderer", highlighter.getMarkerRendererOptions().getRendererName(), fixed);
+		return fix("markerRenderer", "", highlighter.getMarkerRendererOptions().getRendererName(), "()", fixed);
 	}
 
 	private String fix(final String key, final String value, final String original) {
+		return fix(key, "", value, "", original);
+	}
+
+	/**
+	 *
+	 * @param key the key
+	 * @param valuePrefix and arbitrary string to append to the start of the
+	 * value.
+	 * @param value the value
+	 * @param valueSuffix an arbitrary string to append to the end of the value.
+	 * @param original
+	 * @return
+	 */
+	private String fix(final String key, final String valuePrefix, final String value, final String valueSuffix, final String original) {
 		String fixed = original;
 		String match = "\"" + key + "\":" + prettiness + "\"" + value + "\"";
-		String replacement = "\"" + key + "\":" + prettiness + value;
+		String replacement = "\"" + key + "\":" + prettiness + valuePrefix + value + valueSuffix;
 		fixed = fixed.replace(match, replacement);
 		return fixed;
 	}

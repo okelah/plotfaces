@@ -30,7 +30,7 @@ public class ChartModel {
 	private Axes axes = new Axes();
 //	private Grid grid;
 	private Legend legend;
-//	private SeriesColors seriesColors;
+	private List<String> seriesColors;
 	private Boolean sortData;
 	private String fontSize;
 	private Boolean stackSeries;
@@ -131,5 +131,13 @@ public class ChartModel {
 
 	public void setHighlighter(Highlighter highlighter) {
 		this.highlighter = highlighter;
+	}
+
+	public List<String> getSeriesColors() {
+		return seriesColors;
+	}
+
+	public void setSeriesColors(List<String> seriesColors) {
+		this.seriesColors = seriesColors;
 	}
 }
