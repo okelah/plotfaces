@@ -7,7 +7,8 @@
 	  xmlns:legend="http://xmlns.jcp.org/jsf/composite/legend"
 	  xmlns:title="http://xmlns.jcp.org/jsf/composite/title"
 	  xmlns:model="http://xmlns.jcp.org/jsf/composite/model"
-	  xmlns:highlighter="http://xmlns.jcp.org/jsf/composite/highlighter">
+	  xmlns:highlighter="http://xmlns.jcp.org/jsf/composite/highlighter"
+	  xmlns:grid="http://xmlns.jcp.org/jsf/composite/grid">
 
 	<composite:interface>
 		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
@@ -49,6 +50,11 @@
 			<p:tab id="highlighterTab" title="#{msg.highlighterOptions}">
 				<p:panel id="highlighterSettings">
 					<highlighter:highlighter highlighter="#{cc.attrs.model.highlighter}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+				</p:panel>
+			</p:tab>
+			<p:tab id="gridTab" title="#{msg.gridOptions}">
+				<p:panel id="gridSettings">
+					<grid:grid grid="#{cc.attrs.model.grid}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
 				</p:panel>
 			</p:tab>
 			<!--<p:tab id="rendererTab" title="#{msg.rendererOptions}">

@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="grid" required="true" type="org.plotfaces.data.Grid"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _gridGeneral suffix.
+		-->
+
+		<p:panel id="gridGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('gridGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="gridGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.drawGridlines_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.grid.drawGridlines}" rendered="#{cc.attrs.grid.drawGridlines != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.grid.setDrawGridlines( true )}" rendered="#{cc.attrs.grid.drawGridlines == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.drawGridlines != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.drawGridlines}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.drawGridlines_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.gridLineColor_gridBorder}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.grid.gridLineColor}" rendered="#{not empty cc.attrs.grid.gridLineColor}" mode="inline"/>
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.grid.gridLineColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setGridLineColor( 'cccccc' )}" rendered="#{empty cc.attrs.grid.gridLineColor}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.grid.gridLineColor}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.gridLineColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.gridLineColor_gridBorder_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.gridLineWidth_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.gridLineWidth}" rendered="#{cc.attrs.grid.gridLineWidth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setGridLineWidth( 2 )}" rendered="#{cc.attrs.grid.gridLineWidth == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.gridLineWidth != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.gridLineWidth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.gridLineWidth_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.background_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.grid.background}" rendered="#{not empty cc.attrs.grid.background}" mode="inline"/>
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.grid.background}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setBackground( '123456' )}" rendered="#{empty cc.attrs.grid.background}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.grid.background}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.background}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.background_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.borderColor_gridBorder}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.grid.borderColor}" rendered="#{not empty cc.attrs.grid.borderColor}" mode="inline"/>
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.grid.borderColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setBorderColor( '654321' )}" rendered="#{empty cc.attrs.grid.borderColor}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.grid.borderColor}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.borderColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.borderColor_gridBorder_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.borderWidth_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.borderWidth}" rendered="#{cc.attrs.grid.borderWidth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setBorderWidth( 5 )}" rendered="#{cc.attrs.grid.borderWidth == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.borderWidth != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.borderWidth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.borderWidth_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.drawBorder_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.grid.drawBorder}" rendered="#{cc.attrs.grid.drawBorder != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.grid.setDrawBorder( true )}" rendered="#{cc.attrs.grid.drawBorder == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.drawBorder != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.drawBorder}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.drawBorder_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadow_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.grid.shadow}" rendered="#{cc.attrs.grid.shadow != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.grid.setShadow( true )}" rendered="#{cc.attrs.grid.shadow == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.shadow != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadow}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadow_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAngle_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.shadowAngle}" rendered="#{cc.attrs.grid.shadowAngle != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setShadowAngle( 320 )}" rendered="#{cc.attrs.grid.shadowAngle == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.shadowAngle != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadowAngle}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAngle_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowOffset_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.shadowOffset}" rendered="#{cc.attrs.grid.shadowOffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setShadowOffset( 5 )}" rendered="#{cc.attrs.grid.shadowOffset == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.shadowOffset != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadowOffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowOffset_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowWidth_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.shadowWidth}" rendered="#{cc.attrs.grid.shadowWidth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setShadowWidth( 5 )}" rendered="#{cc.attrs.grid.shadowWidth == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.shadowWidth != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadowWidth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowWidth_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowDepth_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.shadowDepth}" rendered="#{cc.attrs.grid.shadowDepth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setShadowDepth( 5 )}" rendered="#{cc.attrs.grid.shadowDepth == null}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.grid.shadowDepth != null}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadowDepth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowDepth_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAlpha_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.grid.shadowAlpha}" rendered="#{not empty cc.attrs.grid.shadowAlpha}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.grid.setShadowAlpha( '0.5' )}" rendered="#{empty cc.attrs.grid.shadowAlpha}" update="gridGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.grid.shadowAlpha}" update="gridGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.grid.shadowAlpha}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAlpha_gridGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.renderer_gridGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.grid.rendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.renderer_gridGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

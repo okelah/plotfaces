@@ -11,6 +11,7 @@ import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Grid;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
 import org.plotfaces.data.SimpleData;
@@ -18,6 +19,7 @@ import org.plotfaces.data.Title;
 import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
+import org.plotfaces.renderer.CanvasGridRenderer;
 import org.plotfaces.renderer.CategoryAxisRenderer;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
 import org.plotfaces.renderer.TableLegendRenderer;
@@ -58,6 +60,7 @@ public class LineChartDemo implements Serializable {
 			setLegend(chartModel);
 			setTitle(chartModel);
 			setHighlighter(chartModel);
+			setGrid(chartModel);
 		}
 
 		return chartModel;
@@ -146,11 +149,18 @@ public class LineChartDemo implements Serializable {
 		chartModel.setTitle(title);
 	}
 
-	public void setHighlighter(ChartModel chartModel) {
+	private void setHighlighter(ChartModel chartModel) {
 		Highlighter highlighter = new Highlighter();
 		highlighter.setShow(true);
 		highlighter.setMarkerRendererOptions(new DefaultMarkerRenderer());
 		chartModel.setHighlighter(highlighter);
+	}
+
+	private void setGrid(ChartModel chartModel) {
+		Grid grid = new Grid();
+		grid.setDrawGridlines(true);
+		grid.setRendererOptions(new CanvasGridRenderer());
+		chartModel.setGrid(grid);
 	}
 
 	public RendererOptions getRendererOptions() {
