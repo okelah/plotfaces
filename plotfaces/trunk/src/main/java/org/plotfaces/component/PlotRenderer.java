@@ -15,6 +15,8 @@
  */
 package org.plotfaces.component;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.List;
 import javax.faces.application.ResourceDependencies;
@@ -24,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
+import org.plotfaces.JsonEmptyStringSerializer;
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.ChartSeries;
@@ -168,9 +171,27 @@ public class PlotRenderer extends Renderer {
 
 	private void encodeChartModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
 		ChartModel chartModel = (ChartModel) plot.getChartModel();
+//		if (chartModel != null) {
+//			chartModel.setModelVariable(modelVariable);
+//			builder.append(chartModel.plot());
+//		}
+
 		if (chartModel != null) {
-			chartModel.setModelVariable(modelVariable);
-			builder.append(chartModel.plot());
+			builder.append("var ");
+			builder.append(modelVariable);
+			builder.append(" = ");
+
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.setPrettyPrinting();
+			gsonBuilder.registerTypeAdapter(String.class, new JsonEmptyStringSerializer());
+			Gson gson = gsonBuilder.create();
+			String result = gson.toJson(chartModel);
+			FunctionFixer fixer = new FunctionFixer();
+			fixer.setPrettyPrint(true);
+			result = fixer.fix(chartModel, result);
+			builder.append(result);
+
+			builder.append(";\n");
 		}
 	}
 

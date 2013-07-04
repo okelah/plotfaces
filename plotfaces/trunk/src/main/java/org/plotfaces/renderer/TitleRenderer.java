@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.renderer;
 
 /**
  *
  * @author Graham Smith
- * @deprecated
  */
-@Deprecated
-public interface Plotable {
-
-	String plot();
+public interface TitleRenderer extends Renderer {
 }

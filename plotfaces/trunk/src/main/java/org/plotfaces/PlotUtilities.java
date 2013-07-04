@@ -18,6 +18,7 @@ package org.plotfaces;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import org.plotfaces.data.ChartModel;
 
 /**
  *
@@ -84,5 +85,25 @@ public final class PlotUtilities {
 	 */
 	public static String getSafeClientId(FacesContext context, UIComponent component) {
 		return component.getClientId(context).replaceAll("-|" + UINamingContainer.getSeparatorChar(context), "_");
+	}
+
+	/**
+	 * The PrimeFaces color picker component supplies a color without a leading
+	 * # (hash) character, for example "a3d6f2". This method will add a leading
+	 * hash since without it the jqPlot code won't always correctly interpret
+	 * the color (support varies in jqPlot). If the supplied argument is an
+	 * empty string the hash will not be applied as empty strings aren't ever a
+	 * valid color and we generally want to treat an empty string as if it were
+	 * null.
+	 *
+	 * @param color
+	 * @return
+	 */
+	public static String fixColor(final String color) {
+		String fixed = color;
+		if (color != null && !color.isEmpty() && !color.startsWith("#")) {
+			fixed = "#" + color;
+		}
+		return fixed;
 	}
 }

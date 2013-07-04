@@ -60,7 +60,7 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 
 	@Override
 	public String getRendererName() {
-		return "LinearAxisRenderer";
+		return RENDERER_NAME_PREFIX + "LinearAxisRenderer";
 	}
 
 	public String getBreakTickLabel() {

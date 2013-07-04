@@ -60,8 +60,12 @@ public class Axis implements Plotable {
 	private static final String TICK_SPACING = "tickSpacing";
 	private AxisName axisName;
 	private Boolean show = Boolean.TRUE;
-	private TickRenderer tickRenderer;
-	private LabelRenderer labelRenderer;
+	//private TickRenderer tickRenderer;
+	private String tickRenderer;
+	private TickRenderer tickOptions;
+	//private LabelRenderer labelRenderer;
+	private String labelRenderer;
+	private LabelRenderer labelOptions;
 	private String label;
 	private Boolean showLabel;
 	private Number min;
@@ -73,7 +77,9 @@ public class Axis implements Plotable {
 	private List<String> ticks;
 	private Integer numberTicks;
 	private Integer tickInterval;
-	private AxisRenderer renderer;
+	//private AxisRenderer renderer;
+	private String renderer;
+	private AxisRenderer rendererOptions;
 	private Boolean showTicks;
 	private Boolean showTickMarks;
 	private Boolean showMinorTicks;
@@ -103,13 +109,13 @@ public class Axis implements Plotable {
 		List<String> fragments = new ArrayList<>();
 		fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
 
-		if (getTickRenderer() != null) {
-			fragments.add(getTickRenderer().plot());
-		}
+//		if (getTickRenderer() != null) {
+//			fragments.add(getTickRenderer().plot());
+//		}
 
-		if (getLabelRenderer() != null) {
-			fragments.add(getLabelRenderer().plot());
-		}
+//		if (getLabelRenderer() != null) {
+//			fragments.add(getLabelRenderer().plot());
+//		}
 
 		if (getLabel() != null && !getLabel().isEmpty()) {
 			fragments.add(PlotUtilities.createVariable(LABEL, getLabel()));
@@ -158,9 +164,9 @@ public class Axis implements Plotable {
 			fragments.add(PlotUtilities.createVariable(TICK_INTERVAL, getTickInterval()));
 		}
 
-		if (getRenderer() != null) {
-			fragments.add(getRenderer().plot());
-		}
+//		if (getRenderer() != null) {
+//			fragments.add(getRenderer().plot());
+//		}
 
 		if (getShowTicks() != null) {
 			fragments.add(PlotUtilities.createVariable(SHOW_TICKS, getShowTicks()));
@@ -309,22 +315,42 @@ public class Axis implements Plotable {
 		this.label = label;
 	}
 
-	/**
-	 * A class of a rendering engine for creating an axis label.
-	 *
-	 * @return the renderer to use for labels.
-	 */
-	public LabelRenderer getLabelRenderer() {
+//	/**
+//	 * A class of a rendering engine for creating an axis label.
+//	 *
+//	 * @return the renderer to use for labels.
+//	 */
+//	public LabelRenderer getLabelRenderer() {
+//		return labelRenderer;
+//	}
+//
+//	/**
+//	 * A class of a rendering engine for creating an axis label.
+//	 *
+//	 * @param labelRenderer the renderer to use for labels.
+//	 */
+//	public void setLabelRenderer(LabelRenderer labelRenderer) {
+//		this.labelRenderer = labelRenderer;
+//	}
+	public String getLabelRenderer() {
 		return labelRenderer;
 	}
 
-	/**
-	 * A class of a rendering engine for creating an axis label.
-	 *
-	 * @param labelRenderer the renderer to use for labels.
-	 */
-	public void setLabelRenderer(LabelRenderer labelRenderer) {
+	public void setLabelRenderer(String labelRenderer) {
 		this.labelRenderer = labelRenderer;
+	}
+
+	public LabelRenderer getLabelOptions() {
+		return labelOptions;
+	}
+
+	public void setLabelOptions(LabelRenderer labelOptions) {
+		this.labelOptions = labelOptions;
+		if (this.labelOptions == null) {
+			setLabelRenderer(null);
+		} else {
+			setLabelRenderer(this.labelOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -453,26 +479,46 @@ public class Axis implements Plotable {
 		this.padMin = padMin;
 	}
 
-	/**
-	 * A class of a rendering engine that handles tick generation, scaling input
-	 * data to pixel grid units and drawing the axis element.
-	 *
-	 * @return the renderer to use.
-	 */
-	public AxisRenderer getRenderer() {
+	//	/**
+	//	 * A class of a rendering engine that handles tick generation, scaling input
+	//	 * data to pixel grid units and drawing the axis element.
+	//	 *
+	//	 * @return the renderer to use.
+	//	 */
+	//	public AxisRenderer getRenderer() {
+	//		return renderer;
+	//	}
+	//
+	//	/**
+	//	 * A class of a rendering engine that handles tick generation, scaling input
+	//	 * data to pixel grid units and drawing the axis element.
+	//	 * <p>
+	//	 * Default is currently: $.jqplot.LinearAxisRenderer
+	//	 *
+	//	 * @param renderer the renderer to use.
+	//	 */
+	//	public void setRenderer(AxisRenderer renderer) {
+	//		this.renderer = renderer;
+	//	}
+	protected String getRenderer() {
 		return renderer;
 	}
 
-	/**
-	 * A class of a rendering engine that handles tick generation, scaling input
-	 * data to pixel grid units and drawing the axis element.
-	 * <p>
-	 * Default is currently: $.jqplot.LinearAxisRenderer
-	 *
-	 * @param renderer the renderer to use.
-	 */
-	public void setRenderer(AxisRenderer renderer) {
+	protected void setRenderer(String renderer) {
 		this.renderer = renderer;
+	}
+
+	public AxisRenderer getRendererOptions() {
+		return rendererOptions;
+	}
+
+	public void setRendererOptions(AxisRenderer rendererOptions) {
+		this.rendererOptions = rendererOptions;
+		if (this.rendererOptions == null) {
+			setRenderer(null);
+		} else {
+			setRenderer(this.rendererOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -689,23 +735,43 @@ public class Axis implements Plotable {
 		this.useSeriesColor = useSeriesColor;
 	}
 
-	/**
-	 * A class of a rendering engine for creating the ticks labels displayed on
-	 * the plot, See $.jqplot.AxisTickRenderer.
-	 *
-	 * @return the tick renderer to use.
-	 */
-	public TickRenderer getTickRenderer() {
+	//	/**
+	//	 * A class of a rendering engine for creating the ticks labels displayed on
+	//	 * the plot, See $.jqplot.AxisTickRenderer.
+	//	 *
+	//	 * @return the tick renderer to use.
+	//	 */
+	//	public TickRenderer getTickRenderer() {
+	//		return tickRenderer;
+	//	}
+	//
+	//	/**
+	//	 * A class of a rendering engine for creating the ticks labels displayed on
+	//	 * the plot, See $.jqplot.AxisTickRenderer.
+	//	 *
+	//	 * @param tickRenderer the tick renderer to use.
+	//	 */
+	//	public void setTickRenderer(TickRenderer tickRenderer) {
+	//		this.tickRenderer = tickRenderer;
+	//	}
+	protected String getTickRenderer() {
 		return tickRenderer;
 	}
 
-	/**
-	 * A class of a rendering engine for creating the ticks labels displayed on
-	 * the plot, See $.jqplot.AxisTickRenderer.
-	 *
-	 * @param tickRenderer the tick renderer to use.
-	 */
-	public void setTickRenderer(TickRenderer tickRenderer) {
+	protected void setTickRenderer(String tickRenderer) {
 		this.tickRenderer = tickRenderer;
+	}
+
+	public TickRenderer getTickOptions() {
+		return tickOptions;
+	}
+
+	public void setTickOptions(TickRenderer tickOptions) {
+		this.tickOptions = tickOptions;
+		if (this.tickOptions == null) {
+			setTickRenderer(null);
+		} else {
+			setTickRenderer(this.tickOptions.getRendererName());
+		}
 	}
 }

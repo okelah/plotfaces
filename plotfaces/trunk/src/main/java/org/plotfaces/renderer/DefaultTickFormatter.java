@@ -21,10 +21,15 @@ import org.plotfaces.PlotUtilities;
  *
  * @author Graham Smith
  */
-public class DefaultTickFormatter implements TickFormatter {
+public class DefaultTickFormatter extends AbstractTickFormatter {
 
 	@Override
 	public String plot() {
 		return PlotUtilities.createVariable("formatter", "$.jqplot.DefaultTickFormatter", true);
+	}
+
+	@Override
+	public String getRendererName() {
+		return RENDERER_NAME_PREFIX + "DefaultTickFormatter";
 	}
 }

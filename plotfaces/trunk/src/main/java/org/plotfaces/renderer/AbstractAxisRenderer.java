@@ -25,6 +25,8 @@ import org.plotfaces.data.Plotable;
  */
 public abstract class AbstractAxisRenderer implements AxisRenderer {
 
+	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
+
 	public AbstractAxisRenderer() {
 	}
 
@@ -35,7 +37,7 @@ public abstract class AbstractAxisRenderer implements AxisRenderer {
 	 */
 	protected String plotBegin() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("renderer: $.jqplot.");
+		builder.append("renderer: ");
 		builder.append(getRendererName());
 		builder.append(",\nrendererOptions: ");
 		builder.append("{");
