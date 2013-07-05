@@ -15,11 +15,6 @@
  */
 package org.plotfaces.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.plotfaces.PlotUtilities;
-import org.plotfaces.renderer.AbstractSeriesRenderer;
 import org.plotfaces.renderer.MarkerRenderer;
 import org.plotfaces.renderer.SeriesRenderer;
 
@@ -27,87 +22,57 @@ import org.plotfaces.renderer.SeriesRenderer;
  *
  * @author Graham Smith
  */
-public class ChartSeries {
+public class Series {
 
 	public enum FillAxis {
 
 		x, y
 	};
-	private static final String SHOW = "show";
-	private static final String X_AXIS = "xaxis";
-	private static final String Y_AXIS = "yaxis";
-	private static final String LABEL = "label";
-	private static final String SHOW_LABEL = "showLabel";
-	private static final String COLOR = "color";
-	private static final String LINE_WIDTH = "lineWidth";
-	private static final String LINE_JOIN = "lineJoin";
-	private static final String LINE_CAP = "lineCap";
-	private static final String SHADOW = "shadow";
-	private static final String SHADOW_ANGLE = "shadowAngle";
-	private static final String SHADOW_OFFSET = "shadowOffset";
-	private static final String SHADOW_DEPTH = "shadowDepth";
-	private static final String SHADOW_ALPHA = "shadowAlpha";
-	private static final String BREAK_ON_NULL = "breakOnNull";
-	private static final String SHOW_LINE = "showLine";
-	private static final String SHOW_MARKER = "showMarker";
-	private static final String INDEX = "index";
-	private static final String FILL = "fill";
-	private static final String FILL_COLOR = "fillColor";
-	private static final String FILL_ALPHA = "fillAlpha";
-	private static final String FILL_AND_STROKE = "fillAndStroke";
-	private static final String DISABLE_STACK = "disableStack";
-	private static final String NEIGHBOR_THRESHOLD = "neighborThreshold";
-	private static final String FILL_TO_ZERO = "fillToZero";
-	private static final String FILL_TO_VALUE = "fillToVALUE";
-	private static final String FILL_AXIS = "fillAxis";
-	private static final String USE_NEGATIVE_COLORS = "useNegativeColors";
+
+	public enum LineJoin {
+
+		miter, round, bevel
+	};
+
+	public enum LineCap {
+
+		butt, round, square
+	};
 	private Boolean show = Boolean.TRUE;
 	private Axis.AxisName xAxis;
 	private Axis.AxisName yAxis;
-	private SeriesRenderer renderer; //Supplies rendererOptions
+	private String renderer;
+	private SeriesRenderer rendererOptions;
 	private String label;
 	private Boolean showLabel;
 	private String color;
 	private Double lineWidth;
-	private String lineJoin; //TODO: This is probably an enum of types
-	private String lineCap; //TODO: This is probably an enum of types
+	private LineJoin lineJoin;
+	private LineCap lineCap;
 	private Boolean shadow;
 	private Integer shadowAngle;
 	private Double shadowOffset;
 	private Integer shadowDepth;
 	private Double shadowAlpha;
 	private Boolean breakOnNull;
-	private MarkerRenderer markerRenderer; //Supplies markerOptions
+	private String markerRenderer;
+	private MarkerRenderer markerRendererOptions; //Supplies markerOptions
 	private Boolean showLine;
 	private Boolean showMarker;
 	private Integer index;
 	private Boolean fill;
 	private String fillColor;
-	private String fillAlpha;
+	private Double fillAlpha;
 	private Boolean fillAndStroke;
 	private Boolean disableStack;
-	private Integer neighbourThreshold;
+	private Integer neighborThreshold;
 	private Boolean fillToZero;
 	private Integer fillToValue;
 	private FillAxis fillAxis;
 	private Boolean useNegativeColors;
 	private Data data;
 
-	public ChartSeries() {
-	}
-
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("{\n");
-
-		List<String> fragments = new ArrayList<>();
-		fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
-
-
-
-		builder.append(StringUtils.join(fragments.toArray(), ",\n"));
-		builder.append("\n}");
-		return builder.toString();
+	public Series() {
 	}
 
 	/**
@@ -252,7 +217,7 @@ public class ChartSeries {
 	 *
 	 * @return the lineCap
 	 */
-	public String getLineCap() {
+	public LineCap getLineCap() {
 		return lineCap;
 	}
 
@@ -261,7 +226,7 @@ public class ChartSeries {
 	 *
 	 * @param lineCap the lineCap to set
 	 */
-	public void setLineCap(String lineCap) {
+	public void setLineCap(LineCap lineCap) {
 		this.lineCap = lineCap;
 	}
 
@@ -497,7 +462,7 @@ public class ChartSeries {
 	 *
 	 * @return the fillAlpha
 	 */
-	public String getFillAlpha() {
+	public Double getFillAlpha() {
 		return fillAlpha;
 	}
 
@@ -507,7 +472,7 @@ public class ChartSeries {
 	 *
 	 * @param fillAlpha the fillAlpha to set
 	 */
-	public void setFillAlpha(String fillAlpha) {
+	public void setFillAlpha(Double fillAlpha) {
 		this.fillAlpha = fillAlpha;
 	}
 
@@ -557,8 +522,8 @@ public class ChartSeries {
 	 *
 	 * @return the neighbourThreshold
 	 */
-	public Integer getNeighbourThreshold() {
-		return neighbourThreshold;
+	public Integer getNeighborThreshold() {
+		return neighborThreshold;
 	}
 
 	/**
@@ -567,8 +532,8 @@ public class ChartSeries {
 	 *
 	 * @param neighbourThreshold the neighbourThreshold to set
 	 */
-	public void setNeighbourThreshold(Integer neighbourThreshold) {
-		this.neighbourThreshold = neighbourThreshold;
+	public void setNeighborThreshold(Integer neighborThreshold) {
+		this.neighborThreshold = neighborThreshold;
 	}
 
 	/**
@@ -659,7 +624,7 @@ public class ChartSeries {
 	 *
 	 * @return the renderer
 	 */
-	public SeriesRenderer getRenderer() {
+	protected String getRenderer() {
 		return renderer;
 	}
 
@@ -669,8 +634,21 @@ public class ChartSeries {
 	 *
 	 * @param renderer the renderer to set
 	 */
-	public void setRenderer(SeriesRenderer renderer) {
+	protected void setRenderer(String renderer) {
 		this.renderer = renderer;
+	}
+
+	public SeriesRenderer getRendererOptions() {
+		return rendererOptions;
+	}
+
+	public void setRendererOptions(SeriesRenderer rendererOptions) {
+		this.rendererOptions = rendererOptions;
+		if (this.rendererOptions == null) {
+			setRenderer(null);
+		} else {
+			setRenderer(this.rendererOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -679,7 +657,7 @@ public class ChartSeries {
 	 *
 	 * @return the markerRenderer
 	 */
-	public MarkerRenderer getMarkerRenderer() {
+	protected String getMarkerRenderer() {
 		return markerRenderer;
 	}
 
@@ -689,8 +667,21 @@ public class ChartSeries {
 	 *
 	 * @param markerRenderer the markerRenderer to set
 	 */
-	public void setMarkerRenderer(MarkerRenderer markerRenderer) {
+	protected void setMarkerRenderer(String markerRenderer) {
 		this.markerRenderer = markerRenderer;
+	}
+
+	public MarkerRenderer getMarkerRendererOptions() {
+		return markerRendererOptions;
+	}
+
+	public void setMarkerRendererOptions(MarkerRenderer markerRendererOptions) {
+		this.markerRendererOptions = markerRendererOptions;
+		if (this.markerRendererOptions == null) {
+			setMarkerRenderer(null);
+		} else {
+			setMarkerRenderer(this.markerRendererOptions.getRendererName());
+		}
 	}
 
 	/**
@@ -698,7 +689,7 @@ public class ChartSeries {
 	 *
 	 * @return the lineJoin
 	 */
-	public String getLineJoin() {
+	public LineJoin getLineJoin() {
 		return lineJoin;
 	}
 
@@ -707,7 +698,7 @@ public class ChartSeries {
 	 *
 	 * @param lineJoin the lineJoin to set
 	 */
-	public void setLineJoin(String lineJoin) {
+	public void setLineJoin(LineJoin lineJoin) {
 		this.lineJoin = lineJoin;
 	}
 

@@ -25,8 +25,8 @@ import java.util.List;
 public class ChartModel {
 
 	private Axis axesDefaults;
-	private ChartSeries seriesDefaults;
-	private List<ChartSeries> series = new ArrayList<>();
+	private Series seriesDefaults;
+	private List<Series> series = new ArrayList<>();
 	private Axes axes = new Axes();
 	private Grid grid;
 	private Legend legend;
@@ -65,23 +65,23 @@ public class ChartModel {
 		this.legend = legend;
 	}
 
-	public ChartSeries getSeriesDefaults() {
+	public Series getSeriesDefaults() {
 		return seriesDefaults;
 	}
 
-	public void setSeriesDefaults(ChartSeries seriesDefaults) {
+	public void setSeriesDefaults(Series seriesDefaults) {
 		this.seriesDefaults = seriesDefaults;
 	}
 
-	public List<ChartSeries> getSeries() {
+	public List<Series> getSeries() {
 		return series;
 	}
 
-	public void setSeries(List<ChartSeries> series) {
+	public void setSeries(List<Series> series) {
 		this.series = series;
 	}
 
-	public void addSeries(ChartSeries series) {
+	public void addSeries(Series series) {
 		this.series.add(series);
 	}
 

@@ -21,6 +21,7 @@ import org.plotfaces.data.ChartModel;
 import org.plotfaces.data.Grid;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
+import org.plotfaces.data.Series;
 import org.plotfaces.data.Title;
 import org.plotfaces.renderer.AxisTickRenderer;
 
@@ -74,6 +75,9 @@ public class FunctionFixer {
 		fixed = fixTitle(model.getTitle(), fixed);
 		fixed = fixHighlighter(model.getHighlighter(), fixed);
 		fixed = fixGrid(model.getGrid(), fixed);
+		for (Series s : model.getSeries()) {
+			fixed = fixSeries(s, fixed);
+		}
 		return fixed;
 
 
@@ -172,6 +176,22 @@ public class FunctionFixer {
 			return fixed;
 		}
 		return fix("renderer", grid.getRendererOptions().getRendererName(), fixed);
+	}
+
+	private String fixSeries(Series series, final String original) {
+		String fixed = original;
+		if (series == null) {
+			return fixed;
+		}
+
+		if (series.getRendererOptions() != null) {
+			fixed = fix("renderer", series.getRendererOptions().getRendererName(), fixed);
+		}
+
+		if (series.getMarkerRendererOptions() != null) {
+			fixed = fix("markerRenderer", series.getMarkerRendererOptions().getRendererName(), fixed);
+		}
+		return fixed;
 	}
 
 	private String fix(final String key, final String value, final String original) {

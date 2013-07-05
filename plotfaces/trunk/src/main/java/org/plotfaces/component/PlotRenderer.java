@@ -29,7 +29,7 @@ import javax.faces.render.Renderer;
 import org.plotfaces.JsonEmptyStringSerializer;
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.data.ChartModel;
-import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Series;
 import org.plotfaces.data.Data;
 
 /**
@@ -152,7 +152,7 @@ public class PlotRenderer extends Renderer {
 		builder.append("var ");
 		builder.append(dataVariable);
 		builder.append(" = [");
-		for (ChartSeries chartSeries : plot.getChartModel().getSeries()) {
+		for (Series chartSeries : plot.getChartModel().getSeries()) {
 			Data data = chartSeries.getData();
 			if (data != null) {
 				builder.append(data.encode());
