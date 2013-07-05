@@ -17,8 +17,10 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import org.plotfaces.data.Axis;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
+import org.plotfaces.data.Series;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
@@ -65,5 +67,27 @@ public class EnumTypes {
 
 	public BarRenderer.BarDirection[] getBarRendererBarDirection() {
 		return BarRenderer.BarDirection.values();
+	}
+
+	public Series.FillAxis[] getSeriesFillAxes() {
+		return Series.FillAxis.values();
+	}
+
+	public Axis.AxisName[] getXAxes() {
+		Axis.AxisName[] x = {Axis.AxisName.xaxis, Axis.AxisName.x2axis};
+		return x;
+	}
+
+	public Axis.AxisName[] getYAxes() {
+		Axis.AxisName[] y = {Axis.AxisName.yaxis, Axis.AxisName.y2axis, Axis.AxisName.y3axis, Axis.AxisName.y4axis, Axis.AxisName.y5axis, Axis.AxisName.y6axis, Axis.AxisName.y7axis, Axis.AxisName.y8axis, Axis.AxisName.y9axis};
+		return y;
+	}
+
+	public Series.LineJoin[] getSeriesLineJoins() {
+		return Series.LineJoin.values();
+	}
+
+	public Series.LineCap[] getSeriesLineCaps() {
+		return Series.LineCap.values();
 	}
 }

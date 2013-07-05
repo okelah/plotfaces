@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:series="http://xmlns.jcp.org/jsf/composite/series">
+
+	<composite:interface>
+		<composite:attribute name="series" required="true" type="org.plotfaces.data.Series"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _series suffix.
+		-->
+
+		<series:general series="#{cc.attrs.series}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+	</composite:implementation>
+</html>
+

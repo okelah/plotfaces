@@ -10,7 +10,7 @@ import org.plotfaces.component.RendererOptions;
 import org.plotfaces.data.Axes;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
-import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Series;
 import org.plotfaces.data.Grid;
 import org.plotfaces.data.Highlighter;
 import org.plotfaces.data.Legend;
@@ -67,33 +67,35 @@ public class LineChartDemo implements Serializable {
 	}
 
 	private void setSeriesDefaults(ChartModel chartModel) {
-		ChartSeries seriesDefaults = new ChartSeries();
+		Series seriesDefaults = new Series();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
 		chartModel.setSeriesDefaults(seriesDefaults);
 	}
 
 	private void setSeriesOne(ChartModel chartModel) {
-		ChartSeries series = new ChartSeries();
+		Series series = new Series();
 		series.setLabel("Series 1");
-//		series.setRenderer(new LineRenderer());
+		series.setRendererOptions(new LineRenderer());
+		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
 		//Some data for series 1
 		SimpleData data = new SimpleData();
 		data.addValue(2);
-		data.addValue(1);
+		data.addValue(-3);
 		data.addValue(3);
 		data.addValue(6);
-		data.addValue(8);
+		data.addValue(7);
 		series.setData(data);
 
 		chartModel.addSeries(series);
 	}
 
 	private void setSeriesTwo(ChartModel chartModel) {
-		ChartSeries series = new ChartSeries();
+		Series series = new Series();
 		series.setLabel("Series 2");
-//		series.setRenderer(new LineRenderer());
+		series.setRendererOptions(new LineRenderer());
+		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
 		//Some data for series 2
 		SimpleData data = new SimpleData();

@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="series" required="true" type="org.plotfaces.data.Series"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _seriesGeneral suffix.
+		-->
+
+		<p:panel id="seriesGeneral" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('seriesGeneral')}" header="#{msg.general}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="seriesGeneralGrid" columns="3">
+				<h:panelGroup>
+					#{msg.show_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.series.show}" rendered="#{cc.attrs.series.show != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setShow( true )}" rendered="#{cc.attrs.series.show == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.show != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.show}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.show_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.xaxis_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.series.xAxis}" rendered="#{cc.attrs.series.xAxis != null}">
+						<f:selectItems value="#{enumTypes.XAxes}"/>
+						<p:ajax update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.series.xAxis == null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.xAxis}" value="xaxis" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.xAxis != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.xAxis}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.xaxis_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.yaxis_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.series.yAxis}" rendered="#{cc.attrs.series.yAxis != null}">
+						<f:selectItems value="#{enumTypes.YAxes}"/>
+						<p:ajax update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.series.yAxis == null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.yAxis}" value="yaxis" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.yAxis != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.yAxis}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.yaxis_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.renderer_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.series.rendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.renderer_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.label_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.label}" rendered="#{not empty cc.attrs.series.label}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setLabel( 'Series Label' )}" rendered="#{empty cc.attrs.series.label}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.series.label}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.label}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.label_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showLabel_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.series.showLabel}" rendered="#{cc.attrs.series.showLabel != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setShowLabel( true )}" rendered="#{cc.attrs.series.showLabel == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.showLabel != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.showLabel}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showLabel_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.color_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.series.color}" rendered="#{not empty cc.attrs.series.color}" mode="inline" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.series.color}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setColor( '0034aa' )}" rendered="#{empty cc.attrs.series.color}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.series.color}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.color}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.color_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.lineWidth_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.lineWidth}" rendered="#{cc.attrs.series.lineWidth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setLineWidth( 5 )}" rendered="#{cc.attrs.series.lineWidth == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.lineWidth != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.lineWidth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.lineWidth_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.lineJoin_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.series.lineJoin}" rendered="#{cc.attrs.series.lineJoin != null}">
+						<f:selectItems value="#{enumTypes.seriesLineJoins}"/>
+						<p:ajax update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.series.lineJoin == null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.lineJoin}" value="bevel" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.lineJoin != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.lineJoin}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.lineJoin_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.lineCap_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.series.lineCap}" rendered="#{cc.attrs.series.lineCap != null}">
+						<f:selectItems value="#{enumTypes.seriesLineCaps}"/>
+						<p:ajax update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.series.lineCap == null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.lineCap}" value="butt" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.lineCap != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.lineCap}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.lineCap_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadow_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.hidden}" onLabel="#{msg.shown}" value="#{cc.attrs.series.shadow}" rendered="#{cc.attrs.series.shadow != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setShadow( true )}" rendered="#{cc.attrs.series.shadow == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.shadow != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.shadow}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadow_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAngle_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.shadowAngle}" rendered="#{cc.attrs.series.shadowAngle != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setShadowAngle( 90 )}" rendered="#{cc.attrs.series.shadowAngle == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.shadowAngle != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.shadowAngle}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAngle_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowOffset_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.shadowOffset}" rendered="#{cc.attrs.series.shadowOffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setShadowOffset( 5 )}" rendered="#{cc.attrs.series.shadowOffset == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.shadowOffset != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.shadowOffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowOffset_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowDepth_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.shadowDepth}" rendered="#{cc.attrs.series.shadowDepth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setShadowDepth( 5 )}" rendered="#{cc.attrs.series.shadowDepth == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.shadowDepth != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.shadowDepth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowDepth_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAlpha_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.shadowAlpha}" rendered="#{cc.attrs.series.shadowAlpha != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setShadowAlpha( 0.25 )}" rendered="#{cc.attrs.series.shadowAlpha == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.shadowAlpha != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.shadowAlpha}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAlpha_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.breakOnNull_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.breakOnNull}" rendered="#{cc.attrs.series.breakOnNull != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setBreakOnNull( true )}" rendered="#{cc.attrs.series.breakOnNull == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.breakOnNull != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.breakOnNull}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.breakOnNull_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.markerRenderer_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{cc.attrs.series.markerRendererOptions.rendererName}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.markerRenderer_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showLine_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.showLine}" rendered="#{cc.attrs.series.showLine != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setShowLine( true )}" rendered="#{cc.attrs.series.showLine == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.showLine != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.showLine}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showLine_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showMarker_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.showMarker}" rendered="#{cc.attrs.series.showMarker != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setShowMarker( true )}" rendered="#{cc.attrs.series.showMarker == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.showMarker != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.showMarker}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showMarker_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.index_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.index}" rendered="#{cc.attrs.series.index != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setIndex( 1 )}" rendered="#{cc.attrs.series.index == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.index != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.index}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.index_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fill_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.fill}" rendered="#{cc.attrs.series.fill != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setFill( true )}" rendered="#{cc.attrs.series.fill == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fill != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fill}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fill_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillColor_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.series.fillColor}" rendered="#{not empty cc.attrs.series.fillColor}" mode="inline" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.series.fillColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setFillColor( '3404aa' )}" rendered="#{empty cc.attrs.series.fillColor}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.series.fillColor}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillColor_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillAlpha_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.fillAlpha}" rendered="#{cc.attrs.series.fillAlpha != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setFillAlpha( 0.25 )}" rendered="#{cc.attrs.series.fillAlpha == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fillAlpha != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillAlpha}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillAlpha_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillAndStroke_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.fillAndStroke}" rendered="#{cc.attrs.series.fillAndStroke != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setFillAndStroke( true )}" rendered="#{cc.attrs.series.fillAndStroke == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fillAndStroke != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillAndStroke}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillAndStroke_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.disableStack_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.disableStack}" rendered="#{cc.attrs.series.disableStack != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setDisableStack( true )}" rendered="#{cc.attrs.series.disableStack == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.disableStack != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.disableStack}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.disableStack_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.neighborThreshold_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.neighborThreshold}" rendered="#{cc.attrs.series.neighborThreshold != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setNeighborThreshold( 10 )}" rendered="#{cc.attrs.series.neighborThreshold == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.neighborThreshold != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.neighborThreshold}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.neighborThreshold_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillToZero_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.fillToZero}" rendered="#{cc.attrs.series.fillToZero != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setFillToZero( true )}" rendered="#{cc.attrs.series.fillToZero == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fillToZero != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillToZero}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillToZero_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillToValue_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.series.fillToValue}" rendered="#{cc.attrs.series.fillToValue != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setFillToValue( 3 )}" rendered="#{cc.attrs.series.fillToValue == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fillToValue != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillToValue}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillToValue_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fillAxis_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.series.fillAxis}" rendered="#{cc.attrs.series.fillAxis != null}">
+						<f:selectItems value="#{enumTypes.seriesFillAxes}"/>
+						<p:ajax update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.series.fillAxis == null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillAxis}" value="y" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.fillAxis != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.fillAxis}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fillAxis_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.useNegativeColors_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.useNegativeColors}" rendered="#{cc.attrs.series.useNegativeColors != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setUseNegativeColors( true )}" rendered="#{cc.attrs.series.useNegativeColors == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.useNegativeColors != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.useNegativeColors}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.useNegativeColors_seriesGeneral_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

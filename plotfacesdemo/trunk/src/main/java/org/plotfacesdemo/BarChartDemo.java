@@ -7,7 +7,7 @@ import javax.inject.Named;
 import org.plotfaces.component.RendererOptions;
 import org.plotfaces.data.Axis;
 import org.plotfaces.data.ChartModel;
-import org.plotfaces.data.ChartSeries;
+import org.plotfaces.data.Series;
 import org.plotfaces.data.KeyedData;
 import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
@@ -40,13 +40,13 @@ public class BarChartDemo implements Serializable {
 			chartModel.setSeriesDefaults(getSeriesDefaults());
 //			chartModel.setAxes(getAxes());
 
-			ChartSeries chartSeries = new ChartSeries();
+			Series chartSeries = new Series();
 			KeyedData<String> data = new KeyedData<>();
 			data.addValue("Funky", 5);
 			data.addValue("Spunky", 2);
 			data.addValue("Monkey", 9);
 			chartSeries.setData(data);
-			chartSeries.setRenderer(new BarRenderer());
+			chartSeries.setRendererOptions(new BarRenderer());
 			chartModel.getSeries().add(chartSeries);
 		}
 		return chartModel;
@@ -84,8 +84,8 @@ public class BarChartDemo implements Serializable {
 		return axes;
 	}
 
-	private ChartSeries getSeriesDefaults() {
-		ChartSeries series = new ChartSeries();
+	private Series getSeriesDefaults() {
+		Series series = new Series();
 //		series.setxAxis(Axis.AxisName.xaxis);
 //		series.setyAxis(Axis.AxisName.yaxis);
 //		series.setRenderer( new BarRenderer() );
