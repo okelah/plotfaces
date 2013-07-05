@@ -34,6 +34,7 @@ import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CategoryAxisRenderer;
+import org.plotfaces.renderer.DefaultMarkerRenderer;
 import org.plotfaces.renderer.TableLegendRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.LineRenderer;
@@ -86,16 +87,17 @@ public class ChartModelTest {
 	}
 
 	private void setSeriesDefaults(ChartModel chartModel) {
-		ChartSeries seriesDefaults = new ChartSeries();
+		Series seriesDefaults = new Series();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
 		chartModel.setSeriesDefaults(seriesDefaults);
 	}
 
 	private void setSeriesOne(ChartModel chartModel) {
-		ChartSeries series = new ChartSeries();
+		Series series = new Series();
 		series.setLabel("Series 1");
-//		series.setRenderer(new LineRenderer());
+		series.setRendererOptions(new LineRenderer());
+		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
 		//Some data for series 1
 		SimpleData data = new SimpleData();
