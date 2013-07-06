@@ -31,21 +31,6 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 
 		inside, outside, cross, nothing
 	};
-	private static final String MARK = "mark";
-	private static final String SHOW_MARK = "showMark";
-	private static final String SHOW_GRIDLINE = "showGridline";
-	private static final String IS_MINOR_TICK = "isMinorTick";
-	private static final String SIZE = "size";
-	private static final String MARK_SIZE = "markSize";
-	private static final String SHOW = "show";
-	private static final String SHOW_LABEL = "showLabel";
-	//private static final String FORMATTER = "formatter";
-	private static final String PREFIX = "prefix";
-	private static final String FORMAT_STRING = "formatString";
-	private static final String FONT_FAMILY = "fontFamily";
-	private static final String FONT_SIZE = "fontSize";
-	private static final String TEXT_COLOR = "textColor";
-	private static final String ESCAPE_HTML = "escapeHTML";
 	private Mark mark;
 	private Boolean showMark;
 	private Boolean showGridline;
@@ -63,74 +48,6 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 	private String fontSize;
 	private String textColor;
 	private Boolean escapeHTML;
-
-	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-		if (getMark() != null) {
-			fragments.add(PlotUtilities.createVariable(MARK, getMark()));
-		}
-
-		if (getShowMark() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_MARK, getShowMark()));
-		}
-
-		if (getShowGridline() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_GRIDLINE, getShowGridline()));
-		}
-
-		if (getIsMinorTick() != null) {
-			fragments.add(PlotUtilities.createVariable(IS_MINOR_TICK, getIsMinorTick()));
-		}
-
-		//Size is deprecated in favour of markSize so don't output it if markSize is set.
-		if (getSize() != null && getMarkSize() == null) {
-			fragments.add(PlotUtilities.createVariable(SIZE, getSize()));
-		}
-
-		if (getMarkSize() != null) {
-			fragments.add(PlotUtilities.createVariable(MARK_SIZE, getMarkSize()));
-		}
-
-		if (getShow() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
-		}
-
-		if (getShowLabel() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_LABEL, getShowLabel()));
-		}
-
-//		if (getFormatter() != null) {
-//			fragments.add(getFormatter().plot());
-//		}
-
-		if (getPrefix() != null && !getPrefix().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(PREFIX, getPrefix()));
-		}
-
-		if (getFormatString() != null && !getFormatString().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(FORMAT_STRING, getFormatString()));
-		}
-
-		if (getFontFamily() != null && !getFontFamily().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(FONT_FAMILY, getFontFamily()));
-		}
-
-		if (getFontSize() != null && !getFontSize().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(FONT_SIZE, getFontSize()));
-		}
-
-		if (getTextColor() != null && !getTextColor().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(TEXT_COLOR, getTextColor()));
-		}
-
-		if (getEscapeHTML() != null) {
-			fragments.add(PlotUtilities.createVariable(ESCAPE_HTML, getEscapeHTML()));
-		}
-
-		return fragments;
-	}
 
 	@Override
 	public String getRendererName() {

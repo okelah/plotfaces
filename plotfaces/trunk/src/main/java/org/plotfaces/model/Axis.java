@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,32 +32,12 @@ import org.plotfaces.renderer.TickRenderer;
  *
  * @author Graham Smith
  */
-public class Axis implements Plotable {
+public class Axis {
 
 	public static enum AxisName {
 
 		axisDefaults, xaxis, x2axis, yaxis, y2axis, y3axis, y4axis, y5axis, y6axis, y7axis, y8axis, y9axis;
 	}
-	private static final String SHOW = "show";
-	private static final String LABEL = "label";
-	private static final String SHOW_LABEL = "showLabel";
-	private static final String MIN = "min";
-	private static final String MAX = "max";
-	private static final String AUTOSCALE = "autoscale";
-	private static final String PAD = "pad";
-	private static final String PAD_MIN = "padMin";
-	private static final String PAD_MAX = "padMax";
-	private static final String TICKS = "ticks";
-	private static final String NUMBER_TICKS = "numberTicks";
-	private static final String TICK_INTERVAL = "tickInterval";
-	private static final String SHOW_TICKS = "showTicks";
-	private static final String SHOW_TICK_MARKS = "showTickMarks";
-	private static final String SHOW_MINOR_TICKS = "showMinorTicks";
-	private static final String USE_SERIES_COLOR = "useSeriesColor";
-	private static final String BORDER_WIDTH = "borderWidth";
-	private static final String BORDER_COLOR = "borderColor";
-	private static final String SYNC_TICKS = "syncTicks";
-	private static final String TICK_SPACING = "tickSpacing";
 	private AxisName axisName;
 	private Boolean show = Boolean.TRUE;
 	//private TickRenderer tickRenderer;
@@ -94,115 +74,6 @@ public class Axis implements Plotable {
 
 	public Axis(AxisName axisName) {
 		this.axisName = axisName;
-	}
-
-	/**
-	 * Used to encode these axis options for jqPlot.
-	 *
-	 * @return
-	 */
-	@Override
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("{\n");
-
-		List<String> fragments = new ArrayList<>();
-		fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
-
-//		if (getTickRenderer() != null) {
-//			fragments.add(getTickRenderer().plot());
-//		}
-
-//		if (getLabelRenderer() != null) {
-//			fragments.add(getLabelRenderer().plot());
-//		}
-
-		if (getLabel() != null && !getLabel().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(LABEL, getLabel()));
-		}
-
-		if (getShowLabel() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_LABEL, getShowLabel()));
-		}
-
-		if (getMin() != null) {
-			fragments.add(PlotUtilities.createVariable(MIN, getMin()));
-		}
-
-		if (getMax() != null) {
-			fragments.add(PlotUtilities.createVariable(MAX, getMax()));
-		}
-
-		if (getAutoScale() != null) {
-			fragments.add(PlotUtilities.createVariable(AUTOSCALE, getAutoScale()));
-		}
-
-		if (getPad() != null) {
-			fragments.add(PlotUtilities.createVariable(PAD, getPad()));
-		}
-
-		if (getPadMin() != null) {
-			fragments.add(PlotUtilities.createVariable(PAD_MIN, getPadMin()));
-		}
-
-		if (getPadMax() != null) {
-			fragments.add(PlotUtilities.createVariable(PAD_MAX, getPadMax()));
-		}
-
-		if (getTicks() != null && !getTicks().isEmpty()) {
-			//TODO: This only supports a single dimension in the array but it can be a two dimensional array.
-			fragments.add(PlotUtilities.createVariable(TICKS, "['" + StringUtils.join(getTicks(), "','") + "']", true));
-		}
-
-		//numberTicks and tickInterval are mutually exclusive.
-		if (getNumberTicks() != null) {
-			fragments.add(PlotUtilities.createVariable(NUMBER_TICKS, getNumberTicks()));
-		}
-
-		//numberTicks and tickInterval are mutually exclusive.
-		if (getTickInterval() != null && getNumberTicks() == null) {
-			fragments.add(PlotUtilities.createVariable(TICK_INTERVAL, getTickInterval()));
-		}
-
-//		if (getRenderer() != null) {
-//			fragments.add(getRenderer().plot());
-//		}
-
-		if (getShowTicks() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_TICKS, getShowTicks()));
-		}
-
-		if (getShowTickMarks() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_TICK_MARKS, getShowTickMarks()));
-		}
-
-		if (getShowMinorTicks() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW_MINOR_TICKS, getShowMinorTicks()));
-		}
-
-		if (getUseSeriesColor() != null) {
-			fragments.add(PlotUtilities.createVariable(USE_SERIES_COLOR, getUseSeriesColor()));
-		}
-
-		if (getBorderWidth() != null) {
-			fragments.add(PlotUtilities.createVariable(BORDER_WIDTH, getBorderWidth()));
-		}
-
-		if (getBorderColor() != null && !getBorderColor().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(BORDER_COLOR, "#" + getBorderColor()));
-		}
-
-		if (getSyncTicks() != null) {
-			fragments.add(PlotUtilities.createVariable(SYNC_TICKS, getSyncTicks()));
-		}
-
-		if (getTickSpacing() != null) {
-			fragments.add(PlotUtilities.createVariable(TICK_SPACING, getTickSpacing()));
-		}
-
-		builder.append(StringUtils.join(fragments.toArray(), ",\n"));
-		builder.append("\n}");
-		return builder.toString();
 	}
 
 	/**

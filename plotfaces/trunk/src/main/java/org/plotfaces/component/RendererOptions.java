@@ -21,6 +21,7 @@ import com.google.javascript.jscomp.CompilationLevel;
  *
  * @author Graham Smith
  */
+@Deprecated
 public class RendererOptions {
 
 	private boolean useOptimizer = false;

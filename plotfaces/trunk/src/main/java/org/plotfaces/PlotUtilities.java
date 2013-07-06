@@ -18,7 +18,7 @@ package org.plotfaces;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import org.plotfaces.data.ChartModel;
+import org.plotfaces.model.Model;
 
 /**
  *

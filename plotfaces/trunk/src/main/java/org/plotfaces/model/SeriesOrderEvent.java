@@ -13,13 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 /**
  *
  * @author Graham Smith
  */
-public interface SeriesOrderListener {
+public class SeriesOrderEvent {
 
-	void seriesOrderChanged(SeriesOrderEvent e);
+	private Series series;
+
+	public SeriesOrderEvent(Series series) {
+		this.series = series;
+	}
+
+	public Series getSeries() {
+		return series;
+	}
+
+	public void setSeries(Series series) {
+		this.series = series;
+	}
 }

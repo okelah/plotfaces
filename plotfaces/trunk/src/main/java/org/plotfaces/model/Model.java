@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import java.util.TreeSet;
  *
  * @author Graham Smith
  */
-public class ChartModel implements SeriesOrderListener {
+public class Model implements SeriesOrderListener {
 
 	private Axis axesDefaults;
 	private Series seriesDefaults;
@@ -42,7 +42,7 @@ public class ChartModel implements SeriesOrderListener {
 	private Title title;
 	private Highlighter highlighter;
 
-	public ChartModel() {
+	public Model() {
 	}
 
 	public Axis getAxesDefaults() {
@@ -89,7 +89,7 @@ public class ChartModel implements SeriesOrderListener {
 	}
 
 	/**
-	 * Sets the {@code Series} for this {@code ChartModel}. Doesn't not check
+	 * Sets the {@code Series} for this {@code Model}. Doesn't not check
 	 * for duplicates.
 	 *
 	 * @param series
@@ -104,15 +104,15 @@ public class ChartModel implements SeriesOrderListener {
 	}
 
 	/**
-	 * <p>Adds the given {@code Series} to this {@code ChartModel} if it doesn't
+	 * <p>Adds the given {@code Series} to this {@code Model} if it doesn't
 	 * already exist in this model. </p>
 	 * <p>
-	 * <b>Note:</b> This method registers this {@code ChartModel} as a
+	 * <b>Note:</b> This method registers this {@code Model} as a
 	 * {@code SeriesOrderListener} on the {@code Series} being added. This is
 	 * necessary so that the series can be maintained in the correct order when
 	 * the index and disableStack options are changed in the {@code Series}. If
 	 * the {@code SeriesOrderListener} is removed from the {@code Series} while
-	 * the {@code Series} is still present in the {@code ChartModel} it is
+	 * the {@code Series} is still present in the {@code Model} it is
 	 * highly likely that the ordering of the series presented to jqPlot will be
 	 * incorrect. This probably won't cause jqPlot to fail but it may cause
 	 * unexpected rendering results.</p>
@@ -150,7 +150,7 @@ public class ChartModel implements SeriesOrderListener {
 	}
 
 	/**
-	 * <p>Remove the given {@code Series} from this {@code ChartModel}.</p>
+	 * <p>Remove the given {@code Series} from this {@code Model}.</p>
 	 * <p><b>Note:</b> The {@code SeriesOrderListener} (this) is removed from
 	 * the {@code Series} if present.</p>
 	 *

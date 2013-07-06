@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.plotfaces.data.PlotData;
 import org.plotfaces.renderer.MarkerRenderer;
 import org.plotfaces.renderer.SeriesRenderer;
 
@@ -77,7 +78,7 @@ public class Series implements Comparable<Series> {
 	private Integer fillToValue;
 	private FillAxis fillAxis;
 	private Boolean useNegativeColors;
-	private Data data;
+	private PlotData data;
 	private transient Set<SeriesOrderListener> seriesOrderListeners = new HashSet<>();
 
 	public Series() {
@@ -717,11 +718,11 @@ public class Series implements Comparable<Series> {
 		this.lineJoin = lineJoin;
 	}
 
-	public Data getData() {
+	public PlotData getData() {
 		return data;
 	}
 
-	public void setData(Data data) {
+	public void setData(PlotData data) {
 		this.data = data;
 	}
 

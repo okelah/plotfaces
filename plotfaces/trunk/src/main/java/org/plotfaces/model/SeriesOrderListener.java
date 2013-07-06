@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 /**
  *
  * @author Graham Smith
- * @deprecated
  */
-@Deprecated
-public interface Plotable {
+public interface SeriesOrderListener {
 
-	String plot();
+	void seriesOrderChanged(SeriesOrderEvent e);
 }

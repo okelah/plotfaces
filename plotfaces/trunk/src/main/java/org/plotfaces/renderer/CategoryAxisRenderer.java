@@ -1,29 +1,10 @@
 package org.plotfaces.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.plotfaces.PlotUtilities;
-
 public class CategoryAxisRenderer extends AbstractAxisRenderer {
 
 	private static final String SORT_MERGED_LABELS = "sortMergedLabels";
 	private Boolean sortMergedLabels;
 	private TickRenderer tickRenderer;
-
-	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-		if (getSortMergedLabels() != null) {
-			fragments.add(PlotUtilities.createVariable(SORT_MERGED_LABELS, getSortMergedLabels()));
-		}
-
-		if (getTickRenderer() != null) {
-			fragments.add(getTickRenderer().plot());
-		}
-
-		return fragments;
-	}
 
 	/**
 	 * True to sort tick labels when labels are created by merging x axis values

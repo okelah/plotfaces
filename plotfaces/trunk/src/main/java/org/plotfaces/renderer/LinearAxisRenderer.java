@@ -26,10 +26,6 @@ import org.plotfaces.PlotUtilities;
  */
 public class LinearAxisRenderer extends AbstractAxisRenderer {
 
-	private static final String BREAK_POINTS = "breakPoints";
-	private static final String BREAK_TICK_LABEL = "breakTickLabel";
-	private static final String FORCE_TICK_AT_0 = "forceTickAt0";
-	private static final String FORCE_TICK_AT_100 = "forceTickAt100";
 	//TODO: support breakPoints, probably an array of something
 	//private String breakPoints
 	private String breakTickLabel;
@@ -37,25 +33,6 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 	private Boolean forceTickAtOneHundred;
 
 	public LinearAxisRenderer() {
-	}
-
-	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-		if (getBreakTickLabel() != null) {
-			fragments.add(PlotUtilities.createVariable(BREAK_TICK_LABEL, getBreakTickLabel()));
-		}
-
-		if (getForceTickAtZero() != null) {
-			fragments.add(PlotUtilities.createVariable(FORCE_TICK_AT_0, getForceTickAtZero()));
-		}
-
-		if (getForceTickAtOneHundred() != null) {
-			fragments.add(PlotUtilities.createVariable(FORCE_TICK_AT_100, getForceTickAtOneHundred()));
-		}
-
-		return fragments;
 	}
 
 	@Override

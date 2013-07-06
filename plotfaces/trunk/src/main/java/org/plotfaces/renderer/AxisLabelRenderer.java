@@ -26,33 +26,11 @@ import org.plotfaces.PlotUtilities;
  */
 public class AxisLabelRenderer extends AbstractLabelRenderer {
 
-	private static final String SHOW = "show";
-	private static final String LABEL = "label";
-	private static final String ESCAPE_HTML = "escapeHTML";
 	private Boolean show;
 	private String label;
 	private Boolean escapeHTML;
 
 	public AxisLabelRenderer() {
-	}
-
-	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = new ArrayList<>();
-
-		if (getShow() != null) {
-			fragments.add(PlotUtilities.createVariable(SHOW, getShow()));
-		}
-
-		if (getLabel() != null) {
-			fragments.add(PlotUtilities.createVariable(LABEL, getLabel()));
-		}
-
-		if (getEscapeHTML() != null) {
-			fragments.add(PlotUtilities.createVariable(ESCAPE_HTML, getEscapeHTML()));
-		}
-
-		return fragments;
 	}
 
 	@Override
