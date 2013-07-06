@@ -16,13 +16,17 @@
 package org.plotfaces.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author Graham Smith
  */
-public class ChartModel {
+public class ChartModel implements SeriesOrderListener {
 
 	private Axis axesDefaults;
 	private Series seriesDefaults;
@@ -73,16 +77,88 @@ public class ChartModel {
 		this.seriesDefaults = seriesDefaults;
 	}
 
+	/**
+	 * Returns a read only copy of the series in this list.
+	 *
+	 * @return
+	 */
 	public List<Series> getSeries() {
-		return series;
+		//Create a defensive sorted copy of the series.
+		List<Series> copy = Collections.unmodifiableList(this.series);
+		return copy;
 	}
 
-	public void setSeries(List<Series> series) {
-		this.series = series;
+	/**
+	 * Sets the {@code Series} for this {@code ChartModel}. Doesn't not check
+	 * for duplicates.
+	 *
+	 * @param series
+	 */
+	protected void setSeries(List<Series> series) {
+		this.series.clear();
+		Collections.copy(this.series, series);
+		Collections.sort(this.series);
+		for (Series s : this.series) {
+			s.addSeriesOrderListener(this);
+		}
 	}
 
-	public void addSeries(Series series) {
-		this.series.add(series);
+	/**
+	 * <p>Adds the given {@code Series} to this {@code ChartModel} if it doesn't
+	 * already exist in this model. </p>
+	 * <p>
+	 * <b>Note:</b> This method registers this {@code ChartModel} as a
+	 * {@code SeriesOrderListener} on the {@code Series} being added. This is
+	 * necessary so that the series can be maintained in the correct order when
+	 * the index and disableStack options are changed in the {@code Series}. If
+	 * the {@code SeriesOrderListener} is removed from the {@code Series} while
+	 * the {@code Series} is still present in the {@code ChartModel} it is
+	 * highly likely that the ordering of the series presented to jqPlot will be
+	 * incorrect. This probably won't cause jqPlot to fail but it may cause
+	 * unexpected rendering results.</p>
+	 * <p>Implementation Notes: Under normal circumstances it would be possible
+	 * to simply sort the list before returning it from getSeries but Gson
+	 * directly accesses the member variable via reflection so the list must be
+	 * maintained in a sorted state at all times. Additionally, it is not
+	 * possible to use a {@code Set} to hold the Series since the compareTo
+	 * method must behave in a manner that is inconsistent with equals to
+	 * achieve the sorting required.</p>
+	 * </p>For example imagine a model with two Series representing different
+	 * sets of data that both have null indexes and null disableStack. From a
+	 * sorting point of view these two sets should simply appear in any order
+	 * after any indexed sets and before any sets with disableStack. The
+	 * compareTo method will (and should) return zero if these two sets are
+	 * compared; the indexes have been compared and are the same and there is no
+	 * other state left to compare to determine ordering. The problem is that
+	 * the contract on compareTo states that if the result is zero then
+	 * generally .equals should also return true but this is not the case for
+	 * these two sets as they actually represent different data. This violation
+	 * of the .equals condition means that Series can't be held in a set since a
+	 * Set uses the compareTo method to determine membership - in other words
+	 * only one Series with a null index would be allowed.
+	 * </p>
+	 *
+	 * @param s the {@code Series} to add.
+	 */
+	public void addSeries(Series s) {
+		if (this.series.contains(s)) {
+			return;
+		}
+		this.series.add(s);
+		s.addSeriesOrderListener(this);
+		Collections.sort(this.series);
+	}
+
+	/**
+	 * <p>Remove the given {@code Series} from this {@code ChartModel}.</p>
+	 * <p><b>Note:</b> The {@code SeriesOrderListener} (this) is removed from
+	 * the {@code Series} if present.</p>
+	 *
+	 * @param s the {@code Series} to remove.
+	 */
+	public void removeSeries(Series s) {
+		this.series.remove(s);
+		Collections.sort(this.series);
 	}
 
 	public Title getTitle() {
@@ -147,5 +223,10 @@ public class ChartModel {
 
 	public void setGrid(Grid grid) {
 		this.grid = grid;
+	}
+
+	@Override
+	public void seriesOrderChanged(SeriesOrderEvent e) {
+		Collections.sort(this.series);
 	}
 }
