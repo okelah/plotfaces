@@ -15,10 +15,6 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.plotfaces.data.Plotable;
-
 public abstract class AbstractTickRenderer implements TickRenderer {
 
 	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
@@ -26,41 +22,6 @@ public abstract class AbstractTickRenderer implements TickRenderer {
 	public AbstractTickRenderer() {
 	}
 
-	/**
-	 * Provides the standard opening to the tickRenderer block of options.
-	 *
-	 * @return
-	 */
-	protected String plotBegin() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("tickRenderer: ");
-		builder.append(getRendererName());
-		builder.append(",\ntickOptions: ");
-		builder.append("{");
-		return builder.toString();
-
-	}
-
-	/**
-	 * Closes the tickRenderer options block.
-	 *
-	 * @return
-	 */
-	protected String plotEnd() {
-		return "}";
-	}
-
-	@Override
-	public String plot() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(plotBegin());
-		builder.append(StringUtils.join(getFragments().toArray(), ",\n"));
-		builder.append(plotEnd());
-		return builder.toString();
-	}
-
 	@Override
 	public abstract String getRendererName();
-
-	protected abstract List<String> getFragments();
 }

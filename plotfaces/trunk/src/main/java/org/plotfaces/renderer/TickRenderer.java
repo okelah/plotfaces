@@ -15,11 +15,9 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.data.Plotable;
-
 /**
  *
  * @author Graham Smith
  */
-public interface TickRenderer extends Renderer, Plotable {
+public interface TickRenderer extends Renderer {
 }

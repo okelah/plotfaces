@@ -28,9 +28,9 @@ import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import org.plotfaces.JsonEmptyStringSerializer;
 import org.plotfaces.PlotUtilities;
-import org.plotfaces.data.ChartModel;
-import org.plotfaces.data.Series;
-import org.plotfaces.data.Data;
+import org.plotfaces.model.Model;
+import org.plotfaces.model.Series;
+import org.plotfaces.data.PlotData;
 
 /**
  *
@@ -72,18 +72,11 @@ public class PlotRenderer extends Renderer {
 		encodeChartModel(builder, plot, modelVariable);
 		encodePlot(builder, plotVariable, safeTargetId, dataVariable, modelVariable);
 		encodeScriptEnd(builder);
+		String chart = builder.toString();
 
-		String javascript;
-		RendererOptions rendererOptions = (RendererOptions) plot.getRendererOptions();
-		if (rendererOptions != null && rendererOptions.isUseOptimizer()) {
-			javascript = optimizer.optimize(builder.toString(), rendererOptions);
-		} else {
-			javascript = builder.toString();
-		}
+		System.out.println("********* Chart Start *********\n" + chart + "\n********* Chart End *********");
 
-		System.out.println("********* Chart Start *********\n" + javascript + "\n********* Chart End *********");
-
-		out.write(javascript);
+		out.write(chart);
 
 		encodeScriptEndTag(out);
 	}
@@ -152,8 +145,8 @@ public class PlotRenderer extends Renderer {
 		builder.append("var ");
 		builder.append(dataVariable);
 		builder.append(" = [");
-		for (Series chartSeries : plot.getChartModel().getSeries()) {
-			Data data = chartSeries.getData();
+		for (Series chartSeries : plot.getModel().getSeries()) {
+			PlotData data = chartSeries.getData();
 			if (data != null) {
 				builder.append(data.encode());
 				builder.append(",");
@@ -170,7 +163,7 @@ public class PlotRenderer extends Renderer {
 	}
 
 	private void encodeChartModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
-		ChartModel chartModel = (ChartModel) plot.getChartModel();
+		Model chartModel = (Model) plot.getModel();
 //		if (chartModel != null) {
 //			chartModel.setModelVariable(modelVariable);
 //			builder.append(chartModel.plot());

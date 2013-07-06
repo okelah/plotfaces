@@ -47,27 +47,6 @@ public class CategoryAxisRendererTest {
 	public void tearDown() {
 	}
 
-	@Test
-	public void testPlot() {
-		CategoryAxisRenderer axisRenderer = new CategoryAxisRenderer();
-		axisRenderer.setSortMergedLabels(true);
-		axisRenderer.setTickRenderer(new AxisTickRenderer());
-		String result = axisRenderer.plot();
-//		System.out.println(result);
-		String expected = "renderer: $.jqplot.CategoryAxisRenderer,\n"
-				+ "rendererOptions: {sortMergedLabels:true,\n"
-				+ "tickRenderer: $.jqplot.AxisTickRenderer,\n"
-				+ "tickOptions: {}}";
-		assertEquals(expected, result);
-	}
-
-	/**
-	 * Test of getFragments method, of class CategoryAxisRenderer.
-	 */
-	@Test
-	public void testGetFragments() {
-	}
-
 	/**
 	 * Test of getSortMergedLabels method, of class CategoryAxisRenderer.
 	 */

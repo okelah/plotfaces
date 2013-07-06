@@ -21,7 +21,7 @@ package org.plotfaces.data;
  *
  * @author Graham Smith
  */
-public interface Data {
+public interface PlotData {
 
 	public String encode();
 }

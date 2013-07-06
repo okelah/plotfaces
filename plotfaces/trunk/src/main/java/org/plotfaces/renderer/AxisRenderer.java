@@ -15,11 +15,9 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.data.Plotable;
-
 /**
  *
  * @author Graham Smith
  */
-public interface AxisRenderer extends Renderer, Plotable {
+public interface AxisRenderer extends Renderer {
 }

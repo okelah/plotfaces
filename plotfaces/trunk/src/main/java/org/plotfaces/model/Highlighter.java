@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.data;
+package org.plotfaces.model;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.plotfaces.PlotUtilities;
-import org.plotfaces.data.Axis.AxisName;
+import org.plotfaces.model.Axis.AxisName;
 import org.plotfaces.renderer.AxisRenderer;
 import org.plotfaces.renderer.LabelRenderer;
 import org.plotfaces.renderer.MarkerRenderer;

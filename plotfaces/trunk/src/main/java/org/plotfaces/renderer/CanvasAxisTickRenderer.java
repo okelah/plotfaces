@@ -30,49 +30,12 @@ public class CanvasAxisTickRenderer extends AxisTickRenderer {
 
 		auto, start, middle, end
 	};
-	private static final String ANGLE = "angle";
-	private static final String LABEL_POSITION = "labelPosition";
-	private static final String FONT_WEIGHT = "fontWeight";
-	private static final String FONT_STRETCH = "fontStretch";
-	private static final String ENABLE_FONT_SUPPORT = "enableFontSupport";
-	private static final String PT2PX = "pt2px";
 	private Integer angle;
 	private LabelPosition labelPosition;
 	private String fontWeight;
 	private Double fontStretch;
 	private Boolean enableFontSupport;
 	private Double pt2px;
-
-	@Override
-	protected List<String> getFragments() {
-		List<String> fragments = super.getFragments();
-
-		if (getAngle() != null) {
-			fragments.add(PlotUtilities.createVariable(ANGLE, getAngle()));
-		}
-
-		if (getLabelPosition() != null) {
-			fragments.add(PlotUtilities.createVariable(LABEL_POSITION, getLabelPosition()));
-		}
-
-		if (getFontWeight() != null && !getFontWeight().isEmpty()) {
-			fragments.add(PlotUtilities.createVariable(FONT_WEIGHT, getFontWeight()));
-		}
-
-		if (getFontStretch() != null) {
-			fragments.add(PlotUtilities.createVariable(FONT_STRETCH, getFontStretch()));
-		}
-
-		if (getEnableFontSupport() != null) {
-			fragments.add(PlotUtilities.createVariable(ENABLE_FONT_SUPPORT, getEnableFontSupport()));
-		}
-
-		if (getPt2px() != null) {
-			fragments.add(PlotUtilities.createVariable(PT2PX, getPt2px()));
-		}
-
-		return fragments;
-	}
 
 	@Override
 	public String getRendererName() {

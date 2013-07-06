@@ -47,34 +47,6 @@ public class CanvasAxisTickRendererTest {
 	public void tearDown() {
 	}
 
-	@Test
-	public void testPlot_1() {
-		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
-		tickRenderer.setAngle(45);
-		tickRenderer.setLabelPosition(CanvasAxisTickRenderer.LabelPosition.middle);
-		tickRenderer.setFontWeight("normal");
-		tickRenderer.setFontStretch(1.0);
-		tickRenderer.setEnableFontSupport(true);
-		tickRenderer.setPt2px(2.0);
-		String result = tickRenderer.plot();
-		//System.out.println(result);
-		String expected = "tickRenderer: $.jqplot.CanvasAxisTickRenderer,\n"
-				+ "tickOptions: {angle:45,\n"
-				+ "labelPosition:'middle',\n"
-				+ "fontWeight:'normal',\n"
-				+ "fontStretch:1.0,\n"
-				+ "enableFontSupport:true,\n"
-				+ "pt2px:2.0}";
-		assertEquals(expected, result);
-	}
-
-	/**
-	 * Test of getFragments method, of class CanvasAxisTickRenderer.
-	 */
-	@Test
-	public void testGetFragments() {
-	}
-
 	/**
 	 * Test of getRendererType method, of class CanvasAxisTickRenderer.
 	 */

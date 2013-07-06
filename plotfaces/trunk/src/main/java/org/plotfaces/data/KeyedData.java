@@ -23,7 +23,7 @@ import java.util.Map;
  * @param <T>
  * @author Graham Smith
  */
-public class KeyedData<T extends Object> implements Data {
+public class KeyedData<T extends Object> implements PlotData {
 
 	private Map<T, Number> values = new HashMap<>();
 

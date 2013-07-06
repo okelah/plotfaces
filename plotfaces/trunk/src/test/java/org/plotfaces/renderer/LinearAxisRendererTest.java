@@ -55,31 +55,6 @@ public class LinearAxisRendererTest {
 	}
 
 	/**
-	 * Test of plot method, of class LinearAxisRenderer.
-	 */
-	@Test
-	public void testPlot() {
-		LinearAxisRenderer axisRenderer = new LinearAxisRenderer();
-		axisRenderer.setBreakTickLabel("break");
-		axisRenderer.setForceTickAtZero(true);
-		axisRenderer.setForceTickAtOneHundred(true);
-		String result = axisRenderer.plot();
-//		System.out.println(result);
-		String expected = "renderer: $.jqplot.LinearAxisRenderer,\n"
-				+ "rendererOptions: {breakTickLabel:'break',\n"
-				+ "forceTickAt0:true,\n"
-				+ "forceTickAt100:true}";
-		assertEquals(expected, result);
-	}
-
-	/**
-	 * Test of getRendererName method, of class LinearAxisRenderer.
-	 */
-	@Test
-	public void testGetRendererName() {
-	}
-
-	/**
 	 * Test of getBreakTickLabel method, of class LinearAxisRenderer.
 	 */
 	@Test

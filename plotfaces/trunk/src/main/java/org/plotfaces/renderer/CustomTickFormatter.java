@@ -37,11 +37,6 @@ public class CustomTickFormatter extends AbstractTickFormatter {
 	}
 
 	@Override
-	public String plot() {
-		return PlotUtilities.createVariable("formatter", getFormatter());
-	}
-
-	@Override
 	public String getRendererName() {
 		return getFormatter();
 	}

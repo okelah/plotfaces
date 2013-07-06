@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author Graham Smith
  */
-public class SimpleData implements Data {
+public class SimpleData implements PlotData {
 
 	private List<Number> values = new ArrayList<>();
 

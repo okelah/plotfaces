@@ -15,14 +15,14 @@
  */
 package org.plotfaces.component;
 
-import org.plotfaces.data.Axes;
-import org.plotfaces.data.Axis;
-import org.plotfaces.data.ChartModel;
-import org.plotfaces.data.Grid;
-import org.plotfaces.data.Highlighter;
-import org.plotfaces.data.Legend;
-import org.plotfaces.data.Series;
-import org.plotfaces.data.Title;
+import org.plotfaces.model.Axes;
+import org.plotfaces.model.Axis;
+import org.plotfaces.model.Model;
+import org.plotfaces.model.Grid;
+import org.plotfaces.model.Highlighter;
+import org.plotfaces.model.Legend;
+import org.plotfaces.model.Series;
+import org.plotfaces.model.Title;
 import org.plotfaces.renderer.AxisTickRenderer;
 
 /**
@@ -67,7 +67,7 @@ public class FunctionFixer {
 	 * @param json
 	 * @return
 	 */
-	public String fix(ChartModel model, final String original) {
+	public String fix(Model model, final String original) {
 		String fixed = original;
 
 		fixed = fixAxes(model.getAxes(), fixed);

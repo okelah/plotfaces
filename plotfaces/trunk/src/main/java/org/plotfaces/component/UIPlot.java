@@ -26,7 +26,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-import org.plotfaces.data.ChartModel;
+import org.plotfaces.data.PlotData;
+import org.plotfaces.model.Model;
 
 /**
  *
@@ -45,7 +46,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 
 	protected enum PropertyKeys {
 
-		style, styleClass, chartModel, data, rendererOptions;
+		style, styleClass, model, data;
 	}
 
 	public UIPlot() {
@@ -131,38 +132,37 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		getStateHelper().put(PropertyKeys.styleClass, styleClass);
 	}
 
-	public ChartModel getChartModel() {
-		return (ChartModel) getStateHelper().eval(PropertyKeys.chartModel, null);
+	public Model getModel() {
+		return (Model) getStateHelper().eval(PropertyKeys.model, null);
 	}
 
-	public void setChartModel(ChartModel chartModel) {
-		getStateHelper().put(PropertyKeys.chartModel, chartModel);
+	public void setModel(Model chartModel) {
+		getStateHelper().put(PropertyKeys.model, chartModel);
 	}
 
-//	public Object getData() {
-//		return getStateHelper().eval(PropertyKeys.data, null);
-//	}
-//
-//	public void setData(Object data) {
-//		getStateHelper().put(PropertyKeys.data, data);
-//	}
+	public PlotData getData() {
+		return (PlotData) getStateHelper().eval(PropertyKeys.data, null);
+	}
+
+	public void setData(PlotData data) {
+		getStateHelper().put(PropertyKeys.data, data);
+	}
 	/**
 	 * Get the renderer options that control how the output is produced and
 	 * formatted.
 	 *
 	 * @return
 	 */
-	public Object getRendererOptions() {
-		return getStateHelper().eval(PropertyKeys.rendererOptions, null);
-	}
-
+//	public Object getRendererOptions() {
+//		return getStateHelper().eval(PropertyKeys.rendererOptions, null);
+//	}
 	/**
 	 * Set renderer options that control how the output is produced and
 	 * formatted.
 	 *
 	 * @param data
 	 */
-	public void setRendererOptions(Object data) {
-		getStateHelper().put(PropertyKeys.rendererOptions, data);
-	}
+//	public void setRendererOptions(Object data) {
+//		getStateHelper().put(PropertyKeys.rendererOptions, data);
+//	}
 }
