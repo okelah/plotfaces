@@ -15,6 +15,10 @@
  */
 package org.plotfaces.data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.plotfaces.renderer.MarkerRenderer;
 import org.plotfaces.renderer.SeriesRenderer;
 
@@ -22,7 +26,10 @@ import org.plotfaces.renderer.SeriesRenderer;
  *
  * @author Graham Smith
  */
-public class Series {
+public class Series implements Comparable<Series> {
+
+	private static final int NULL_INDEX = 1000000;
+	private static final int DISABLE_STACK = 2000000;
 
 	public enum FillAxis {
 
@@ -71,8 +78,14 @@ public class Series {
 	private FillAxis fillAxis;
 	private Boolean useNegativeColors;
 	private Data data;
+	private transient Set<SeriesOrderListener> seriesOrderListeners = new HashSet<>();
 
 	public Series() {
+	}
+
+	public Series(Integer index, String label) {
+		this.index = index;
+		this.label = label;
 	}
 
 	/**
@@ -396,6 +409,7 @@ public class Series {
 	 */
 	public void setIndex(Integer index) {
 		this.index = index;
+		fireSeriesOrderEvent();
 	}
 
 	/**
@@ -497,7 +511,7 @@ public class Series {
 	}
 
 	/**
-	 * true to not stack this series with other series in the plot. To render
+	 * True to not stack this series with other series in the plot. To render
 	 * properly, non-stacked series must come after any stacked series in the
 	 * plot’s data series array. So, the plot’s data series array would look
 	 * like:
@@ -514,6 +528,7 @@ public class Series {
 	 */
 	public void setDisableStack(Boolean disableStack) {
 		this.disableStack = disableStack;
+		fireSeriesOrderEvent();
 	}
 
 	/**
@@ -708,5 +723,64 @@ public class Series {
 
 	public void setData(Data data) {
 		this.data = data;
+	}
+
+	/**
+	 * Note: this class has a natural ordering that is inconsistent with equals.
+	 * See {@code ChartModel.addSeries} for a detailed explanation of why.
+	 *
+	 * @param s
+	 * @return
+	 */
+	@Override
+	public int compareTo(Series s) {
+		return this.getComparisonIndex() - s.getComparisonIndex();
+	}
+
+	protected Integer getComparisonIndex() {
+		//The simplest most common case where the series have indexes set
+		//and disable stack is null or false.
+		if (getIndex() != null && (getDisableStack() == null || !getDisableStack())) {
+			return getIndex();
+		}
+
+		//The series doesn't have an index so at a minium it's going to have
+		//the null index. This might be overidden if disable stack is set though.
+		int index = NULL_INDEX;
+
+		//If disable stack is set it trumps not having an index set so assign it
+		//a larger index to push it further to the back. If there is an index
+		//set try to honor it while still pushing this series to the end.
+		if (getDisableStack() != null && getDisableStack()) {
+			index = DISABLE_STACK;
+			if (getIndex() != null) {
+				index += getIndex();
+			}
+		}
+
+		return index;
+	}
+
+	Set<SeriesOrderListener> getSeriesOrderListeners() {
+		return seriesOrderListeners;
+	}
+
+	void setSeriesOrderListeners(Set<SeriesOrderListener> seriesOrderListeners) {
+		this.seriesOrderListeners = seriesOrderListeners;
+	}
+
+	void addSeriesOrderListener(SeriesOrderListener sol) {
+		this.seriesOrderListeners.add(sol);
+	}
+
+	void removeSeriesOrderListener(SeriesOrderListener sol) {
+		this.seriesOrderListeners.remove(sol);
+	}
+
+	private void fireSeriesOrderEvent() {
+		SeriesOrderEvent soe = new SeriesOrderEvent(this);
+		for (SeriesOrderListener sol : getSeriesOrderListeners()) {
+			sol.seriesOrderChanged(soe);
+		}
 	}
 }
