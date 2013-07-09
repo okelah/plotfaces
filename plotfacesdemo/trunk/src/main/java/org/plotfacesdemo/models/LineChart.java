@@ -1,9 +1,20 @@
-package org.plotfacesdemo;
+/*
+ * Copyright 2013 Graham Smith.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.plotfacesdemo.models;
 
-import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import org.plotfaces.data.PlotData;
 import org.plotfaces.model.Axis;
 import org.plotfaces.model.Grid;
@@ -21,24 +32,20 @@ import org.plotfaces.renderer.DivTitleRenderer;
 import org.plotfaces.renderer.EnhancedLegendRenderer;
 import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
-import org.slf4j.Logger;
+import org.plotfacesdemo.CollapseHandler;
 
 /**
  *
  * @author Graham Smith
  */
-@Named
-@SessionScoped
-public class LineChartDemo implements Serializable {
+public class LineChart implements ModelFactory {
 
-	@Inject
-	private Logger logger;
 	private Model model;
-	private CollapseHandler collapseHandler = new CollapseHandler();
 
-	public LineChartDemo() {
+	public LineChart() {
 	}
 
+	@Override
 	public Model getModel() {
 		if (model == null) {
 			model = new Model();
@@ -61,6 +68,7 @@ public class LineChartDemo implements Serializable {
 		Series seriesDefaults = new Series();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
+		seriesDefaults.setRendererOptions(new LineRenderer());
 		model.setSeriesDefaults(seriesDefaults);
 	}
 
@@ -156,9 +164,5 @@ public class LineChartDemo implements Serializable {
 		grid.setDrawGridlines(true);
 		grid.setRendererOptions(new CanvasGridRenderer());
 		model.setGrid(grid);
-	}
-
-	public CollapseHandler getCollapseHandler() {
-		return collapseHandler;
 	}
 }

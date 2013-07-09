@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="renderer" required="true" type="org.plotfaces.renderer.SeriesRenderer"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _pieRenderer suffix.
+		-->
+
+		<p:panel id="pieRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('pieRenderer')}" header="#{msg.pieRenderer}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="pieRendererGrid" columns="3">
+				<h:panelGroup>
+					#{msg.diameter_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.diameter}" rendered="#{cc.attrs.renderer.diameter != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setDiameter( 200 )}" rendered="#{cc.attrs.renderer.diameter == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.diameter != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.diameter}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.diameter_pieRenderer_notes}
+				</h:panelGroup>
+
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

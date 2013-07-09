@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:plot="http://www.plotfaces.org"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:loadBundle var="msg" basename="messages"/>
+    <h:head>
+        <title>PlotFaces Demo</title>
+    </h:head>
+    <h:body>
+		<h:outputStylesheet library="styles" name="style.css"/>
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" resizable="true" closable="false" collapsible="true" size="460">
+				<h:form id="menuForm">
+					<p:menubar>
+						<p:submenu label="File" icon="ui-icon-document">
+							<p:menuitem value="#{msg.home}" action="index"/>
+						</p:submenu>
+
+						<p:submenu label="Edit" icon="ui-icon-pencil">
+							<p:menuitem value="#{msg.setup}" action="setup"/>
+							<p:menuitem value="#{msg.chartOptions}" action="general"/>
+							<p:menuitem value="#{msg.axesOptions}" action="axes" disabled="#{demo.model.axesDefaults eq null and demo.model.axes['empty']}"/>
+							<p:menuitem value="#{msg.legendOptions}" action="legend" disabled="#{demo.model.legend eq null}"/>
+							<p:menuitem value="#{msg.titleOptions}" action="title" disabled="#{demo.model.title eq null}"/>
+							<p:menuitem value="#{msg.highlighterOptions}" action="highlighter" disabled="#{demo.model.highlighter eq null}"/>
+							<p:menuitem value="#{msg.gridOptions}" action="grid" disabled="#{demo.model.grid eq null}"/>
+							<p:menuitem value="#{msg.seriesOptions}" action="series" disabled="#{demo.model.seriesDefaults eq null and demo.model.series.size() == 0}"/>
+							<p:menuitem value="#{msg.utilities}" action="utilities"/>
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+				<h:form id="plotForm">
+					<plot:plot id="plot" model="#{demo.model}" style="width: 900px; height: 400px;"/>
+				</h:form>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<h:form id="modelForm">
+					<h:messages/>
+					<p:commandButton value="#{msg.refresh}" update=":modelForm"/>
+					<ui:insert name="modelControls"/>
+				</h:form>
+			</p:layoutUnit>
+
+		</p:layout>
+    </h:body>
+</html>
+

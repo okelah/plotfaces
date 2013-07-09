@@ -8,9 +8,10 @@
 	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="series" required="true" type="org.plotfaces.data.Series"/>
+		<composite:attribute name="series" required="true" type="org.plotfaces.model.Series"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+		<composite:attribute name="refresh" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
@@ -36,6 +37,40 @@
 				</h:panelGroup>
 				<h:panelGroup>
 					#{msg.show_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.index_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:spinner value="#{cc.attrs.series.index}" rendered="#{cc.attrs.series.index != null}">
+						<p:ajax update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}"/>
+					</p:spinner>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setIndex( 1 )}" rendered="#{cc.attrs.series.index == null}" update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.index != null}" update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.index}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.index_seriesGeneral_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.disableStack_seriesGeneral}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.disableStack}" rendered="#{cc.attrs.series.disableStack != null}">
+						<p:ajax update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setDisableStack( true )}" rendered="#{cc.attrs.series.disableStack == null}" update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.disableStack != null}" update=":#{p:component(cc.attrs.refresh)} #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.series.disableStack}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.disableStack_seriesGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -347,24 +382,6 @@
 				</h:panelGroup>
 
 				<h:panelGroup>
-					#{msg.index_seriesGeneral}
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:inputText value="#{cc.attrs.series.index}" rendered="#{cc.attrs.series.index != null}">
-						<p:ajax update="#{cc.attrs.plot}"/>
-						<f:convertNumber/>
-					</p:inputText>
-
-					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.series.setIndex( 1 )}" rendered="#{cc.attrs.series.index == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.index != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{cc.attrs.series.index}" value="#{null}" />
-					</p:commandButton>
-				</h:panelGroup>
-				<h:panelGroup>
-					#{msg.index_seriesGeneral_notes}
-				</h:panelGroup>
-
-				<h:panelGroup>
 					#{msg.fill_seriesGeneral}
 				</h:panelGroup>
 				<h:panelGroup>
@@ -430,23 +447,6 @@
 				</h:panelGroup>
 				<h:panelGroup>
 					#{msg.fillAndStroke_seriesGeneral_notes}
-				</h:panelGroup>
-
-				<h:panelGroup>
-					#{msg.disableStack_seriesGeneral}
-				</h:panelGroup>
-				<h:panelGroup>
-					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.series.disableStack}" rendered="#{cc.attrs.series.disableStack != null}">
-						<p:ajax update="#{cc.attrs.plot}"/>
-					</p:selectBooleanButton>
-
-					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.series.setDisableStack( true )}" rendered="#{cc.attrs.series.disableStack == null}" update="seriesGeneralGrid #{cc.attrs.plot}"/>
-					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.series.disableStack != null}" update="seriesGeneralGrid #{cc.attrs.plot}">
-						<f:setPropertyActionListener target="#{cc.attrs.series.disableStack}" value="#{null}" />
-					</p:commandButton>
-				</h:panelGroup>
-				<h:panelGroup>
-					#{msg.disableStack_seriesGeneral_notes}
 				</h:panelGroup>
 
 				<h:panelGroup>

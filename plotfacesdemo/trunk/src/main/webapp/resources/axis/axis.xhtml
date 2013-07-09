@@ -9,7 +9,7 @@
 	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
 
 	<composite:interface>
-		<composite:attribute name="axis" required="true" type="org.plotfaces.data.Axis"/>
+		<composite:attribute name="axis" required="true" type="org.plotfaces.model.Axis"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
@@ -36,7 +36,7 @@
 
 		<p>Notes: There are a small number of items that aren't currently supported:</p>
 		<ul>
-			<li>Specifying an array of ticks isn't currently supported through this interface but it is in ChartModel.</li>
+			<li>Specifying an array of ticks isn't currently supported through this interface but it is in Model.</li>
 			<li>The axis tick renderer formatter is always set to the default value.</li>
 			<li>Break points aren't supported on linear axis renderer.</li>
 		</ul>

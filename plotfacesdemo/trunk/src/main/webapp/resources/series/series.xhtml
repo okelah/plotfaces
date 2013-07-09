@@ -6,9 +6,10 @@
 	  xmlns:series="http://xmlns.jcp.org/jsf/composite/series">
 
 	<composite:interface>
-		<composite:attribute name="series" required="true" type="org.plotfaces.data.Series"/>
+		<composite:attribute name="series" required="true" type="org.plotfaces.model.Series"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+		<composite:attribute name="refresh" required="true" type="java.lang.String"/>
 	</composite:interface>
 
     <composite:implementation>
@@ -16,7 +17,11 @@
 			All message resources should have the _series suffix.
 		-->
 
-		<series:general series="#{cc.attrs.series}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+		<series:general series="#{cc.attrs.series}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" refresh="#{cc.attrs.refresh}"/>
+		<p:spacer height="10"/>
+		<series:lineRenderer renderer="#{cc.attrs.series.rendererOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isLineRenderer(cc.attrs.series.rendererOptions)}"/>
+		<series:barRenderer renderer="#{cc.attrs.series.rendererOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isBarRenderer(cc.attrs.series.rendererOptions)}"/>
+		<series:pieRenderer renderer="#{cc.attrs.series.rendererOptions}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" rendered="#{typeCheck.isPieRenderer(cc.attrs.series.rendererOptions)}"/>
 	</composite:implementation>
 </html>
 
