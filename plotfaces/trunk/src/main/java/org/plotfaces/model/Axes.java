@@ -33,6 +33,7 @@ public class Axes {
 	private Axis y7axis;
 	private Axis y8axis;
 	private Axis y9axis;
+	private Axis yMidAxis;
 
 	public Axes() {
 	}
@@ -123,5 +124,22 @@ public class Axes {
 
 	public void setY9axis(Axis y9axis) {
 		this.y9axis = y9axis;
+	}
+
+	public Axis getyMidAxis() {
+		return yMidAxis;
+	}
+
+	public void setyMidAxis(Axis yMidAxis) {
+		this.yMidAxis = yMidAxis;
+	}
+
+	public boolean isEmpty() {
+		return xaxis == null && x2axis == null
+				&& yaxis == null && y2axis == null
+				&& y3axis == null && y4axis == null
+				&& y5axis == null && y6axis == null
+				&& y7axis == null && y8axis == null
+				&& y9axis == null && yMidAxis == null;
 	}
 }

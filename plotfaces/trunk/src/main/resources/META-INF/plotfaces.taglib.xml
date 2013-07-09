@@ -40,13 +40,13 @@
 			<required>false</required>
 			<type>org.plotfaces.Model.Model</type>
 		</attribute>
-		<attribute>
+		<!--<attribute>
 			<description><![CDATA[]]>
 			</description>
 			<name>data</name>
 			<required>false</required>
 			<type>org.plotfaces.data.PlotData</type>
-		</attribute>
+		</attribute>-->
 		<!--<attribute>
 			<description><![CDATA[]]>
 			</description>

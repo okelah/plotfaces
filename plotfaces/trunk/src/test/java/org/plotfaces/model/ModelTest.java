@@ -15,37 +15,26 @@
  */
 package org.plotfaces.model;
 
-import org.plotfaces.model.Model;
-import org.plotfaces.model.Legend;
-import org.plotfaces.model.Axis;
-import org.plotfaces.model.Series;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.StringWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.plotfaces.JsonEmptyStringSerializer;
-import org.plotfaces.PlotUtilities;
 import org.plotfaces.component.FunctionFixer;
-import org.plotfaces.data.SimpleData;
+import org.plotfaces.data.PlotData;
 import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CategoryAxisRenderer;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
-import org.plotfaces.renderer.TableLegendRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
+import org.plotfaces.renderer.TableLegendRenderer;
 
 /**
  *
@@ -79,17 +68,17 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_1() {
-		Model chartModel = new Model();
+		Model model = new Model();
 
-		chartModel.addSeries(new Series(3, "Series 3"));
-		chartModel.addSeries(new Series(1, "Series 1"));
-		chartModel.addSeries(new Series(4, "Series 4"));
-		chartModel.addSeries(new Series(2, "Series 2"));
-		chartModel.addSeries(new Series(5, "Series 5"));
+		model.addSeries(new Series(3, "Series 3"));
+		model.addSeries(new Series(1, "Series 1"));
+		model.addSeries(new Series(4, "Series 4"));
+		model.addSeries(new Series(2, "Series 2"));
+		model.addSeries(new Series(5, "Series 5"));
 
 		int count = 0;
 		String[] order = {"Series 1", "Series 2", "Series 3", "Series 4", "Series 5"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
@@ -103,30 +92,30 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_2() {
-		Model chartModel = new Model();
-		chartModel.addSeries(new Series(3, "Series 3"));
-		chartModel.addSeries(new Series(1, "Series 1"));
-		chartModel.addSeries(new Series(4, "Series 4"));
+		Model model = new Model();
+		model.addSeries(new Series(3, "Series 3"));
+		model.addSeries(new Series(1, "Series 1"));
+		model.addSeries(new Series(4, "Series 4"));
 		Series s2 = new Series(2, "Series 2");
-		chartModel.addSeries(s2);
-		chartModel.addSeries(new Series(5, "Series 5"));
+		model.addSeries(s2);
+		model.addSeries(new Series(5, "Series 5"));
 
 		int count = 0;
 		String[] order = new String[]{"Series 1", "Series 2", "Series 3", "Series 4", "Series 5"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
 
 		//Checks that we can find the second series in the returned set.
-		assertTrue(chartModel.getSeries().contains(s2));
+		assertTrue(model.getSeries().contains(s2));
 
 		//Modify the index of the second series and then check that the
 		//series are returned in the new correct order.
 		s2.setIndex(6);
 		count = 0;
 		order = new String[]{"Series 1", "Series 3", "Series 4", "Series 5", "Series 2"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
@@ -139,7 +128,7 @@ public class ModelTest {
 		//ordering will be different to the ordering the set contains. This will
 		//cause the set to fail to find the item. To get around this a new set
 		//is created everytime getSeries is called.
-		assertTrue(chartModel.getSeries().contains(s2));
+		assertTrue(model.getSeries().contains(s2));
 	}
 
 	/**
@@ -150,16 +139,16 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_3() {
-		Model chartModel = new Model();
-		chartModel.addSeries(new Series(3, "Series 3"));
-		chartModel.addSeries(new Series(1, "Series 1"));
-		chartModel.addSeries(new Series(null, "Series 4"));
-		chartModel.addSeries(new Series(2, "Series 2"));
-		chartModel.addSeries(new Series(5, "Series 5"));
+		Model model = new Model();
+		model.addSeries(new Series(3, "Series 3"));
+		model.addSeries(new Series(1, "Series 1"));
+		model.addSeries(new Series(null, "Series 4"));
+		model.addSeries(new Series(2, "Series 2"));
+		model.addSeries(new Series(5, "Series 5"));
 
 		int count = 0;
 		String[] order = {"Series 1", "Series 2", "Series 3", "Series 5", "Series 4"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
@@ -170,18 +159,18 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_4() {
-		Model chartModel = new Model();
-		chartModel.addSeries(new Series(3, "Series 3"));
-		chartModel.addSeries(new Series(1, "Series 1"));
-		chartModel.addSeries(new Series(4, "Series 4"));
+		Model model = new Model();
+		model.addSeries(new Series(3, "Series 3"));
+		model.addSeries(new Series(1, "Series 1"));
+		model.addSeries(new Series(4, "Series 4"));
 		Series s2 = new Series(2, "Series 2");
 		s2.setDisableStack(true);
-		chartModel.addSeries(s2);
-		chartModel.addSeries(new Series(5, "Series 5"));
+		model.addSeries(s2);
+		model.addSeries(new Series(5, "Series 5"));
 
 		int count = 0;
 		String[] order = {"Series 1", "Series 3", "Series 4", "Series 5", "Series 2"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
@@ -193,20 +182,20 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_5() {
-		Model chartModel = new Model();
-		chartModel.addSeries(new Series(null, "Series 3"));
+		Model model = new Model();
+		model.addSeries(new Series(null, "Series 3"));
 		Series s1 = new Series(1, "Series 1");
 		s1.setDisableStack(true);
-		chartModel.addSeries(s1);
+		model.addSeries(s1);
 		Series s4 = new Series(4, "Series 4");
 		s4.setDisableStack(true);
-		chartModel.addSeries(s4);
-		chartModel.addSeries(new Series(2, "Series 2"));
-		chartModel.addSeries(new Series(5, "Series 5"));
+		model.addSeries(s4);
+		model.addSeries(new Series(2, "Series 2"));
+		model.addSeries(new Series(5, "Series 5"));
 
 		int count = 0;
 		String[] order = {"Series 2", "Series 5", "Series 3", "Series 1", "Series 4"};
-		for (Series s : chartModel.getSeries()) {
+		for (Series s : model.getSeries()) {
 			assertEquals(order[count], s.getLabel());
 			count++;
 		}
@@ -219,60 +208,60 @@ public class ModelTest {
 	 */
 	@Test
 	public void testAddSeries_6() {
-		Model chartModel = new Model();
-		chartModel.addSeries(new Series(null, "Series 3"));
-		chartModel.addSeries(new Series(null, "Series 2"));
+		Model model = new Model();
+		model.addSeries(new Series(null, "Series 3"));
+		model.addSeries(new Series(null, "Series 2"));
 
-		assertEquals(2, chartModel.getSeries().size());
+		assertEquals(2, model.getSeries().size());
 	}
 
 	@Test
 	public void testGson() {
-		Model chartModel = new Model();
+		Model model = new Model();
 
-		setSeriesDefaults(chartModel);
-		setSeriesOne(chartModel);
-		setXAxis(chartModel);
-		setYAxis(chartModel);
-		setLegend(chartModel);
+		setSeriesDefaults(model);
+		setSeriesOne(model);
+		setXAxis(model);
+		setYAxis(model);
+		setLegend(model);
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();
 		gsonBuilder.registerTypeAdapter(String.class, new JsonEmptyStringSerializer());
 		Gson gson = gsonBuilder.create();
-		String result = gson.toJson(chartModel);
+		String result = gson.toJson(model);
 		FunctionFixer fixer = new FunctionFixer();
 		fixer.setPrettyPrint(true);
-		result = fixer.fix(chartModel, result);
+		result = fixer.fix(model, result);
 		System.out.println(result);
 	}
 
-	private void setSeriesDefaults(Model chartModel) {
+	private void setSeriesDefaults(Model model) {
 		Series seriesDefaults = new Series();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
-		chartModel.setSeriesDefaults(seriesDefaults);
+		model.setSeriesDefaults(seriesDefaults);
 	}
 
-	private void setSeriesOne(Model chartModel) {
+	private void setSeriesOne(Model model) {
 		Series series = new Series();
 		series.setLabel("Series 1");
 		series.setRendererOptions(new LineRenderer());
 		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
 		//Some data for series 1
-		SimpleData data = new SimpleData();
-		data.addValue(2);
-		data.addValue(1);
-		data.addValue(3);
-		data.addValue(6);
-		data.addValue(8);
+		PlotData data = new PlotData();
+		data.add(PlotData.NULL_KEY, 2);
+		data.add(PlotData.NULL_KEY, 1);
+		data.add(PlotData.NULL_KEY, 3);
+		data.add(PlotData.NULL_KEY, 6);
+		data.add(PlotData.NULL_KEY, 8);
 		series.setData(data);
 
-		chartModel.addSeries(series);
+		model.addSeries(series);
 	}
 
-	private void setXAxis(Model chartModel) {
+	private void setXAxis(Model model) {
 		Axis x = new Axis(Axis.AxisName.xaxis);
 		x.setLabel("X-Axis");
 		CanvasAxisTickRenderer xTickRenderer = new CanvasAxisTickRenderer();
@@ -283,24 +272,24 @@ public class ModelTest {
 		//Tests that empty strings get set to null.
 		xAxisRenderer.setBreakTickLabel("");
 		x.setRendererOptions(xAxisRenderer);
-		chartModel.getAxes().setXaxis(x);
+		model.getAxes().setXaxis(x);
 	}
 
-	private void setYAxis(Model chartModel) {
+	private void setYAxis(Model model) {
 		Axis y = new Axis(Axis.AxisName.yaxis);
 		y.setLabel("Y-Axis");
 		AxisTickRenderer yTickRenderer = new AxisTickRenderer();
 		y.setTickOptions(yTickRenderer);
 		y.setLabelOptions(new AxisLabelRenderer());
 		y.setRendererOptions(new CategoryAxisRenderer());
-		chartModel.getAxes().setYaxis(y);
+		model.getAxes().setYaxis(y);
 	}
 
-	private void setLegend(Model chartModel) {
+	private void setLegend(Model model) {
 		Legend legend = new Legend();
 		legend.setShow(true);
 		legend.setPlacement(Legend.Placement.insideGrid);
 		legend.setRendererOptions(new TableLegendRenderer());
-		chartModel.setLegend(legend);
+		model.setLegend(legend);
 	}
 }
