@@ -78,7 +78,11 @@ public class Series implements Comparable<Series> {
 	private Integer fillToValue;
 	private FillAxis fillAxis;
 	private Boolean useNegativeColors;
-	private PlotData data;
+	//Must be transient to prevent Gson from serializing it. Serializing it
+	//doesn't appear to cause any problems but jqPlot does assign the data
+	//to series internally and it's possible that in the future a variable
+	//called data could be used.
+	private transient PlotData data;
 	private transient Set<SeriesOrderListener> seriesOrderListeners = new HashSet<>();
 
 	public Series() {
@@ -728,7 +732,7 @@ public class Series implements Comparable<Series> {
 
 	/**
 	 * Note: this class has a natural ordering that is inconsistent with equals.
-	 * See {@code ChartModel.addSeries} for a detailed explanation of why.
+	 * See {@code Model.addSeries} for a detailed explanation of why.
 	 *
 	 * @param s
 	 * @return

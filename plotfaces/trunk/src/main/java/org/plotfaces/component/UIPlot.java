@@ -136,8 +136,8 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		return (Model) getStateHelper().eval(PropertyKeys.model, null);
 	}
 
-	public void setModel(Model chartModel) {
-		getStateHelper().put(PropertyKeys.model, chartModel);
+	public void setModel(Model model) {
+		getStateHelper().put(PropertyKeys.model, model);
 	}
 
 	public PlotData getData() {

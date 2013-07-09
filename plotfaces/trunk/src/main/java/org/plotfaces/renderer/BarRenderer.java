@@ -21,7 +21,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 
 		vertical, horizontal
 	};
-	private Integer padding;
+	private Integer barPadding;
 	private Integer barMargin;
 	private BarDirection barDirection;
 	private Integer barWidth;
@@ -30,7 +30,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	private Double shadowAlpha;
 	private Boolean waterfall;
 	private Integer groups;
-	private Boolean varyByColor;
+	private Boolean varyBarColor;
 
 	public BarRenderer() {
 	}
@@ -40,22 +40,12 @@ public class BarRenderer extends AbstractSeriesRenderer {
 		return RENDERER_NAME_PREFIX + "BarRenderer";
 	}
 
-	/**
-	 * Number of pixels between adjacent bars at the same axis value. default 8
-	 *
-	 * @return the padding
-	 */
-	public Integer getPadding() {
-		return padding;
+	public Integer getBarPadding() {
+		return barPadding;
 	}
 
-	/**
-	 * Number of pixels between adjacent bars at the same axis value. default 8
-	 *
-	 * @param padding the padding to set
-	 */
-	public void setPadding(Integer padding) {
-		this.padding = padding;
+	public void setBarPadding(Integer barPadding) {
+		this.barPadding = barPadding;
 	}
 
 	/**
@@ -213,7 +203,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	}
 
 	/**
-	 * true to color each bar of a series separately rather than have every bar
+	 * True to color each bar of a series separately rather than have every bar
 	 * of a given series the same color. If used for non-stacked multiple series
 	 * bar plots, user should specify a separate ‘seriesColors’ array for each
 	 * series. Otherwise, each series will set their bars to the same color
@@ -222,12 +212,12 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @return the varyByColor
 	 */
-	public Boolean getVaryByColor() {
-		return varyByColor;
+	public Boolean getVaryBarColor() {
+		return varyBarColor;
 	}
 
 	/**
-	 * true to color each bar of a series separately rather than have every bar
+	 * True to color each bar of a series separately rather than have every bar
 	 * of a given series the same color. If used for non-stacked multiple series
 	 * bar plots, user should specify a separate ‘seriesColors’ array for each
 	 * series. Otherwise, each series will set their bars to the same color
@@ -236,7 +226,7 @@ public class BarRenderer extends AbstractSeriesRenderer {
 	 *
 	 * @param varyByColor the varyByColor to set
 	 */
-	public void setVaryByColor(Boolean varyByColor) {
-		this.varyByColor = varyByColor;
+	public void setVaryBarColor(Boolean varyBarColor) {
+		this.varyBarColor = varyBarColor;
 	}
 }

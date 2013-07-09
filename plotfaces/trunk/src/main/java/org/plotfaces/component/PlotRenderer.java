@@ -69,7 +69,7 @@ public class PlotRenderer extends Renderer {
 		StringBuilder builder = new StringBuilder();
 		encodeScriptBegin(builder);
 		encodeData(builder, plot, dataVariable);
-		encodeChartModel(builder, plot, modelVariable);
+		encodeModel(builder, plot, modelVariable);
 		encodePlot(builder, plotVariable, safeTargetId, dataVariable, modelVariable);
 		encodeScriptEnd(builder);
 		String chart = builder.toString();
@@ -144,48 +144,19 @@ public class PlotRenderer extends Renderer {
 	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable) throws IOException {
 		builder.append("var ");
 		builder.append(dataVariable);
-		builder.append(" = [");
-		for (Series chartSeries : plot.getModel().getSeries()) {
-			PlotData data = chartSeries.getData();
-			if (data != null) {
-				builder.append(data.encode());
-				builder.append(",");
-			}
-		}
-
-		//There is a slight chance that there will be no data at all if the user
-		//has forgotten to add data to every series being displayed.
-		if (',' == (builder.charAt(builder.length() - 1))) {
-			builder.deleteCharAt(builder.length() - 1);
-		}
-
-		builder.append("];\n");
+		builder.append(" = ");
+		String encodedSeries = RendererUtilities.encode(plot.getModel().getSeries());
+		builder.append(encodedSeries);
+		builder.append(";\n");
 	}
 
-	private void encodeChartModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
-		Model chartModel = (Model) plot.getModel();
-//		if (chartModel != null) {
-//			chartModel.setModelVariable(modelVariable);
-//			builder.append(chartModel.plot());
-//		}
-
-		if (chartModel != null) {
-			builder.append("var ");
-			builder.append(modelVariable);
-			builder.append(" = ");
-
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			gsonBuilder.setPrettyPrinting();
-			gsonBuilder.registerTypeAdapter(String.class, new JsonEmptyStringSerializer());
-			Gson gson = gsonBuilder.create();
-			String result = gson.toJson(chartModel);
-			FunctionFixer fixer = new FunctionFixer();
-			fixer.setPrettyPrint(true);
-			result = fixer.fix(chartModel, result);
-			builder.append(result);
-
-			builder.append(";\n");
-		}
+	private void encodeModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
+		String encodedModel = RendererUtilities.encode((Model) plot.getModel());
+		builder.append("var ");
+		builder.append(modelVariable);
+		builder.append(" = ");
+		builder.append(encodedModel);
+		builder.append(";\n");
 	}
 
 	private void encodePlot(StringBuilder builder, String plotVariable, String safeTargetId, String dataVariable, String modelVariable) throws IOException {

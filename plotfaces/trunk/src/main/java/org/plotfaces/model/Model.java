@@ -37,10 +37,20 @@ public class Model implements SeriesOrderListener {
 	private List<String> seriesColors;
 	private Boolean sortData;
 	private String fontSize;
+	private String fontFamily;
+	private String textColor;
 	private Boolean stackSeries;
 	private Integer defaultAxisStart;
 	private Title title;
 	private Highlighter highlighter;
+	private Boolean captureRightClick;
+	private Boolean animate;
+	private Boolean animateReplot;
+	private Boolean drawIfHidden;
+//	private String dataRenderer;
+//	private DataRenderer dataRendererOptions;
+//	private FillBetween fillBetween;
+//	private NoDataIndicator noDataIndicator;
 
 	public Model() {
 	}
@@ -89,8 +99,8 @@ public class Model implements SeriesOrderListener {
 	}
 
 	/**
-	 * Sets the {@code Series} for this {@code Model}. Doesn't not check
-	 * for duplicates.
+	 * Sets the {@code Series} for this {@code Model}. Doesn't not check for
+	 * duplicates.
 	 *
 	 * @param series
 	 */
@@ -112,8 +122,8 @@ public class Model implements SeriesOrderListener {
 	 * necessary so that the series can be maintained in the correct order when
 	 * the index and disableStack options are changed in the {@code Series}. If
 	 * the {@code SeriesOrderListener} is removed from the {@code Series} while
-	 * the {@code Series} is still present in the {@code Model} it is
-	 * highly likely that the ordering of the series presented to jqPlot will be
+	 * the {@code Series} is still present in the {@code Model} it is highly
+	 * likely that the ordering of the series presented to jqPlot will be
 	 * incorrect. This probably won't cause jqPlot to fail but it may cause
 	 * unexpected rendering results.</p>
 	 * <p>Implementation Notes: Under normal circumstances it would be possible
@@ -228,5 +238,124 @@ public class Model implements SeriesOrderListener {
 	@Override
 	public void seriesOrderChanged(SeriesOrderEvent e) {
 		Collections.sort(this.series);
+	}
+
+	public Boolean getCaptureRightClick() {
+		return captureRightClick;
+	}
+
+	/**
+	 * True to intercept right click events and fire a 'jqplotRightClick' event.
+	 * this will also block the context menu.
+	 *
+	 * @param captureRightClick
+	 */
+	public void setCaptureRightClick(Boolean captureRightClick) {
+		this.captureRightClick = captureRightClick;
+	}
+
+	/**
+	 * True to animate the series on initial plot draw (renderer dependent).
+	 * Actual animation functionality must be supported in the renderer.
+	 *
+	 * @return
+	 */
+	public Boolean getAnimate() {
+		return animate;
+	}
+
+	/**
+	 * True to animate the series on initial plot draw (renderer dependent).
+	 * Actual animation functionality must be supported in the renderer.
+	 *
+	 * @param animate
+	 */
+	public void setAnimate(Boolean animate) {
+		this.animate = animate;
+	}
+
+	/**
+	 * True to animate series after a call to the replot() method. Use with
+	 * caution! Replots can happen very frequently under certain circumstances
+	 * (e.g. resizing, dragging points) and animation in these situations can
+	 * cause problems.
+	 *
+	 * @return
+	 */
+	public Boolean getAnimateReplot() {
+		return animateReplot;
+	}
+
+	/**
+	 * True to animate series after a call to the replot() method. Use with
+	 * caution! Replots can happen very frequently under certain circumstances
+	 * (e.g. resizing, dragging points) and animation in these situations can
+	 * cause problems.
+	 *
+	 * @param animateReplot
+	 */
+	public void setAnimateReplot(Boolean animateReplot) {
+		this.animateReplot = animateReplot;
+	}
+
+	/**
+	 * True to execute the draw method even if the plot target is hidden.
+	 * Generally, this should be false. Most plot elements will not be sized /
+	 * positioned correclty if renderered into a hidden container. To render
+	 * into a hidden container, call the replot method when the container is
+	 * shown.
+	 *
+	 * @return
+	 */
+	public Boolean getDrawIfHidden() {
+		return drawIfHidden;
+	}
+
+	/**
+	 * True to execute the draw method even if the plot target is hidden.
+	 * Generally, this should be false. Most plot elements will not be sized /
+	 * positioned correctly if rendered into a hidden container. To render into
+	 * a hidden container, call the replot method when the container is shown.
+	 *
+	 * @param drawIfHidden
+	 */
+	public void setDrawIfHidden(Boolean drawIfHidden) {
+		this.drawIfHidden = drawIfHidden;
+	}
+
+	/**
+	 * CSS spec for the font-family attribute. Default for the entire plot.
+	 *
+	 * @return
+	 */
+	public String getFontFamily() {
+		return fontFamily;
+	}
+
+	/**
+	 * CSS spec for the font-family attribute. Default for the entire plot.
+	 *
+	 * @param fontFamily
+	 */
+	public void setFontFamily(String fontFamily) {
+		this.fontFamily = fontFamily;
+	}
+
+	/**
+	 * CSS spec for the css color attribute. Default for the entire plot.
+	 *
+	 * @return
+	 */
+	public String getTextColor() {
+		return textColor;
+	}
+
+	/**
+	 * CSS spec for the css color attribute. Default for the entire plot.
+	 *
+	 * @param textColor
+	 */
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
 	}
 }
