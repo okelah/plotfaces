@@ -40,7 +40,7 @@ public class PieRenderer extends AbstractSeriesRenderer {
 	private DataLabels dataLabels; //TODO: Doesn't support an array of labels.
 	private Boolean showDataLabels;
 	private String dataLabelFormatString;
-	private Integer datLabelThreshold;
+	private Integer dataLabelThreshold;
 	private Double dataLabelPositionFactor;
 	private Double dataLabelNudge;
 	private Boolean dataLabelCenterOn;
@@ -158,12 +158,12 @@ public class PieRenderer extends AbstractSeriesRenderer {
 		this.dataLabelFormatString = dataLabelFormatString;
 	}
 
-	public Integer getDatLabelThreshold() {
-		return datLabelThreshold;
+	public Integer getDataLabelThreshold() {
+		return dataLabelThreshold;
 	}
 
-	public void setDatLabelThreshold(Integer datLabelThreshold) {
-		this.datLabelThreshold = datLabelThreshold;
+	public void setDataLabelThreshold(Integer dataLabelThreshold) {
+		this.dataLabelThreshold = dataLabelThreshold;
 	}
 
 	public Double getDataLabelPositionFactor() {
