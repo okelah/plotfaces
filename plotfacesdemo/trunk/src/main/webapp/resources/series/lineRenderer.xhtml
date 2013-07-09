@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="renderer" required="true" type="org.plotfaces.renderer.SeriesRenderer"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _lineRenderer suffix.
+		-->
+
+		<p:panel id="lineRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('lineRenderer')}" header="#{msg.lineRenderer}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="lineRendererGrid" columns="3">
+				<h:panelGroup>
+					#{msg.highlightMouseOver_lineRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.highlightMouseOver}" rendered="#{cc.attrs.renderer.highlightMouseOver != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setHighlightMouseOver( true )}" rendered="#{cc.attrs.renderer.highlightMouseOver == null}" update="lineRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.highlightMouseOver != null}" update="lineRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.highlightMouseOver}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightMouseOver_lineRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.highlightMouseDown_lineRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.highlightMouseDown}" rendered="#{cc.attrs.renderer.highlightMouseDown != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setHighlightMouseDown( true )}" rendered="#{cc.attrs.renderer.highlightMouseDown == null}" update="lineRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.highlightMouseDown != null}" update="lineRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.highlightMouseDown}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightMouseDown_lineRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.highlightColor_lineRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:colorPicker value="#{cc.attrs.renderer.highlightColor}" rendered="#{not empty cc.attrs.renderer.highlightColor}" mode="inline" />
+					<p:commandButton value="#{msg.update}" rendered="#{not empty cc.attrs.renderer.highlightColor}" update="#{cc.attrs.plot}" />
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setHighlightColor( '0034aa' )}" rendered="#{empty cc.attrs.renderer.highlightColor}" update="lineRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.renderer.highlightColor}" update="lineRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.highlightColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightColor_lineRenderer_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

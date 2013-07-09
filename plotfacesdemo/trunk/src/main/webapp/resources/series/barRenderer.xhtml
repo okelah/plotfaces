@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="renderer" required="true" type="org.plotfaces.renderer.SeriesRenderer"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _barRenderer suffix.
+		-->
+
+		<p:panel id="barRenderer" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('barRenderer')}" header="#{msg.barRenderer}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<p:panelGrid id="barRendererGrid" columns="3">
+				<h:panelGroup>
+					#{msg.barPadding_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.barPadding}" rendered="#{cc.attrs.renderer.barPadding != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setBarPadding( 5 )}" rendered="#{cc.attrs.renderer.barPadding == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.barPadding != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.barPadding}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.barPadding_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.barMargin_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.barMargin}" rendered="#{cc.attrs.renderer.barMargin != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setBarMargin( 5 )}" rendered="#{cc.attrs.renderer.barMargin == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.barMargin != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.barMargin}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.barMargin_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.barDirection_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.renderer.barDirection}" rendered="#{cc.attrs.renderer.barDirection != null}">
+						<f:selectItems value="#{enumTypes.barRendererBarDirection}"/>
+						<p:ajax update="barRendererGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.renderer.barDirection == null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.barDirection}" value="horizontal" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.barDirection != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.barDirection}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.barDirection_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.barWidth_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.barWidth}" rendered="#{cc.attrs.renderer.barWidth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setBarWidth( 5 )}" rendered="#{cc.attrs.renderer.barWidth == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.barWidth != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.barWidth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.barWidth_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowOffset_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowOffset}" rendered="#{cc.attrs.renderer.shadowOffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowOffset( 5 )}" rendered="#{cc.attrs.renderer.shadowOffset == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowOffset != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowOffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowOffset_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowDepth_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowDepth}" rendered="#{cc.attrs.renderer.shadowDepth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowDepth( 5 )}" rendered="#{cc.attrs.renderer.shadowDepth == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowDepth != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowDepth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowDepth_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAlpha_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowAlpha}" rendered="#{cc.attrs.renderer.shadowAlpha != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowAlpha( 0.25 )}" rendered="#{cc.attrs.renderer.shadowAlpha == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowAlpha != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowAlpha}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAlpha_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.waterfall_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.waterfall}" rendered="#{cc.attrs.renderer.waterfall != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setWaterfall( true )}" rendered="#{cc.attrs.renderer.waterfall == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.waterfall != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.waterfall}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.waterfall_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.groups_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.groups}" rendered="#{cc.attrs.renderer.groups != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setGroups( 2 )}" rendered="#{cc.attrs.renderer.groups == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.groups != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.groups}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.groups_barRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.varyBarColor_barRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.varyBarColor}" rendered="#{cc.attrs.renderer.varyBarColor != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setVaryBarColor( true )}" rendered="#{cc.attrs.renderer.varyBarColor == null}" update="barRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.varyBarColor != null}" update="barRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.varyBarColor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.varyBarColor_barRenderer_notes}
+				</h:panelGroup>
+			</p:panelGrid>
+		</p:panel>
+	</composite:implementation>
+</html>
+

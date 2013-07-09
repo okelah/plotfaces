@@ -17,10 +17,10 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import org.plotfaces.data.Axis;
-import org.plotfaces.data.Highlighter;
-import org.plotfaces.data.Legend;
-import org.plotfaces.data.Series;
+import org.plotfaces.model.Axis;
+import org.plotfaces.model.Highlighter;
+import org.plotfaces.model.Legend;
+import org.plotfaces.model.Series;
 import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;

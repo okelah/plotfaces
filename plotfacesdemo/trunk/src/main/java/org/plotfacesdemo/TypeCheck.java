@@ -19,10 +19,14 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import org.plotfaces.renderer.AxisRenderer;
 import org.plotfaces.renderer.AxisTickRenderer;
+import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.EnhancedLegendRenderer;
 import org.plotfaces.renderer.LegendRenderer;
+import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
+import org.plotfaces.renderer.PieRenderer;
+import org.plotfaces.renderer.SeriesRenderer;
 import org.plotfaces.renderer.TickRenderer;
 
 /**
@@ -69,5 +73,26 @@ public class TypeCheck {
 			return false;
 		}
 		return legendRenderer instanceof EnhancedLegendRenderer;
+	}
+
+	public boolean isLineRenderer(SeriesRenderer renderer) {
+		if (renderer == null) {
+			return false;
+		}
+		return renderer instanceof LineRenderer;
+	}
+
+	public boolean isBarRenderer(SeriesRenderer renderer) {
+		if (renderer == null) {
+			return false;
+		}
+		return renderer instanceof BarRenderer;
+	}
+
+	public boolean isPieRenderer(SeriesRenderer renderer) {
+		if (renderer == null) {
+			return false;
+		}
+		return renderer instanceof PieRenderer;
 	}
 }

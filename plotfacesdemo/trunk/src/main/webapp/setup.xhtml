@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:loadBundle var="msg" basename="messages"/>
+    <h:head>
+		<h:outputStylesheet library="styles" name="style.css"/>
+        <title>PlotFaces Demo</title>
+    </h:head>
+    <h:body>
+		<ui:composition template="./template.xhtml">
+			<ui:define name="modelControls">
+				<p:panel id="setupPanel" closable="false" toggleable="true" collapsed="#{notdemo.collapseHandler.isVisible('setupPanel')}" header="#{msg.setup}">
+					<p:ajax event="toggle" listener="#{demo.collapseHandler.handleToggle}"/>
+					<p:panelGrid id="setupGrid" columns="3">
+						<h:panelGroup>
+							#{msg.example_setup}
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:selectOneMenu value="#{demo.selectedExample}">
+								<f:selectItems value="#{demo.examples}"/>
+								<p:ajax update="setupGrid :plotForm:plot :menuForm"/>
+							</p:selectOneMenu>
+						</h:panelGroup>
+						<h:panelGroup>
+							#{msg.example_setup_notes}
+						</h:panelGroup>
+					</p:panelGrid>
+				</p:panel>
+			</ui:define>
+		</ui:composition>
+    </h:body>
+</html>
+

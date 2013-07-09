@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : style
     Created on : Feb 12, 2012, 6:09:50 PM
     Author     : Graham Smith
@@ -7,7 +7,10 @@
 */
 
 
-.ui-widget, .ui-widget .ui-widget {
-	font-size: 10px !important;
+.ui-widget {
+    font-size: 80%;
+}
+.ui-widget .ui-widget {
+    font-size: 100%;
 }
 

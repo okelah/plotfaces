@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<composite:interface>
+		<composite:attribute name="model" required="true" type="org.plotfaces.model.Model"/>
+		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
+		<composite:attribute name="plot" required="true" type="java.lang.String"/>
+	</composite:interface>
+
+    <composite:implementation>
+		<!--
+			All message resources should have the _util suffix.
+		-->
+		<p:panel id="utilModelPanel" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('utilModelPanel')}" header="#{msg.model}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+			<!--#{msg.utilNote_util}<br/>
+			<p:commandButton id="utilRefreshButton" value="#{msg.refresh}" update=":#{p:component('utilModelPanel')}"/>-->
+
+
+			<pre>#{rendererHelper.getEncodedModel(cc.attrs.model)}</pre>
+
+			<pre>#{rendererHelper.getEncodedPlotData(cc.attrs.model)}</pre>
+		</p:panel>
+
+		<p:spacer height="10"/>
+
+		<p:panel id="dataPanel" closable="false" toggleable="true" collapsed="#{not cc.attrs.collapseHandler.isVisible('dataPanel')}" header="#{msg.data}">
+			<p:ajax event="toggle" listener="#{cc.attrs.collapseHandler.handleToggle}"/>
+
+			<pre>#{rendererHelper.getEncodedPlotData(cc.attrs.model)}</pre>
+		</p:panel>
+	</composite:implementation>
+</html>
+

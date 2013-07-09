@@ -7,7 +7,7 @@
 	  xmlns:series="http://xmlns.jcp.org/jsf/composite/series">
 
 	<composite:interface>
-		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="model" required="true" type="org.plotfaces.model.Model"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
@@ -17,10 +17,13 @@
 			All message resources should have the _axis suffix.
 		-->
 
-		<p:tabView >
+		<p:tabView id="seriesTabView">
+			<p:tab id="defaultSeriesTab" title="#{msg.defaultSeriesOptions}">
+				<series:series series="#{cc.attrs.model.seriesDefaults}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" refresh="seriesTabView"/>
+			</p:tab>
 			<c:forEach var="series" items="#{cc.attrs.model.series}" varStatus="status">
-				<p:tab title="#{msg.series}: #{status.index}">
-					<series:series series="#{series}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+				<p:tab title="#{msg.series}: #{status.index} (#{series.label} - #{series.index})">
+					<series:series series="#{series}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" refresh="seriesTabView"/>
 				</p:tab>
 			</c:forEach>
 		</p:tabView>

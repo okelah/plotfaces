@@ -9,7 +9,7 @@
 	  xmlns:axis="http://xmlns.jcp.org/jsf/composite/axis">
 
 	<composite:interface>
-		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="model" required="true" type="org.plotfaces.model.Model"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
@@ -20,6 +20,9 @@
 		-->
 
 		<p:tabView>
+			<p:tab id="defaultAxesTab" title="#{msg.defaultAxesOptions}">
+				<axis:axis axis="#{cc.attrs.model.axesDefaults}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
+			</p:tab>
 			<p:tab title="#{cc.attrs.model.axes.xaxis.axisName}" rendered="#{cc.attrs.model.axes.xaxis != null}">
 				<axis:axis axis="#{cc.attrs.model.axes.xaxis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
 			</p:tab>
@@ -52,6 +55,9 @@
 			</p:tab>
 			<p:tab title="#{cc.attrs.model.axes.y9axis.axisName}" rendered="#{cc.attrs.model.axes.y9axis != null}">
 				<axis:axis axis="#{cc.attrs.model.axes.y9axis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
+			</p:tab>
+			<p:tab title="#{cc.attrs.model.axes.yMidAxis.axisName}" rendered="#{cc.attrs.model.axes.yMidAxis != null}">
+				<axis:axis axis="#{cc.attrs.model.axes.yMidaxis}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}" />
 			</p:tab>
 		</p:tabView>
 	</composite:implementation>

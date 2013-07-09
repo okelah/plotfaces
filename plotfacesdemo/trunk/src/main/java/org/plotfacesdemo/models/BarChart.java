@@ -1,9 +1,22 @@
-package org.plotfacesdemo;
+/*
+ * Copyright 2013 Graham Smith.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.plotfacesdemo.models;
 
-import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 import org.plotfaces.data.PlotData;
 import org.plotfaces.model.Axis;
 import org.plotfaces.model.Grid;
@@ -12,33 +25,28 @@ import org.plotfaces.model.Legend;
 import org.plotfaces.model.Model;
 import org.plotfaces.model.Series;
 import org.plotfaces.model.Title;
-import org.plotfaces.renderer.AxisLabelRenderer;
+import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CanvasGridRenderer;
+import org.plotfaces.renderer.CategoryAxisRenderer;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
-import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.DivTitleRenderer;
 import org.plotfaces.renderer.EnhancedLegendRenderer;
 import org.plotfaces.renderer.LineRenderer;
-import org.plotfaces.renderer.LinearAxisRenderer;
-import org.slf4j.Logger;
 
 /**
+ * A simple bar chart with a single series of data.
  *
  * @author Graham Smith
  */
-@Named
-@SessionScoped
-public class LineChartDemo implements Serializable {
+public class BarChart implements ModelFactory {
 
-	@Inject
-	private Logger logger;
 	private Model model;
-	private CollapseHandler collapseHandler = new CollapseHandler();
 
-	public LineChartDemo() {
+	public BarChart() {
 	}
 
+	@Override
 	public Model getModel() {
 		if (model == null) {
 			model = new Model();
@@ -53,7 +61,6 @@ public class LineChartDemo implements Serializable {
 			setHighlighter(model);
 			setGrid(model);
 		}
-
 		return model;
 	}
 
@@ -61,23 +68,21 @@ public class LineChartDemo implements Serializable {
 		Series seriesDefaults = new Series();
 		seriesDefaults.setxAxis(Axis.AxisName.xaxis);
 		seriesDefaults.setyAxis(Axis.AxisName.yaxis);
+		seriesDefaults.setRendererOptions(new BarRenderer());
 		model.setSeriesDefaults(seriesDefaults);
 	}
 
 	private void setSeriesOne(Model model) {
 		Series series = new Series();
 		series.setLabel("Series 1");
-		series.setRendererOptions(new LineRenderer());
+		series.setRendererOptions(new BarRenderer());
 		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
 		//Some data for series 1
 		PlotData<String, Integer> data = new PlotData<>();
-		data.setEncodeKeys(false);
-		data.add(PlotData.NULL_KEY, 2);
-		data.add(PlotData.NULL_KEY, -3);
-		data.add(PlotData.NULL_KEY, 3);
-		data.add(PlotData.NULL_KEY, 6);
-		data.add(PlotData.NULL_KEY, 7);
+		data.add("Funky", 5);
+		data.add("Spunky", 2);
+		data.add("Monkey", 9);
 		series.setData(data);
 
 		model.addSeries(series);
@@ -86,17 +91,14 @@ public class LineChartDemo implements Serializable {
 	private void setSeriesTwo(Model model) {
 		Series series = new Series();
 		series.setLabel("Series 2");
-		series.setRendererOptions(new LineRenderer());
+		series.setRendererOptions(new BarRenderer());
 		series.setMarkerRendererOptions(new DefaultMarkerRenderer());
 
-		//Some data for series 2
+		//Some data for series 1
 		PlotData<String, Integer> data = new PlotData<>();
-		data.setEncodeKeys(false);
-		data.add(PlotData.NULL_KEY, 6);
-		data.add(PlotData.NULL_KEY, 3);
-		data.add(PlotData.NULL_KEY, 2);
-		data.add(PlotData.NULL_KEY, 7);
-		data.add(PlotData.NULL_KEY, 8);
+		data.add("Funky", 9);
+		data.add("Spunky", 1);
+		data.add("Monkey", 3);
 		series.setData(data);
 
 		model.addSeries(series);
@@ -111,22 +113,14 @@ public class LineChartDemo implements Serializable {
 	private void setXAxis(Model model) {
 		Axis axis = new Axis(Axis.AxisName.xaxis);
 		axis.setLabel("X-Axis");
-		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
-		tickRenderer.setFormatterOptions(new DefaultTickFormatter());
-		axis.setTickOptions(tickRenderer);
-		axis.setLabelOptions(new AxisLabelRenderer());
-		axis.setRendererOptions(new LinearAxisRenderer());
+		CategoryAxisRenderer categoryAxisRenderer = new CategoryAxisRenderer();
+		axis.setRendererOptions(categoryAxisRenderer);
 		model.getAxes().setXaxis(axis);
 	}
 
 	private void setYAxis(Model model) {
 		Axis axis = new Axis(Axis.AxisName.yaxis);
 		axis.setLabel("Y-Axis");
-		CanvasAxisTickRenderer tickRenderer = new CanvasAxisTickRenderer();
-		tickRenderer.setFormatterOptions(new DefaultTickFormatter());
-		axis.setTickOptions(tickRenderer);
-		axis.setLabelOptions(new AxisLabelRenderer());
-		axis.setRendererOptions(new LinearAxisRenderer());
 		model.getAxes().setYaxis(axis);
 	}
 
@@ -156,9 +150,5 @@ public class LineChartDemo implements Serializable {
 		grid.setDrawGridlines(true);
 		grid.setRendererOptions(new CanvasGridRenderer());
 		model.setGrid(grid);
-	}
-
-	public CollapseHandler getCollapseHandler() {
-		return collapseHandler;
 	}
 }

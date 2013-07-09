@@ -9,10 +9,11 @@
 	  xmlns:model="http://xmlns.jcp.org/jsf/composite/model"
 	  xmlns:highlighter="http://xmlns.jcp.org/jsf/composite/highlighter"
 	  xmlns:grid="http://xmlns.jcp.org/jsf/composite/grid"
-	  xmlns:series="http://xmlns.jcp.org/jsf/composite/series">
+	  xmlns:series="http://xmlns.jcp.org/jsf/composite/series"
+	  xmlns:util="http://xmlns.jcp.org/jsf/composite/util">
 
 	<composite:interface>
-		<composite:attribute name="model" required="true" type="org.plotfaces.data.ChartModel"/>
+		<composite:attribute name="model" required="true" type="org.plotfaces.model.Model"/>
 		<composite:attribute name="collapseHandler" required="true" type="org.plotfacesdemo.CollapseHandler"/>
 		<composite:attribute name="plot" required="true" type="java.lang.String"/>
 	</composite:interface>
@@ -26,11 +27,6 @@
 			<p:tab id="modelTab" title="#{msg.chartOptions}">
 				<p:panel id="rendererSettings">
 					<model:general model="#{cc.attrs.model}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
-				</p:panel>
-			</p:tab>
-			<p:tab id="defaultAxesTab" title="#{msg.defaultAxesOptions}">
-				<p:panel id="defaultAxesSettings">
-					<axis:axis axis="#{cc.attrs.model.axesDefaults}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
 				</p:panel>
 			</p:tab>
 			<p:tab id="axesTab" title="#{msg.axesOptions}">
@@ -62,6 +58,9 @@
 				<p:panel id="seriesSettings">
 					<series:seriesMaster model="#{cc.attrs.model}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
 				</p:panel>
+			</p:tab>
+			<p:tab id="utilTab" title="#{msg.utilities}">
+				<util:util model="#{cc.attrs.model}" collapseHandler="#{cc.attrs.collapseHandler}" plot="#{cc.attrs.plot}"/>
 			</p:tab>
 			<!--<p:tab id="rendererTab" title="#{msg.rendererOptions}">
 				<p:panel id="rendererSettings">
