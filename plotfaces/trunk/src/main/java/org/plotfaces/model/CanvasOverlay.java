@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
+package org.plotfaces.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.plotfaces.renderer.overlay.CanvasOverlayHolder;
+import org.plotfaces.renderer.overlay.CanvasOverlayRenderer;
 
 /**
  *
  * @author Graham Smith
  */
-public class AxisLabelRenderer extends AbstractLabelRenderer {
+public class CanvasOverlay {
 
 	private Boolean show;
-	private String label;
-	private Boolean escapeHTML;
+	private List<CanvasOverlayHolder> objects;
 
-	public AxisLabelRenderer() {
-	}
-
-	@Override
-	public String getRendererName() {
-		return DEFAULT_RENDERER_NAME_PREFIX + "AxisLabelRenderer";
+	public CanvasOverlay() {
+		this.objects = new ArrayList<>();
 	}
 
 	public Boolean getShow() {
@@ -41,19 +41,15 @@ public class AxisLabelRenderer extends AbstractLabelRenderer {
 		this.show = show;
 	}
 
-	public String getLabel() {
-		return label;
+	public List<CanvasOverlayHolder> getObjects() {
+		return objects;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setObjects(List<CanvasOverlayHolder> objects) {
+		this.objects = objects;
 	}
 
-	public Boolean getEscapeHTML() {
-		return escapeHTML;
-	}
-
-	public void setEscapeHTML(Boolean escapeHTML) {
-		this.escapeHTML = escapeHTML;
+	public void addObject(CanvasOverlayHolder object) {
+		this.objects.add(object);
 	}
 }

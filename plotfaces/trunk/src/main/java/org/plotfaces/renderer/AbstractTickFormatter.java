@@ -21,8 +21,6 @@ package org.plotfaces.renderer;
  */
 public abstract class AbstractTickFormatter implements TickFormatter {
 
-	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
-
 	public AbstractTickFormatter() {
 	}
 }

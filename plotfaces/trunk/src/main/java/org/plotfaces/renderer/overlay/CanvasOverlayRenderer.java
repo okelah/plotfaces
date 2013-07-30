@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
+package org.plotfaces.renderer.overlay;
+
+import org.plotfaces.renderer.Renderer;
 
 /**
+ * All canvas overlay renderers should implement this interface. It simply
+ * forces the renderer to provide a unique name.
  *
  * @author Graham Smith
  */
-public abstract class AbstractAxisRenderer implements AxisRenderer {
-
-	public AbstractAxisRenderer() {
-	}
-
-	@Override
-	public abstract String getRendererName();
+public interface CanvasOverlayRenderer extends Renderer {
 }

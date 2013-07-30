@@ -47,6 +47,7 @@ public class Model implements SeriesOrderListener {
 	private Boolean animate;
 	private Boolean animateReplot;
 	private Boolean drawIfHidden;
+	private CanvasOverlay canvasOverlay;
 //	private String dataRenderer;
 //	private DataRenderer dataRendererOptions;
 //	private FillBetween fillBetween;
@@ -357,5 +358,13 @@ public class Model implements SeriesOrderListener {
 	 */
 	public void setTextColor(String textColor) {
 		this.textColor = textColor;
+	}
+
+	public CanvasOverlay getCanvasOverlay() {
+		return canvasOverlay;
+	}
+
+	public void setCanvasOverlay(CanvasOverlay canvasOverlay) {
+		this.canvasOverlay = canvasOverlay;
 	}
 }

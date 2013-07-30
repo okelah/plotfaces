@@ -34,26 +34,19 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[]]>
+			<description><![CDATA[The model that will be turned into a plot.]]>
 			</description>
 			<name>model</name>
-			<required>false</required>
-			<type>org.plotfaces.Model.Model</type>
+			<required>true</required>
+			<type>org.plotfaces.model.Model</type>
 		</attribute>
-		<!--<attribute>
-			<description><![CDATA[]]>
+		<attribute>
+			<description><![CDATA[When set to true empty strings are treated as if they are null for the purposes of serialization.]]>
 			</description>
-			<name>data</name>
+			<name>treatEmptyAsNull</name>
 			<required>false</required>
-			<type>org.plotfaces.data.PlotData</type>
-		</attribute>-->
-		<!--<attribute>
-			<description><![CDATA[]]>
-			</description>
-			<name>rendererOptions</name>
-			<required>false</required>
-			<type>org.plotfaces.component.RendererOptions</type>
-		</attribute>-->
+			<type>java.lang.Boolean</type>
+		</attribute>
 	</tag>
 </facelet-taglib>
 

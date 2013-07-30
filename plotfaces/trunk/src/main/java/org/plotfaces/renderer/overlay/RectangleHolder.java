@@ -13,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
+package org.plotfaces.renderer.overlay;
 
 /**
  *
  * @author Graham Smith
  */
-public abstract class AbstractAxisRenderer implements AxisRenderer {
+public class RectangleHolder implements CanvasOverlayHolder {
 
-	public AbstractAxisRenderer() {
+	private Rectangle rectangle;
+
+	public RectangleHolder() {
 	}
 
-	@Override
-	public abstract String getRendererName();
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
+
+	public void setRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
 }

@@ -39,7 +39,7 @@ public class CanvasAxisTickRenderer extends AxisTickRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "CanvasAxisTickRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "CanvasAxisTickRenderer";
 	}
 
 	/**

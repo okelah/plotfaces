@@ -15,11 +15,6 @@
  */
 package org.plotfaces.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.plotfaces.PlotUtilities;
-
 /**
  *
  * @author Graham Smith
@@ -37,7 +32,7 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "LinearAxisRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "LinearAxisRenderer";
 	}
 
 	public String getBreakTickLabel() {

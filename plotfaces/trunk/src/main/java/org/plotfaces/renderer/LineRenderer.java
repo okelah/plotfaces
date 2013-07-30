@@ -11,7 +11,7 @@ public class LineRenderer extends AbstractSeriesRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "LineRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "LineRenderer";
 	}
 
 	/**

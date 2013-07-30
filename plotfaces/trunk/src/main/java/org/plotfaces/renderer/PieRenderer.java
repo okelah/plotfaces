@@ -51,7 +51,7 @@ public class PieRenderer extends AbstractSeriesRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "PieRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "PieRenderer";
 	}
 
 	public Double getDiameter() {

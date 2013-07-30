@@ -28,6 +28,6 @@ public class CanvasGridRenderer extends AbstractGridRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "CanvasGridRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "CanvasGridRenderer";
 	}
 }

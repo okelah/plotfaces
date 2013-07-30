@@ -21,6 +21,8 @@ package org.plotfaces.renderer;
  */
 public interface Renderer {
 
+	public static final String DEFAULT_RENDERER_NAME_PREFIX = "$.jqplot.";
+
 	/**
 	 * Provides the name of the renderer.
 	 *
