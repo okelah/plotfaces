@@ -46,7 +46,7 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 
 	protected enum PropertyKeys {
 
-		style, styleClass, model, data;
+		style, styleClass, model, treatEmptyAsNull;
 	}
 
 	public UIPlot() {
@@ -132,6 +132,11 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		getStateHelper().put(PropertyKeys.styleClass, styleClass);
 	}
 
+	/**
+	 * The model to encode. Default is null.
+	 *
+	 * @return
+	 */
 	public Model getModel() {
 		return (Model) getStateHelper().eval(PropertyKeys.model, null);
 	}
@@ -140,29 +145,17 @@ public class UIPlot extends UIComponentBase implements SystemEventListener {
 		getStateHelper().put(PropertyKeys.model, model);
 	}
 
-	public PlotData getData() {
-		return (PlotData) getStateHelper().eval(PropertyKeys.data, null);
-	}
-
-	public void setData(PlotData data) {
-		getStateHelper().put(PropertyKeys.data, data);
-	}
 	/**
-	 * Get the renderer options that control how the output is produced and
-	 * formatted.
+	 * Whether empty strings should be treated as null by the serializer.
+	 * Default is false.
 	 *
 	 * @return
 	 */
-//	public Object getRendererOptions() {
-//		return getStateHelper().eval(PropertyKeys.rendererOptions, null);
-//	}
-	/**
-	 * Set renderer options that control how the output is produced and
-	 * formatted.
-	 *
-	 * @param data
-	 */
-//	public void setRendererOptions(Object data) {
-//		getStateHelper().put(PropertyKeys.rendererOptions, data);
-//	}
+	public Boolean getTreatEmptyAsNull() {
+		return (Boolean) getStateHelper().eval(PropertyKeys.treatEmptyAsNull, Boolean.FALSE);
+	}
+
+	public void setTreatEmptyAsNull(Boolean treatEmptyAsNull) {
+		getStateHelper().put(PropertyKeys.treatEmptyAsNull, treatEmptyAsNull);
+	}
 }

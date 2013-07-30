@@ -51,7 +51,7 @@ public class AxisTickRenderer extends AbstractTickRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "AxisTickRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "AxisTickRenderer";
 	}
 
 	/**

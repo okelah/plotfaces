@@ -13,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
+package org.plotfaces.renderer.overlay;
 
 /**
  *
  * @author Graham Smith
  */
-public abstract class AbstractAxisRenderer implements AxisRenderer {
+public class HorizontalLineHolder implements CanvasOverlayHolder {
 
-	public AbstractAxisRenderer() {
+	private HorizontalLine horizontalLine;
+
+	public HorizontalLineHolder() {
 	}
 
-	@Override
-	public abstract String getRendererName();
+	public HorizontalLine getHorizontalLine() {
+		return horizontalLine;
+	}
+
+	public void setHorizontalLine(HorizontalLine horizontalLine) {
+		this.horizontalLine = horizontalLine;
+	}
 }

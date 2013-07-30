@@ -19,11 +19,13 @@ package org.plotfaces.renderer;
  *
  * @author Graham Smith
  */
-public abstract class AbstractAxisRenderer implements AxisRenderer {
+public class DateAxisRenderer extends AbstractAxisRenderer {
 
-	public AbstractAxisRenderer() {
+	public DateAxisRenderer() {
 	}
 
 	@Override
-	public abstract String getRendererName();
+	public String getRendererName() {
+		return DEFAULT_RENDERER_NAME_PREFIX + "DateAxisRenderer";
+	}
 }

@@ -17,7 +17,8 @@ package org.plotfaces.renderer;
 
 /**
  * A class to hold options for the default table legend renderer. There are no
- * options beyond those specified by {@code Legend}.
+ * options beyond those specified by {@code Legend}. The table legend renderer
+ * doesn't support the hiding series.
  *
  * @author Graham Smith
  */
@@ -28,6 +29,6 @@ public class TableLegendRenderer extends AbstractLegendRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "TableLegendRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "TableLegendRenderer";
 	}
 }

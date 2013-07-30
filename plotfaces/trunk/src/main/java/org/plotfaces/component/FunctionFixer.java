@@ -75,6 +75,7 @@ public class FunctionFixer {
 		fixed = fixTitle(model.getTitle(), fixed);
 		fixed = fixHighlighter(model.getHighlighter(), fixed);
 		fixed = fixGrid(model.getGrid(), fixed);
+		fixed = fixSeries(model.getSeriesDefaults(), fixed);
 		for (Series s : model.getSeries()) {
 			fixed = fixSeries(s, fixed);
 		}

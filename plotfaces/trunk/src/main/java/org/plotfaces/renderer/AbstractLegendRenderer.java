@@ -21,8 +21,6 @@ package org.plotfaces.renderer;
  */
 public abstract class AbstractLegendRenderer implements LegendRenderer {
 
-	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
-
 	public AbstractLegendRenderer() {
 	}
 }

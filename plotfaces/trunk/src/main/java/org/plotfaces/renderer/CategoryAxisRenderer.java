@@ -61,6 +61,6 @@ public class CategoryAxisRenderer extends AbstractAxisRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "CategoryAxisRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "CategoryAxisRenderer";
 	}
 }

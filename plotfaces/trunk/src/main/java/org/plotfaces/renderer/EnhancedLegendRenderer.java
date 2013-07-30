@@ -16,7 +16,9 @@
 package org.plotfaces.renderer;
 
 /**
- * A class to hold options for the enhanced table legend renderer.
+ * A class to hold options for the enhanced table legend renderer. The enhanced
+ * legend renderer allows (amongst other things) the user to turn series on and
+ * off in the chart.
  *
  * @author Graham Smith
  */
@@ -32,7 +34,7 @@ public class EnhancedLegendRenderer extends AbstractLegendRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "EnhancedLegendRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "EnhancedLegendRenderer";
 	}
 
 	public Integer getNumberRows() {

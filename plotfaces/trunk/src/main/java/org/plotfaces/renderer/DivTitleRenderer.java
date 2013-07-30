@@ -28,6 +28,6 @@ public class DivTitleRenderer extends AbstractTitleRenderer {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "DivTitleRenderer";
+		return DEFAULT_RENDERER_NAME_PREFIX + "DivTitleRenderer";
 	}
 }

@@ -15,10 +15,7 @@
  */
 package org.plotfaces.component;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
-import java.util.List;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -26,11 +23,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
-import org.plotfaces.JsonEmptyStringSerializer;
 import org.plotfaces.PlotUtilities;
 import org.plotfaces.model.Model;
-import org.plotfaces.model.Series;
-import org.plotfaces.data.PlotData;
 
 /**
  *
@@ -45,7 +39,6 @@ public class PlotRenderer extends Renderer {
 	public static final String DATA_SUFFIX = "_data";
 	public static final String PLOT_SUFFIX = "_plot";
 	public static final String MODEL_SUFFIX = "_model";
-	private Optimizer optimizer = new Optimizer();
 
 	public PlotRenderer() {
 	}
@@ -59,6 +52,9 @@ public class PlotRenderer extends Renderer {
 		String modelVariable = PlotUtilities.getSafeClientId(context, plot) + MODEL_SUFFIX;
 		String dataVariable = PlotUtilities.getSafeClientId(context, plot) + DATA_SUFFIX;
 
+		PlotFactory plotFactory = new PlotFactory();
+		plotFactory.setUseEmptyStringSerializer(plot.getTreatEmptyAsNull());
+
 		ResponseWriter out = context.getResponseWriter();
 
 		encodeChartTag(context, out, plot);
@@ -68,8 +64,8 @@ public class PlotRenderer extends Renderer {
 		//all be built in one piece if it is to be optimized.
 		StringBuilder builder = new StringBuilder();
 		encodeScriptBegin(builder);
-		encodeData(builder, plot, dataVariable);
-		encodeModel(builder, plot, modelVariable);
+		encodeData(builder, plot, dataVariable, plotFactory);
+		encodeModel(builder, plot, modelVariable, plotFactory);
 		encodePlot(builder, plotVariable, safeTargetId, dataVariable, modelVariable);
 		encodeScriptEnd(builder);
 		String chart = builder.toString();
@@ -141,17 +137,17 @@ public class PlotRenderer extends Renderer {
 	 * @return
 	 * @throws IOException
 	 */
-	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable) throws IOException {
+	private void encodeData(StringBuilder builder, UIPlot plot, String dataVariable, PlotFactory plotFactory) throws IOException {
 		builder.append("var ");
 		builder.append(dataVariable);
 		builder.append(" = ");
-		String encodedSeries = RendererUtilities.encode(plot.getModel().getSeries());
+		String encodedSeries = plotFactory.encode(plot.getModel().getSeries());
 		builder.append(encodedSeries);
 		builder.append(";\n");
 	}
 
-	private void encodeModel(StringBuilder builder, UIPlot plot, String modelVariable) throws IOException {
-		String encodedModel = RendererUtilities.encode((Model) plot.getModel());
+	private void encodeModel(StringBuilder builder, UIPlot plot, String modelVariable, PlotFactory plotFactory) throws IOException {
+		String encodedModel = plotFactory.encode((Model) plot.getModel());
 		builder.append("var ");
 		builder.append(modelVariable);
 		builder.append(" = ");

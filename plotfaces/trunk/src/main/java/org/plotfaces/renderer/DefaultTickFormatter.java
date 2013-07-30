@@ -15,8 +15,6 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.PlotUtilities;
-
 /**
  *
  * @author Graham Smith
@@ -25,6 +23,6 @@ public class DefaultTickFormatter extends AbstractTickFormatter {
 
 	@Override
 	public String getRendererName() {
-		return RENDERER_NAME_PREFIX + "DefaultTickFormatter";
+		return DEFAULT_RENDERER_NAME_PREFIX + "DefaultTickFormatter";
 	}
 }

@@ -15,9 +15,6 @@
  */
 package org.plotfaces.renderer;
 
-import org.plotfaces.PlotUtilities;
-import static org.plotfaces.renderer.AbstractTickFormatter.RENDERER_NAME_PREFIX;
-
 /**
  * A tick formatter that allows the use to specify a custom formatter to use. It
  * is the users responsibility to ensure that the custom formatter class is

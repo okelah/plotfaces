@@ -17,8 +17,6 @@ package org.plotfaces.renderer;
 
 public abstract class AbstractTickRenderer implements TickRenderer {
 
-	protected static final String RENDERER_NAME_PREFIX = "$.jqplot.";
-
 	public AbstractTickRenderer() {
 	}
 

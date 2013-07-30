@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.plotfaces.renderer;
+package org.plotfaces.renderer.overlay;
 
 /**
+ * To achieve the object hierarchy used by jqPlot it is necessary to have a
+ * holder type for each canvas overlay renderer type. This interface acts as the
+ * base of that hierarchy. Typically there will be a single member variable in
+ * the implementing class that defines the type and name of the renderer.
  *
  * @author Graham Smith
  */
-public abstract class AbstractAxisRenderer implements AxisRenderer {
-
-	public AbstractAxisRenderer() {
-	}
-
-	@Override
-	public abstract String getRendererName();
+public interface CanvasOverlayHolder {
 }
