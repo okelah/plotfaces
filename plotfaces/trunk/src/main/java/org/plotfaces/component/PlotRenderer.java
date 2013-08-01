@@ -70,7 +70,7 @@ public class PlotRenderer extends Renderer {
 		encodeScriptEnd(builder);
 		String chart = builder.toString();
 
-		System.out.println("********* Chart Start *********\n" + chart + "\n********* Chart End *********");
+		//System.out.println("********* Chart Start *********\n" + chart + "\n********* Chart End *********");
 
 		out.write(chart);
 

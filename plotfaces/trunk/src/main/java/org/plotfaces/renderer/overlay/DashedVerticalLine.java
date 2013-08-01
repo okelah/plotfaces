@@ -23,36 +23,36 @@ import static org.plotfaces.renderer.Renderer.DEFAULT_RENDERER_NAME_PREFIX;
  */
 public class DashedVerticalLine extends AbstractLine {
 
-	private Double x;
-	private Double ymin;
-	private Double ymax;
+	private Number x;
+	private Number ymin;
+	private Number ymax;
 	private String yOffset;
 	private Double[] dashPattern;
 
 	public DashedVerticalLine() {
 	}
 
-	public Double getX() {
+	public Number getX() {
 		return x;
 	}
 
-	public void setX(Double x) {
+	public void setX(Number x) {
 		this.x = x;
 	}
 
-	public Double getYmin() {
+	public Number getYmin() {
 		return ymin;
 	}
 
-	public void setYmin(Double ymin) {
+	public void setYmin(Number ymin) {
 		this.ymin = ymin;
 	}
 
-	public Double getYmax() {
+	public Number getYmax() {
 		return ymax;
 	}
 
-	public void setYmax(Double ymax) {
+	public void setYmax(Number ymax) {
 		this.ymax = ymax;
 	}
 

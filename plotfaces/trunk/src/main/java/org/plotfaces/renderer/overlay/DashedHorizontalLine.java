@@ -23,36 +23,36 @@ import static org.plotfaces.renderer.Renderer.DEFAULT_RENDERER_NAME_PREFIX;
  */
 public class DashedHorizontalLine extends AbstractLine {
 
-	private Double y;
-	private Double xmin;
-	private Double xmax;
+	private Number y;
+	private Number xmin;
+	private Number xmax;
 	private String xOffset;
 	private Double[] dashPattern;
 
 	public DashedHorizontalLine() {
 	}
 
-	public Double getY() {
+	public Number getY() {
 		return y;
 	}
 
-	public void setY(Double y) {
+	public void setY(Number y) {
 		this.y = y;
 	}
 
-	public Double getXmin() {
+	public Number getXmin() {
 		return xmin;
 	}
 
-	public void setXmin(Double xmin) {
+	public void setXmin(Number xmin) {
 		this.xmin = xmin;
 	}
 
-	public Double getXmax() {
+	public Number getXmax() {
 		return xmax;
 	}
 
-	public void setXmax(Double xmax) {
+	public void setXmax(Number xmax) {
 		this.xmax = xmax;
 	}
 

@@ -38,6 +38,7 @@ import org.plotfaces.model.Series;
 public class PlotFactory {
 
 	private boolean useEmptyStringSerializer;
+	private boolean disableHTMLEscaping;
 
 	public PlotFactory() {
 	}
@@ -58,6 +59,26 @@ public class PlotFactory {
 		this.useEmptyStringSerializer = useEmptyStringSerializer;
 	}
 
+	public boolean isDisableHTMLEscaping() {
+		return disableHTMLEscaping;
+	}
+
+	/**
+	 * Set to true to disable the default behaviour of Gson which is to escape
+	 * HTML characters.
+	 *
+	 * TODO: should this setting be pushed through to the ui component?
+	 * Considering how jqPlot has options to escape HTML PlotFaces should
+	 * probably be pushing through exactly the test that the user specifies and
+	 * letting jqPlot decide. That's a good argument for this defaulting to
+	 * true.
+	 *
+	 * @param disableHTMLEscaping
+	 */
+	public void setDisableHTMLEscaping(boolean disableHTMLEscaping) {
+		this.disableHTMLEscaping = disableHTMLEscaping;
+	}
+
 	public String encode(Model model) {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();
@@ -65,6 +86,10 @@ public class PlotFactory {
 			System.out.println("Using empty string serializer");
 			gsonBuilder.registerTypeAdapter(String.class, new JsonEmptyStringSerializer());
 		}
+		if (isDisableHTMLEscaping()) {
+			gsonBuilder.disableHtmlEscaping();
+		}
+
 		Gson gson = gsonBuilder.create();
 		String result = gson.toJson(model);
 		FunctionFixer fixer = new FunctionFixer();

@@ -85,7 +85,8 @@ public class PlotData<K extends Comparable<K>, V extends Comparable<V>> {
 	}
 
 	/**
-	 *
+	 * Sorts the data using the specified comparator or the natural ordering if
+	 * no comparator has been specified.
 	 */
 	public void sort() {
 		if (getComparator() != null) {

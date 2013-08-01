@@ -23,29 +23,29 @@ import static org.plotfaces.renderer.Renderer.DEFAULT_RENDERER_NAME_PREFIX;
  */
 public class Rectangle extends AbstractLine {
 
-	private Double xmin;
-	private Double xmax;
+	private Number xmin;
+	private Number xmax;
 	private String xOffset;
-	private Double ymin;
-	private Double ymax;
+	private Number ymin;
+	private Number ymax;
 	private String yOffset;
 
 	public Rectangle() {
 	}
 
-	public Double getXmin() {
+	public Number getXmin() {
 		return xmin;
 	}
 
-	public void setXmin(Double xmin) {
+	public void setXmin(Number xmin) {
 		this.xmin = xmin;
 	}
 
-	public Double getXmax() {
+	public Number getXmax() {
 		return xmax;
 	}
 
-	public void setXmax(Double xmax) {
+	public void setXmax(Number xmax) {
 		this.xmax = xmax;
 	}
 
@@ -57,19 +57,19 @@ public class Rectangle extends AbstractLine {
 		this.xOffset = xOffset;
 	}
 
-	public Double getYmin() {
+	public Number getYmin() {
 		return ymin;
 	}
 
-	public void setYmin(Double ymin) {
+	public void setYmin(Number ymin) {
 		this.ymin = ymin;
 	}
 
-	public Double getYmax() {
+	public Number getYmax() {
 		return ymax;
 	}
 
-	public void setYmax(Double ymax) {
+	public void setYmax(Number ymax) {
 		this.ymax = ymax;
 	}
 
