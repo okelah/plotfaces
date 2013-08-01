@@ -23,13 +23,13 @@ import static org.plotfaces.renderer.Renderer.DEFAULT_RENDERER_NAME_PREFIX;
  */
 public class Line extends AbstractLine {
 
-	private Double[] start;
-	private Double[] stop;
+	private Number[] start;
+	private Number[] stop;
 
 	public Line() {
 	}
 
-	public Double[] getStart() {
+	public Number[] getStart() {
 		return start;
 	}
 
@@ -38,7 +38,7 @@ public class Line extends AbstractLine {
 	 *
 	 * @param start
 	 */
-	public void setStart(Double[] start) {
+	public void setStart(Number[] start) {
 		if (start == null || start.length == 2) {
 			this.start = start;
 		} else {
@@ -46,7 +46,7 @@ public class Line extends AbstractLine {
 		}
 	}
 
-	public Double[] getStop() {
+	public Number[] getStop() {
 		return stop;
 	}
 
@@ -55,12 +55,15 @@ public class Line extends AbstractLine {
 	 *
 	 * @param stop
 	 */
-	public void setStop(Double[] stop) {
+	public void setStop(Number[] stop) {
 		if (stop == null || stop.length == 2) {
 			this.stop = stop;
 		} else {
 			throw new IllegalArgumentException("Expected a two element array or null");
 		}
+	}
+
+	public void setStop(Double[] stop) {
 	}
 
 	@Override
