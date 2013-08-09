@@ -24,8 +24,8 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 	//TODO: support breakPoints, probably an array of something
 	//private String breakPoints
 	private String breakTickLabel;
-	private Boolean forceTickAtZero;
-	private Boolean forceTickAtOneHundred;
+	private Boolean forceTickAt0;
+	private Boolean forceTickAt100;
 
 	public LinearAxisRenderer() {
 	}
@@ -43,19 +43,19 @@ public class LinearAxisRenderer extends AbstractAxisRenderer {
 		this.breakTickLabel = breakTickLabel;
 	}
 
-	public Boolean getForceTickAtZero() {
-		return forceTickAtZero;
+	public Boolean getForceTickAt0() {
+		return forceTickAt0;
 	}
 
-	public void setForceTickAtZero(Boolean forceTickAtZero) {
-		this.forceTickAtZero = forceTickAtZero;
+	public void setForceTickAt0(Boolean forceTickAt0) {
+		this.forceTickAt0 = forceTickAt0;
 	}
 
-	public Boolean getForceTickAtOneHundred() {
-		return forceTickAtOneHundred;
+	public Boolean getForceTickAt100() {
+		return forceTickAt100;
 	}
 
-	public void setForceTickAtOneHundred(Boolean forceTickAtOneHundred) {
-		this.forceTickAtOneHundred = forceTickAtOneHundred;
+	public void setForceTickAt100(Boolean forceTickAt100) {
+		this.forceTickAt100 = forceTickAt100;
 	}
 }
