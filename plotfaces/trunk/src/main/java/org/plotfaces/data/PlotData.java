@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * <p>Represents data for a single series. The type of data must match that
@@ -124,7 +125,7 @@ public class PlotData<K extends Comparable<K>, V extends Comparable<V>> {
 				}
 
 				if (!(dp.getKey() instanceof Number)) {
-					key = "'" + key + "'";
+					key = "'" + StringEscapeUtils.escapeEcmaScript(key) + "'";
 				}
 
 				builder.append("[");
@@ -151,6 +152,8 @@ public class PlotData<K extends Comparable<K>, V extends Comparable<V>> {
 		return builder.toString();
 	}
 
+//	private String escape(String key) {
+//	}
 	public Format getFormat() {
 		return format;
 	}
