@@ -17,7 +17,7 @@ package org.plotfacesdemo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import org.plotfaces.component.RendererUtilities;
+import org.plotfaces.component.PlotFactory;
 import org.plotfaces.model.Model;
 
 /**
@@ -32,10 +32,12 @@ public class RendererHelper {
 	}
 
 	public String getEncodedModel(Model model) {
-		return RendererUtilities.encode(model);
+		PlotFactory plotFactory = new PlotFactory();
+		return plotFactory.encode(model);
 	}
 
 	public String getEncodedPlotData(Model model) {
-		return RendererUtilities.encode(model.getSeries());
+		PlotFactory plotFactory = new PlotFactory();
+		return plotFactory.encode(model.getSeries());
 	}
 }

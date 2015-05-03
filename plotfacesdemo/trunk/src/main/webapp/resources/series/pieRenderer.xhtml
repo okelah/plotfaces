@@ -39,6 +39,299 @@
 					#{msg.diameter_pieRenderer_notes}
 				</h:panelGroup>
 
+				<h:panelGroup>
+					#{msg.padding_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.padding}" rendered="#{cc.attrs.renderer.padding != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setPadding( 50 )}" rendered="#{cc.attrs.renderer.padding == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.padding != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.padding}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.padding_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.sliceMargin_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.sliceMargin}" rendered="#{cc.attrs.renderer.sliceMargin != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setSliceMargin( 10 )}" rendered="#{cc.attrs.renderer.sliceMargin == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.sliceMargin != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.sliceMargin}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.sliceMargin_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.fill_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.fill}" rendered="#{cc.attrs.renderer.fill != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setFill( false )}" rendered="#{cc.attrs.renderer.fill == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.fill != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.fill}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.fill_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowOffset_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowOffset}" rendered="#{cc.attrs.renderer.shadowOffset != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowOffset( 5 )}" rendered="#{cc.attrs.renderer.shadowOffset == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowOffset != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowOffset}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowOffset_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowDepth_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowDepth}" rendered="#{cc.attrs.renderer.shadowDepth != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowDepth( 5 )}" rendered="#{cc.attrs.renderer.shadowDepth == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowDepth != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowDepth}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowDepth_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.shadowAlpha_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.shadowAlpha}" rendered="#{cc.attrs.renderer.shadowAlpha != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setShadowAlpha( 0.25 )}" rendered="#{cc.attrs.renderer.shadowAlpha == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.shadowAlpha != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.shadowAlpha}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.shadowAlpha_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.highlightMouseOver_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.highlightMouseOver}" rendered="#{cc.attrs.renderer.highlightMouseOver != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setHighlightMouseOver( true )}" rendered="#{cc.attrs.renderer.highlightMouseOver == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.highlightMouseOver != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.highlightMouseOver}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightMouseOver_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.highlightMouseDown_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.highlightMouseDown}" rendered="#{cc.attrs.renderer.highlightMouseDown != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setHighlightMouseDown( true )}" rendered="#{cc.attrs.renderer.highlightMouseDown == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.highlightMouseDown != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.highlightMouseDown}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightMouseDown_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.highlightColors_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.notEditable}
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.highlightColors_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabels_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectOneMenu value="#{cc.attrs.renderer.dataLabels}" rendered="#{cc.attrs.renderer.dataLabels != null}">
+						<f:selectItems value="#{enumTypes.pieDataLabels}"/>
+						<p:ajax update="pieRendererGrid #{cc.attrs.plot}"/>
+					</p:selectOneMenu>
+
+					<p:commandButton value="#{msg.initialize}" rendered="#{cc.attrs.renderer.dataLabels == null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabels}" value="percent" />
+					</p:commandButton>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.dataLabels != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabels}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabels_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.showDataLabels_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.showDataLabels}" rendered="#{cc.attrs.renderer.showDataLabels != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setShowDataLabels( true )}" rendered="#{cc.attrs.renderer.showDataLabels == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.showDataLabels != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.showDataLabels}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.showDataLabels_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabelFormatString_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.dataLabelFormatString}" rendered="#{not empty cc.attrs.renderer.dataLabelFormatString}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setDataLabelFormatString( '%s' )}" rendered="#{empty cc.attrs.renderer.dataLabelFormatString}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{not empty cc.attrs.renderer.dataLabelFormatString}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabelFormatString}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabelFormatString_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabelThreshold_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.dataLabelThreshold}" rendered="#{cc.attrs.renderer.dataLabelThreshold != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setDataLabelThreshold( 10 )}" rendered="#{cc.attrs.renderer.dataLabelThreshold == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.dataLabelThreshold != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabelThreshold}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabelThreshold_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabelPositionFactor_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.dataLabelPositionFactor}" rendered="#{cc.attrs.renderer.dataLabelPositionFactor != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setDataLabelPositionFactor( 0.75 )}" rendered="#{cc.attrs.renderer.dataLabelPositionFactor == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.dataLabelPositionFactor != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabelPositionFactor}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabelPositionFactor_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabelNudge_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.dataLabelNudge}" rendered="#{cc.attrs.renderer.dataLabelNudge != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setDataLabelNudge( 10 )}" rendered="#{cc.attrs.renderer.dataLabelNudge == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.dataLabelNudge != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabelNudge}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabelNudge_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.dataLabelCenterOn_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:selectBooleanButton offLabel="#{msg.no}" onLabel="#{msg.yes}" value="#{cc.attrs.renderer.dataLabelCenterOn}" rendered="#{cc.attrs.renderer.dataLabelCenterOn != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+					</p:selectBooleanButton>
+
+					<p:commandButton value="#{msg.initialize}" actionListener="#{cc.attrs.renderer.setDataLabelCenterOn( true )}" rendered="#{cc.attrs.renderer.dataLabelCenterOn == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.dataLabelCenterOn != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.dataLabelCenterOn}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.dataLabelCenterOn_pieRenderer_notes}
+				</h:panelGroup>
+
+				<h:panelGroup>
+					#{msg.startAngle_pieRenderer}
+				</h:panelGroup>
+				<h:panelGroup>
+					<p:inputText value="#{cc.attrs.renderer.startAngle}" rendered="#{cc.attrs.renderer.startAngle != null}">
+						<p:ajax update="#{cc.attrs.plot}"/>
+						<f:convertNumber/>
+					</p:inputText>
+
+					<p:commandButton value="#{msg.initialize}" action="#{cc.attrs.renderer.setStartAngle( 90 )}" rendered="#{cc.attrs.renderer.startAngle == null}" update="pieRendererGrid #{cc.attrs.plot}"/>
+					<p:commandButton value="#{msg.reset}" rendered="#{cc.attrs.renderer.startAngle != null}" update="pieRendererGrid #{cc.attrs.plot}">
+						<f:setPropertyActionListener target="#{cc.attrs.renderer.startAngle}" value="#{null}" />
+					</p:commandButton>
+				</h:panelGroup>
+				<h:panelGroup>
+					#{msg.startAngle_pieRenderer_notes}
+				</h:panelGroup>
 			</p:panelGrid>
 		</p:panel>
 	</composite:implementation>
