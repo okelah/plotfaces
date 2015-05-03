@@ -17,6 +17,7 @@ package org.plotfacesdemo.models;
 
 import org.plotfaces.data.PlotData;
 import org.plotfaces.model.Axis;
+import org.plotfaces.model.CanvasOverlay;
 import org.plotfaces.model.Grid;
 import org.plotfaces.model.Highlighter;
 import org.plotfaces.model.Legend;
@@ -26,12 +27,15 @@ import org.plotfaces.model.Title;
 import org.plotfaces.renderer.AxisLabelRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.CanvasGridRenderer;
+import org.plotfaces.renderer.overlay.Line;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
 import org.plotfaces.renderer.DefaultTickFormatter;
 import org.plotfaces.renderer.DivTitleRenderer;
 import org.plotfaces.renderer.EnhancedLegendRenderer;
 import org.plotfaces.renderer.LineRenderer;
 import org.plotfaces.renderer.LinearAxisRenderer;
+import org.plotfaces.renderer.overlay.GeneralLineHolder;
+import org.plotfaces.renderer.overlay.VerticalLine;
 import org.plotfacesdemo.CollapseHandler;
 
 /**
@@ -59,6 +63,7 @@ public class LineChart implements ModelFactory {
 			setTitle(model);
 			setHighlighter(model);
 			setGrid(model);
+			setCanvasOverlay(model);
 		}
 
 		return model;
@@ -164,5 +169,26 @@ public class LineChart implements ModelFactory {
 		grid.setDrawGridlines(true);
 		grid.setRendererOptions(new CanvasGridRenderer());
 		model.setGrid(grid);
+	}
+
+	private void setCanvasOverlay(Model model) {
+		CanvasOverlay canvasOverlay = new CanvasOverlay();
+		canvasOverlay.setShow(true);
+
+		GeneralLineHolder lineHolder = new GeneralLineHolder();
+		Line line = new Line();
+		line.setShow(true);
+		line.setStart(new Double[]{1.5, -2.0});
+		line.setStop(new Double[]{4.5, 6.0});
+		lineHolder.setLine(line);
+		canvasOverlay.addObject(lineHolder);
+
+		lineHolder = new GeneralLineHolder();
+		VerticalLine verticalLine = new VerticalLine();
+		verticalLine.setX(3.5);
+		lineHolder.setVerticalLine(verticalLine);
+		canvasOverlay.addObject(lineHolder);
+
+		model.setCanvasOverlay(canvasOverlay);
 	}
 }

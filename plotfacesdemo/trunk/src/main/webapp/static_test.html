@@ -17,7 +17,9 @@ limitations under the License.
 <html>
 	<head>
 		<link type="text/css" rel="stylesheet" href="/plotfacesdemo/resources/jqplot/jquery.jqplot.min.css"/>
+		<link class="include" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="Stylesheet">
 		<script type="text/javascript" src="/plotfacesdemo/resources/jqplot/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="/plotfacesdemo/resources/jqplot/jquery.jqplot.cc.js"></script>
 		<!--<script type="text/javascript" src="/plotfacesdemo/resources/jqplot/jquery.jqplot.js"></script>
 		<script type="text/javascript" src="/plotfacesdemo/resources/jqplot/jqplot.BezierCurveRenderer.js"></script>
@@ -56,24 +58,45 @@ limitations under the License.
 	</head>
 	<body>
 		<a href="index.xhtml">Home</a>
-		<div id="plotForm:plot" style="width: 900px; height: 400px; position: relative;"  ></div>
+		<!--<div id="plotForm:plot_resizable" class="ui-widget-content ui-resizable" style="width: 900px; height: 410px;">-->
+		<!--<div id="plotForm:plot" style="height: 96%; width: 96%; position: relative;"  ></div>-->
+		<!--</div>-->
+		<div id="plot" style="height: 250px; width: 50%; position: relative;" ></div>
 		<script>
 
+			var plot;
+			var plot_data;
+			var plot_model;
 			$(document).ready(function() {
-				var plotForm_plot_data = [[2, -3, 3, 6, 7], [6, 3, 2, 7, 8]];
-				var plotForm_plot_model = {
-					"axesDefaults": {
-						"axisName": "axisDefaults",
-						"show": false
+				plot_data = [[2, 6, 7, 10], [7, 5, 3, 2], [14, 9, 3, 8]];
+				plot_model = {
+					stackSeries: true,
+					seriesDefaults: {
+						renderer: $.jqplot.BarRenderer,
+						rendererOptions: {
+							highlightMouseDown: true,
+							barMargin: 25
+						},
 					},
-					"seriesDefaults": {
-						"renderer": $.jqplot.LineRenderer,
+					legend: {
+						show: true,
+						location: 'e',
+						placement: 'outside'
 					},
-					fontSize: "2.0em",
-					"fontFamily": "Times New Roman"
+					axes: {
+						yaxis: {
+							min: 0
+						},
+						xaxis: {
+							renderer: $.jqplot.CategoryAxisRenderer,
+							ticks: ['a', 'a', 'b', 'b']
+						}
+					}
+
 				};
-				var plotForm_plot_plot = $.jqplot('plotForm\\:plot', plotForm_plot_data, plotForm_plot_model);
+				plot = $.jqplot('plot', plot_data, plot_model);
 			});
+
 		</script>
 	</body>
 </html>

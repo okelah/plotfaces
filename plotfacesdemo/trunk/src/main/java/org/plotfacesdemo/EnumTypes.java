@@ -25,6 +25,7 @@ import org.plotfaces.renderer.AxisTickRenderer;
 import org.plotfaces.renderer.BarRenderer;
 import org.plotfaces.renderer.CanvasAxisTickRenderer;
 import org.plotfaces.renderer.DefaultMarkerRenderer;
+import org.plotfaces.renderer.PieRenderer;
 
 /**
  *
@@ -89,5 +90,9 @@ public class EnumTypes {
 
 	public Series.LineCap[] getSeriesLineCaps() {
 		return Series.LineCap.values();
+	}
+
+	public PieRenderer.DataLabels[] getPieDataLabels() {
+		return PieRenderer.DataLabels.values();
 	}
 }
